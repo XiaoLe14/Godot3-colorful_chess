@@ -233,12 +233,25 @@ func _on_Back_pressed():
 func _on_CTimer2_timeout():
 	to_reboot()
 
-remote func add_chat(chat):
-	chats += str(chat) + "\n"
+remote func add_chat(chat,id):
+	var num = 0
+	var name
+	for i in players:
+		if i.id == id:
+			name = players[num].name
+			chats += "["+str(num + 1)+"]"+name + ":" +str(chat) + "\n"
+			break
+		else:
+			num += 1
+	
 
 func _on_send_pressed():
-	if not is_network_master():
-		rpc_id(1,"add_chat",$UI/WatingUI/TextEdit.text)
+	if not $UI/WatingUI/TextEdit.text == "":
+		if not is_network_master():
+			rpc_id(1,"add_chat",$UI/WatingUI/TextEdit.text,get_tree().get_network_unique_id())
+		else:
+			add_chat($UI/WatingUI/TextEdit.text,1)
+		$UI/WatingUI/TextEdit.text = ""
 	else:
-		add_chat($UI/WatingUI/TextEdit.text)
-	$UI/WatingUI/TextEdit.text = ""
+		wrong("发送内容不能为空")
+

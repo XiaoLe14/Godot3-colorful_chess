@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://script/Main.gd" type="Script" id=1]
 [ext_resource path="res://assets/Broken Console Bold.ttf" type="DynamicFontData" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://tscn/29.tres" type="DynamicFont" id=4]
 [ext_resource path="res://tscn/64.tres" type="DynamicFont" id=5]
 [ext_resource path="res://tscn/20.tres" type="DynamicFont" id=6]
+[ext_resource path="res://assets/background/background-1905767_1280.webp" type="Texture" id=7]
 
 [sub_resource type="DynamicFont" id=1]
 size = 55
@@ -91,6 +92,13 @@ text = "端口："
 
 [node name="WatingUI" type="Node2D" parent="UI"]
 visible = false
+
+[node name="ColorRect" type="ColorRect" parent="UI/WatingUI"]
+margin_left = -2.0
+margin_top = 224.0
+margin_right = 193.0
+margin_bottom = 539.0
+color = Color( 0.164706, 0.164706, 0.164706, 1 )
 
 [node name="title" type="Label" parent="UI/WatingUI"]
 margin_left = 384.0
@@ -202,6 +210,12 @@ one_shot = true
 [node name="CTimer2" type="Timer" parent="."]
 wait_time = 0.5
 one_shot = true
+
+[node name="Background-19057671280" type="Sprite" parent="."]
+visible = false
+position = Vector2( 1212.87, 799.125 )
+scale = Vector2( 1.92988, 1.38491 )
+texture = ExtResource( 7 )
 
 [connection signal="pressed" from="UI/MainUI/createServer" to="." method="_on_createServer_pressed"]
 [connection signal="pressed" from="UI/MainUI/joinServer" to="." method="_on_joinServer_pressed"]
