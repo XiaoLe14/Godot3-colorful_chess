@@ -6,6 +6,7 @@ var server_ip
 var server_port
 var gameStarting = false
 var host := NetworkedMultiplayerENet.new()
+var move_card = preload("res://tscn/move_card.tscn")
 var p1 = {
 	"id":-1,
 	"name":"0",
@@ -33,6 +34,7 @@ var playing_player = ""
 var colorlist = []
 var long = 16
 remote var ucmcolor : Color
+var cards_num = 0
 func _ready() -> void:
 	print(self.get_tree().network_peer)
 	self.get_tree().connect('network_peer_connected', self, '_onNewPlayerConnected')
@@ -292,6 +294,8 @@ remote func game_start():
 	$UI/Playing.show()
 	if get_tree().is_network_server():
 		sync_color_to_clients()
+		
+		
 	
 func sync_color_to_clients():
 	# 定义四种颜色
@@ -324,6 +328,13 @@ remote func set_color(color_rect_name, color):
 			
 func get_color(x,y):
 	return colorlist[(16 * y - 16 + x)-1]
+###########################################################################
 func _on_Button_pressed():
 	print(ucmcolor)
+remote func randi_send_card(num):
+	for i in range(num):
+		if round(rand_range(1,2)) == 1:
+			var move_card
+	
+
 

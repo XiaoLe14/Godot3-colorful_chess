@@ -1,7 +1,20 @@
-[gd_scene format=2]
+[gd_scene load_steps=3 format=2]
 
-[node name="card" type="TouchScreenButton"]
+[ext_resource path="res://assets/cards/move_cards/1.png" type="Texture" id=1]
+[ext_resource path="res://script/move_card.gd" type="Script" id=2]
+
+[node name="move_card" type="TouchScreenButton"]
+scale = Vector2( 0.4, 0.4 )
+normal = ExtResource( 1 )
+script = ExtResource( 2 )
 
 [node name="TextureButton" type="TextureButton" parent="."]
-margin_right = 40.0
-margin_bottom = 40.0
+margin_right = 413.0
+margin_bottom = 565.0
+
+[node name="Tween" type="Tween" parent="."]
+
+[connection signal="pressed" from="." to="." method="_on_move_card_pressed"]
+[connection signal="mouse_entered" from="TextureButton" to="." method="_on_TextureButton_mouse_entered"]
+[connection signal="mouse_exited" from="TextureButton" to="." method="_on_TextureButton_mouse_exited"]
+[connection signal="pressed" from="TextureButton" to="." method="_on_TextureButton_pressed"]

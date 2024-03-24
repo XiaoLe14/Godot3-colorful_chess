@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://script/Main.gd" type="Script" id=1]
 [ext_resource path="res://assets/Broken Console Bold.ttf" type="DynamicFontData" id=2]
@@ -6,7 +6,6 @@
 [ext_resource path="res://tscn/29.tres" type="DynamicFont" id=4]
 [ext_resource path="res://tscn/64.tres" type="DynamicFont" id=5]
 [ext_resource path="res://tscn/20.tres" type="DynamicFont" id=6]
-[ext_resource path="res://assets/background/background-1905767_1280.webp" type="Texture" id=7]
 [ext_resource path="res://script/Chessman.gd" type="Script" id=8]
 [ext_resource path="res://assets/chessman.png" type="Texture" id=9]
 
@@ -22,13 +21,12 @@ __meta__ = {
 "_edit_vertical_guides_": [  ]
 }
 
-[node name="map" type="Sprite" parent="."]
-visible = false
-position = Vector2( -430, 208 )
-scale = Vector2( 0.811719, 0.486789 )
-texture = ExtResource( 7 )
-
 [node name="UI" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="UI"]
+margin_right = 1033.0
+margin_bottom = 594.0
+color = Color( 0.27451, 0.27451, 0.27451, 1 )
 
 [node name="MainUI" type="Node2D" parent="UI"]
 
@@ -1653,17 +1651,45 @@ cx = 8
 cy = 2
 
 [node name="Button" type="Button" parent="UI/Playing"]
-margin_left = 133.0
-margin_top = 422.0
-margin_right = 241.0
-margin_bottom = 462.0
-text = "321"
+margin_left = 40.0
+margin_top = 214.0
+margin_right = 148.0
+margin_bottom = 254.0
+text = "get color"
 
 [node name="Label" type="Label" parent="UI/Playing"]
 margin_left = 12.0
 margin_top = 556.0
 margin_right = 264.0
 margin_bottom = 587.0
+
+[node name="cards" type="Node2D" parent="UI/Playing"]
+
+[node name="cardspawn" type="Node2D" parent="UI/Playing/cards"]
+
+[node name="card1" type="Node2D" parent="UI/Playing/cards/cardspawn"]
+position = Vector2( 64, 490 )
+
+[node name="card2" type="Node2D" parent="UI/Playing/cards/cardspawn"]
+position = Vector2( 192, 490 )
+
+[node name="card3" type="Node2D" parent="UI/Playing/cards/cardspawn"]
+position = Vector2( 320, 490 )
+
+[node name="card4" type="Node2D" parent="UI/Playing/cards/cardspawn"]
+position = Vector2( 448, 490 )
+
+[node name="card5" type="Node2D" parent="UI/Playing/cards/cardspawn"]
+position = Vector2( 576, 490 )
+
+[node name="card6" type="Node2D" parent="UI/Playing/cards/cardspawn"]
+position = Vector2( 704, 490 )
+
+[node name="card7" type="Node2D" parent="UI/Playing/cards/cardspawn"]
+position = Vector2( 832, 490 )
+
+[node name="card8" type="Node2D" parent="UI/Playing/cards/cardspawn"]
+position = Vector2( 960, 490 )
 
 [node name="CTimer" type="Timer" parent="."]
 wait_time = 0.5
