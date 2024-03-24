@@ -294,6 +294,8 @@ remote func game_start():
 	$UI/Playing.show()
 	if get_tree().is_network_server():
 		sync_color_to_clients()
+		rpc("randi_send_card",5)
+		randi_send_card(5)
 		
 		
 	
@@ -330,11 +332,52 @@ func get_color(x,y):
 	return colorlist[(16 * y - 16 + x)-1]
 ###########################################################################
 func _on_Button_pressed():
-	print(ucmcolor)
+	#print(ucmcolor)
+	#randi_send_card(5)
+	pass
 remote func randi_send_card(num):
 	for i in range(num):
 		if round(rand_range(1,2)) == 1:
-			var move_card
+			if cards_num == 0 and num >=1:
+				var move_cards = move_card.instance()
+				move_cards.position = $UI/Playing/cards/cardspawn/card1.position
+				$UI/Playing/cards.add_child(move_cards)
+				cards_num += 1
+			if cards_num == 1 and num >=2:
+				var move_cards = move_card.instance()
+				move_cards.position = $UI/Playing/cards/cardspawn/card2.position
+				$UI/Playing/cards.add_child(move_cards)
+				cards_num += 1
+			if cards_num == 2 and num >=3:
+				var move_cards = move_card.instance()
+				move_cards.position = $UI/Playing/cards/cardspawn/card3.position
+				$UI/Playing/cards.add_child(move_cards)
+				cards_num += 1
+			if cards_num == 3 and num >=4:
+				var move_cards = move_card.instance()
+				move_cards.position = $UI/Playing/cards/cardspawn/card4.position
+				$UI/Playing/cards.add_child(move_cards)
+				cards_num += 1
+			if cards_num ==4 and num >=5:
+				var move_cards = move_card.instance()
+				move_cards.position = $UI/Playing/cards/cardspawn/card5.position
+				$UI/Playing/cards.add_child(move_cards)
+				cards_num += 1
+			if cards_num == 5 and num >=6:
+				var move_cards = move_card.instance()
+				move_cards.position = $UI/Playing/cards/cardspawn/card6.position
+				$UI/Playing/cards.add_child(move_cards)
+				cards_num += 1
+			if cards_num == 6 and num >=7:
+				var move_cards = move_card.instance()
+				move_cards.position = $UI/Playing/cards/cardspawn/card7.position
+				$UI/Playing/cards.add_child(move_cards)
+				cards_num += 1
+			if cards_num == 7 and num >=8:
+				var move_cards = move_card.instance()
+				move_cards.position = $UI/Playing/cards/cardspawn/card8.position
+				$UI/Playing/cards.add_child(move_cards)
+				cards_num += 1
 	
 
 

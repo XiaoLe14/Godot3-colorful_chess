@@ -1,6 +1,7 @@
 extends TouchScreenButton
 var up = false
 signal move_card_click(id)
+onready var start_pos = position
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -30,10 +31,14 @@ func _on_TextureButton_mouse_exited():
 func _on_pressed():
 	_on_click()
 func _on_entered():
-	$Tween.interpolate_property($".","position",Vector2(0,0),Vector2(0,-20), 0.1,Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+	var to_position = start_pos
+	to_position.y -= 20
+	$Tween.interpolate_property($".","position",start_pos,to_position, 0.1,Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 	$Tween.start()
 func _on_exited():
-	$Tween.interpolate_property($".","position",Vector2(0,0),Vector2(0,20), 0.1,Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+	var to_position = start_pos
+	to_position.y += 20
+	$Tween.interpolate_property($".","position",start_pos,to_position, 0.1,Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 	$Tween.start()
 
 func _on_click():
