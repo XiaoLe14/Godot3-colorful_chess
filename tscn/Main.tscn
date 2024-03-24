@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://script/Main.gd" type="Script" id=1]
 [ext_resource path="res://assets/Broken Console Bold.ttf" type="DynamicFontData" id=2]
@@ -7,13 +7,26 @@
 [ext_resource path="res://tscn/64.tres" type="DynamicFont" id=5]
 [ext_resource path="res://tscn/20.tres" type="DynamicFont" id=6]
 [ext_resource path="res://assets/background/background-1905767_1280.webp" type="Texture" id=7]
+[ext_resource path="res://script/Chessman.gd" type="Script" id=8]
+[ext_resource path="res://assets/chessman.png" type="Texture" id=9]
 
 [sub_resource type="DynamicFont" id=1]
 size = 55
 font_data = ExtResource( 2 )
 
 [node name="Main" type="Node2D"]
+position = Vector2( 1018, 185 )
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_horizontal_guides_": [  ],
+"_edit_vertical_guides_": [  ]
+}
+
+[node name="map" type="Sprite" parent="."]
+visible = false
+position = Vector2( -430, 208 )
+scale = Vector2( 0.811719, 0.486789 )
+texture = ExtResource( 7 )
 
 [node name="UI" type="CanvasLayer" parent="."]
 
@@ -189,19 +202,1468 @@ margin_bottom = 536.0
 text = "SEND"
 
 [node name="Wrong" type="Node2D" parent="UI"]
-visible = false
 
 [node name="Label" type="Label" parent="UI/Wrong"]
-margin_left = 232.0
-margin_top = 176.0
-margin_right = 800.0
-margin_bottom = 240.0
+margin_left = 30.0
+margin_top = 171.0
+margin_right = 1027.0
+margin_bottom = 235.0
 custom_fonts/font = ExtResource( 5 )
 align = 1
 
 [node name="WrongTimer" type="Timer" parent="UI/Wrong"]
 wait_time = 2.0
 one_shot = true
+
+[node name="Playing" type="Node2D" parent="UI"]
+visible = false
+
+[node name="map" type="Node2D" parent="UI/Playing"]
+position = Vector2( 376, 9 )
+
+[node name="ColorRect" type="ColorRect" parent="UI/Playing/map"]
+margin_left = -5.0
+margin_top = -6.0
+margin_right = 646.0
+margin_bottom = 406.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="groups" type="Node2D" parent="UI/Playing/map"]
+
+[node name="ColorRect" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect2" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 40.0
+margin_right = 80.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect3" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 80.0
+margin_right = 120.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect4" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 120.0
+margin_right = 160.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect5" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 160.0
+margin_right = 200.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect6" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 200.0
+margin_right = 240.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect7" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 240.0
+margin_right = 280.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect8" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 280.0
+margin_right = 320.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect9" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 320.0
+margin_right = 360.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect10" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 360.0
+margin_right = 400.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect11" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 400.0
+margin_right = 440.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect12" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 440.0
+margin_right = 480.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect13" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 480.0
+margin_right = 520.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect14" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 520.0
+margin_right = 560.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect15" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 560.0
+margin_right = 600.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect16" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 600.0
+margin_right = 640.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect17" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_top = 40.0
+margin_right = 40.0
+margin_bottom = 80.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect18" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 40.0
+margin_top = 40.0
+margin_right = 80.0
+margin_bottom = 80.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect19" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 80.0
+margin_top = 40.0
+margin_right = 120.0
+margin_bottom = 80.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect20" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 120.0
+margin_top = 40.0
+margin_right = 160.0
+margin_bottom = 80.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect21" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 160.0
+margin_top = 40.0
+margin_right = 200.0
+margin_bottom = 80.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect22" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 200.0
+margin_top = 40.0
+margin_right = 240.0
+margin_bottom = 80.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect23" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 240.0
+margin_top = 40.0
+margin_right = 280.0
+margin_bottom = 80.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect24" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 280.0
+margin_top = 40.0
+margin_right = 320.0
+margin_bottom = 80.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect25" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 320.0
+margin_top = 40.0
+margin_right = 360.0
+margin_bottom = 80.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect26" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 360.0
+margin_top = 40.0
+margin_right = 400.0
+margin_bottom = 80.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect27" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 400.0
+margin_top = 40.0
+margin_right = 440.0
+margin_bottom = 80.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect28" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 440.0
+margin_top = 40.0
+margin_right = 480.0
+margin_bottom = 80.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect29" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 480.0
+margin_top = 40.0
+margin_right = 520.0
+margin_bottom = 80.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect30" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 520.0
+margin_top = 40.0
+margin_right = 560.0
+margin_bottom = 80.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect31" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 560.0
+margin_top = 40.0
+margin_right = 600.0
+margin_bottom = 80.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect32" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 600.0
+margin_top = 40.0
+margin_right = 640.0
+margin_bottom = 80.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect33" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_top = 80.0
+margin_right = 40.0
+margin_bottom = 120.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect34" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 40.0
+margin_top = 80.0
+margin_right = 80.0
+margin_bottom = 120.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect35" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 80.0
+margin_top = 80.0
+margin_right = 120.0
+margin_bottom = 120.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect36" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 120.0
+margin_top = 80.0
+margin_right = 160.0
+margin_bottom = 120.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect37" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 160.0
+margin_top = 80.0
+margin_right = 200.0
+margin_bottom = 120.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect38" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 200.0
+margin_top = 80.0
+margin_right = 240.0
+margin_bottom = 120.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect39" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 240.0
+margin_top = 80.0
+margin_right = 280.0
+margin_bottom = 120.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect40" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 280.0
+margin_top = 80.0
+margin_right = 320.0
+margin_bottom = 120.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect41" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 320.0
+margin_top = 80.0
+margin_right = 360.0
+margin_bottom = 120.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect42" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 360.0
+margin_top = 80.0
+margin_right = 400.0
+margin_bottom = 120.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect43" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 400.0
+margin_top = 80.0
+margin_right = 440.0
+margin_bottom = 120.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect44" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 440.0
+margin_top = 80.0
+margin_right = 480.0
+margin_bottom = 120.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect45" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 480.0
+margin_top = 80.0
+margin_right = 520.0
+margin_bottom = 120.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect46" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 520.0
+margin_top = 80.0
+margin_right = 560.0
+margin_bottom = 120.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect47" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 560.0
+margin_top = 80.0
+margin_right = 600.0
+margin_bottom = 120.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect48" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 600.0
+margin_top = 80.0
+margin_right = 640.0
+margin_bottom = 120.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect49" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_top = 120.0
+margin_right = 40.0
+margin_bottom = 160.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect50" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 40.0
+margin_top = 120.0
+margin_right = 80.0
+margin_bottom = 160.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect51" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 80.0
+margin_top = 120.0
+margin_right = 120.0
+margin_bottom = 160.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect52" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 120.0
+margin_top = 120.0
+margin_right = 160.0
+margin_bottom = 160.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect53" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 160.0
+margin_top = 120.0
+margin_right = 200.0
+margin_bottom = 160.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect54" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 200.0
+margin_top = 120.0
+margin_right = 240.0
+margin_bottom = 160.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect55" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 240.0
+margin_top = 120.0
+margin_right = 280.0
+margin_bottom = 160.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect56" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 280.0
+margin_top = 120.0
+margin_right = 320.0
+margin_bottom = 160.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect57" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 320.0
+margin_top = 120.0
+margin_right = 360.0
+margin_bottom = 160.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect58" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 360.0
+margin_top = 120.0
+margin_right = 400.0
+margin_bottom = 160.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect59" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 400.0
+margin_top = 120.0
+margin_right = 440.0
+margin_bottom = 160.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect60" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 440.0
+margin_top = 120.0
+margin_right = 480.0
+margin_bottom = 160.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect61" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 480.0
+margin_top = 120.0
+margin_right = 520.0
+margin_bottom = 160.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect62" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 520.0
+margin_top = 120.0
+margin_right = 560.0
+margin_bottom = 160.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect63" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 560.0
+margin_top = 120.0
+margin_right = 600.0
+margin_bottom = 160.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect64" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 600.0
+margin_top = 120.0
+margin_right = 640.0
+margin_bottom = 160.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect65" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_top = 160.0
+margin_right = 40.0
+margin_bottom = 200.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect66" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 40.0
+margin_top = 160.0
+margin_right = 80.0
+margin_bottom = 200.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect67" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 80.0
+margin_top = 160.0
+margin_right = 120.0
+margin_bottom = 200.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect68" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 120.0
+margin_top = 160.0
+margin_right = 160.0
+margin_bottom = 200.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect69" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 160.0
+margin_top = 160.0
+margin_right = 200.0
+margin_bottom = 200.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect70" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 200.0
+margin_top = 160.0
+margin_right = 240.0
+margin_bottom = 200.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect71" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 240.0
+margin_top = 160.0
+margin_right = 280.0
+margin_bottom = 200.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect72" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 280.0
+margin_top = 160.0
+margin_right = 320.0
+margin_bottom = 200.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect73" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 320.0
+margin_top = 160.0
+margin_right = 360.0
+margin_bottom = 200.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect74" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 360.0
+margin_top = 160.0
+margin_right = 400.0
+margin_bottom = 200.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect75" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 400.0
+margin_top = 160.0
+margin_right = 440.0
+margin_bottom = 200.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect76" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 440.0
+margin_top = 160.0
+margin_right = 480.0
+margin_bottom = 200.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect77" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 480.0
+margin_top = 160.0
+margin_right = 520.0
+margin_bottom = 200.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect78" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 520.0
+margin_top = 160.0
+margin_right = 560.0
+margin_bottom = 200.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect79" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 560.0
+margin_top = 160.0
+margin_right = 600.0
+margin_bottom = 200.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect80" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 600.0
+margin_top = 160.0
+margin_right = 640.0
+margin_bottom = 200.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect81" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_top = 200.0
+margin_right = 40.0
+margin_bottom = 240.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect82" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 40.0
+margin_top = 200.0
+margin_right = 80.0
+margin_bottom = 240.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect83" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 80.0
+margin_top = 200.0
+margin_right = 120.0
+margin_bottom = 240.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect84" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 120.0
+margin_top = 200.0
+margin_right = 160.0
+margin_bottom = 240.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect85" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 160.0
+margin_top = 200.0
+margin_right = 200.0
+margin_bottom = 240.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect86" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 200.0
+margin_top = 200.0
+margin_right = 240.0
+margin_bottom = 240.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect87" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 240.0
+margin_top = 200.0
+margin_right = 280.0
+margin_bottom = 240.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect88" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 280.0
+margin_top = 200.0
+margin_right = 320.0
+margin_bottom = 240.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect89" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 320.0
+margin_top = 200.0
+margin_right = 360.0
+margin_bottom = 240.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect90" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 360.0
+margin_top = 200.0
+margin_right = 400.0
+margin_bottom = 240.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect91" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 400.0
+margin_top = 200.0
+margin_right = 440.0
+margin_bottom = 240.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect92" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 440.0
+margin_top = 200.0
+margin_right = 480.0
+margin_bottom = 240.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect93" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 480.0
+margin_top = 200.0
+margin_right = 520.0
+margin_bottom = 240.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect94" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 520.0
+margin_top = 200.0
+margin_right = 560.0
+margin_bottom = 240.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect95" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 560.0
+margin_top = 200.0
+margin_right = 600.0
+margin_bottom = 240.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect96" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 600.0
+margin_top = 200.0
+margin_right = 640.0
+margin_bottom = 240.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect97" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_top = 240.0
+margin_right = 40.0
+margin_bottom = 280.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect98" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 40.0
+margin_top = 240.0
+margin_right = 80.0
+margin_bottom = 280.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect99" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 80.0
+margin_top = 240.0
+margin_right = 120.0
+margin_bottom = 280.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect100" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 120.0
+margin_top = 240.0
+margin_right = 160.0
+margin_bottom = 280.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect101" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 160.0
+margin_top = 240.0
+margin_right = 200.0
+margin_bottom = 280.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect102" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 200.0
+margin_top = 240.0
+margin_right = 240.0
+margin_bottom = 280.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect103" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 240.0
+margin_top = 240.0
+margin_right = 280.0
+margin_bottom = 280.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect104" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 280.0
+margin_top = 240.0
+margin_right = 320.0
+margin_bottom = 280.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect105" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 320.0
+margin_top = 240.0
+margin_right = 360.0
+margin_bottom = 280.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect106" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 360.0
+margin_top = 240.0
+margin_right = 400.0
+margin_bottom = 280.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect107" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 400.0
+margin_top = 240.0
+margin_right = 440.0
+margin_bottom = 280.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect108" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 440.0
+margin_top = 240.0
+margin_right = 480.0
+margin_bottom = 280.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect109" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 480.0
+margin_top = 240.0
+margin_right = 520.0
+margin_bottom = 280.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect110" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 520.0
+margin_top = 240.0
+margin_right = 560.0
+margin_bottom = 280.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect111" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 560.0
+margin_top = 240.0
+margin_right = 600.0
+margin_bottom = 280.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect112" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 600.0
+margin_top = 240.0
+margin_right = 640.0
+margin_bottom = 280.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect113" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_top = 280.0
+margin_right = 40.0
+margin_bottom = 320.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect114" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 40.0
+margin_top = 280.0
+margin_right = 80.0
+margin_bottom = 320.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect115" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 80.0
+margin_top = 280.0
+margin_right = 120.0
+margin_bottom = 320.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect116" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 120.0
+margin_top = 280.0
+margin_right = 160.0
+margin_bottom = 320.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect117" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 160.0
+margin_top = 280.0
+margin_right = 200.0
+margin_bottom = 320.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect118" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 200.0
+margin_top = 280.0
+margin_right = 240.0
+margin_bottom = 320.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect119" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 240.0
+margin_top = 280.0
+margin_right = 280.0
+margin_bottom = 320.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect120" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 280.0
+margin_top = 280.0
+margin_right = 320.0
+margin_bottom = 320.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect121" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 320.0
+margin_top = 280.0
+margin_right = 360.0
+margin_bottom = 320.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect122" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 360.0
+margin_top = 280.0
+margin_right = 400.0
+margin_bottom = 320.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect123" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 400.0
+margin_top = 280.0
+margin_right = 440.0
+margin_bottom = 320.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect124" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 440.0
+margin_top = 280.0
+margin_right = 480.0
+margin_bottom = 320.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect125" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 480.0
+margin_top = 280.0
+margin_right = 520.0
+margin_bottom = 320.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect126" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 520.0
+margin_top = 280.0
+margin_right = 560.0
+margin_bottom = 320.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect127" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 560.0
+margin_top = 280.0
+margin_right = 600.0
+margin_bottom = 320.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect128" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 600.0
+margin_top = 280.0
+margin_right = 640.0
+margin_bottom = 320.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect129" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_top = 320.0
+margin_right = 40.0
+margin_bottom = 360.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect130" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 40.0
+margin_top = 320.0
+margin_right = 80.0
+margin_bottom = 360.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect131" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 80.0
+margin_top = 320.0
+margin_right = 120.0
+margin_bottom = 360.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect132" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 120.0
+margin_top = 320.0
+margin_right = 160.0
+margin_bottom = 360.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect133" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 160.0
+margin_top = 320.0
+margin_right = 200.0
+margin_bottom = 360.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect134" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 200.0
+margin_top = 320.0
+margin_right = 240.0
+margin_bottom = 360.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect135" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 240.0
+margin_top = 320.0
+margin_right = 280.0
+margin_bottom = 360.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect136" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 280.0
+margin_top = 320.0
+margin_right = 320.0
+margin_bottom = 360.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect137" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 320.0
+margin_top = 320.0
+margin_right = 360.0
+margin_bottom = 360.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect138" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 360.0
+margin_top = 320.0
+margin_right = 400.0
+margin_bottom = 360.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect139" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 400.0
+margin_top = 320.0
+margin_right = 440.0
+margin_bottom = 360.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect140" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 440.0
+margin_top = 320.0
+margin_right = 480.0
+margin_bottom = 360.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect141" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 480.0
+margin_top = 320.0
+margin_right = 520.0
+margin_bottom = 360.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect142" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 520.0
+margin_top = 320.0
+margin_right = 560.0
+margin_bottom = 360.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect143" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 560.0
+margin_top = 320.0
+margin_right = 600.0
+margin_bottom = 360.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect144" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 600.0
+margin_top = 320.0
+margin_right = 640.0
+margin_bottom = 360.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect145" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_top = 360.0
+margin_right = 40.0
+margin_bottom = 400.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect146" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 40.0
+margin_top = 360.0
+margin_right = 80.0
+margin_bottom = 400.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect147" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 80.0
+margin_top = 360.0
+margin_right = 120.0
+margin_bottom = 400.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect148" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 120.0
+margin_top = 360.0
+margin_right = 160.0
+margin_bottom = 400.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect149" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 160.0
+margin_top = 360.0
+margin_right = 200.0
+margin_bottom = 400.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect150" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 200.0
+margin_top = 360.0
+margin_right = 240.0
+margin_bottom = 400.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect151" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 240.0
+margin_top = 360.0
+margin_right = 280.0
+margin_bottom = 400.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect152" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 280.0
+margin_top = 360.0
+margin_right = 320.0
+margin_bottom = 400.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect153" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 320.0
+margin_top = 360.0
+margin_right = 360.0
+margin_bottom = 400.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect154" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 360.0
+margin_top = 360.0
+margin_right = 400.0
+margin_bottom = 400.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect155" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 400.0
+margin_top = 360.0
+margin_right = 440.0
+margin_bottom = 400.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect156" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 440.0
+margin_top = 360.0
+margin_right = 480.0
+margin_bottom = 400.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect157" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 480.0
+margin_top = 360.0
+margin_right = 520.0
+margin_bottom = 400.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect158" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 520.0
+margin_top = 360.0
+margin_right = 560.0
+margin_bottom = 400.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect159" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 560.0
+margin_top = 360.0
+margin_right = 600.0
+margin_bottom = 400.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect160" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+margin_left = 600.0
+margin_top = 360.0
+margin_right = 640.0
+margin_bottom = 400.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Chessman" type="Sprite" parent="UI/Playing/map"]
+position = Vector2( 300, 60 )
+scale = Vector2( 0.1, 0.1 )
+texture = ExtResource( 9 )
+script = ExtResource( 8 )
+cx = 8
+cy = 2
+
+[node name="Button" type="Button" parent="UI/Playing"]
+margin_left = 133.0
+margin_top = 422.0
+margin_right = 241.0
+margin_bottom = 462.0
+text = "321"
+
+[node name="Label" type="Label" parent="UI/Playing"]
+margin_left = 12.0
+margin_top = 556.0
+margin_right = 264.0
+margin_bottom = 587.0
 
 [node name="CTimer" type="Timer" parent="."]
 wait_time = 0.5
@@ -211,16 +1673,14 @@ one_shot = true
 wait_time = 0.5
 one_shot = true
 
-[node name="Background-19057671280" type="Sprite" parent="."]
-visible = false
-position = Vector2( 1212.87, 799.125 )
-scale = Vector2( 1.92988, 1.38491 )
-texture = ExtResource( 7 )
+[node name="Tween" type="Tween" parent="."]
 
 [connection signal="pressed" from="UI/MainUI/createServer" to="." method="_on_createServer_pressed"]
 [connection signal="pressed" from="UI/MainUI/joinServer" to="." method="_on_joinServer_pressed"]
+[connection signal="pressed" from="UI/WatingUI/StartGame" to="." method="_on_StartGame_pressed"]
 [connection signal="pressed" from="UI/WatingUI/Back" to="." method="_on_Back_pressed"]
 [connection signal="pressed" from="UI/WatingUI/send" to="." method="_on_send_pressed"]
 [connection signal="timeout" from="UI/Wrong/WrongTimer" to="." method="_on_WrongTimer_timeout"]
+[connection signal="pressed" from="UI/Playing/Button" to="." method="_on_Button_pressed"]
 [connection signal="timeout" from="CTimer" to="." method="_on_CTimer_timeout"]
 [connection signal="timeout" from="CTimer2" to="." method="_on_CTimer2_timeout"]

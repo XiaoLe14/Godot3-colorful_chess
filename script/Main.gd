@@ -5,7 +5,6 @@ var myName := ''
 var server_ip
 var server_port
 var gameStarting = false
-var playerlist
 var host := NetworkedMultiplayerENet.new()
 var p1 = {
 	"id":-1,
@@ -27,9 +26,13 @@ var p4 = {
 	"name":"0",
 	"color":""
 }
+
 remote var players = [p1,p2,p3,p4]
 remote var chats = ""
-
+var playing_player = ""
+var colorlist = []
+var long = 16
+remote var ucmcolor : Color
 func _ready() -> void:
 	print(self.get_tree().network_peer)
 	self.get_tree().connect('network_peer_connected', self, '_onNewPlayerConnected')
@@ -37,8 +40,9 @@ func _ready() -> void:
 	self.get_tree().connect('server_disconnected', self, '_onServerDisconnected')
 	self.get_tree().connect('connected_to_server', self, '_onConnectionSuccess')
 	self.get_tree().connect('connection_failed', self, '_onConnectionFail')
-
+	
 func _process(delta):
+	$UI/Playing/Label.text = str(colorlist)
 	myName = $UI/MainUI/PlayerName.text
 	server_ip = $UI/MainUI/IP.text
 	server_port = $UI/MainUI/Port.text
@@ -62,6 +66,11 @@ func _process(delta):
 	else:
 		$"UI/WatingUI/4".text = "等待中"
 	$UI/WatingUI/Chat.text = chats
+	if gameStarting and is_network_master():
+		var cmx = ($UI/Playing/map/Chessman.position.x + 20 )/ 40
+		var cmy = ($UI/Playing/map/Chessman.position.y + 20 )/ 40
+		ucmcolor = get_color(cmx,cmy)
+		rset("ucmcolor",ucmcolor)
 func wrong(why):
 	$UI/Wrong/WrongTimer.start()
 	$UI/Wrong/Label.text = why
@@ -150,17 +159,20 @@ func _onNewPlayerConnected(id):
 func _onConnectionSuccess():
 	rpc_id(1,"NewPlayerConnected",myId,myName)
 func _onPlayerDisconnected(id):
-	var num = 0
-	for i in players:
-		if i.id == id:
-			players[num] = {
-	"id":-1,
-	"name":"0",
-	"color":""
-}
-			break
-		else:
-			num += 1
+	if $UI/Playing.visible == false:
+		var num = 0
+		for i in players:
+			if i.id == id:
+				players[num] = {
+		"id":-1,
+		"name":"0",
+		"color":""
+	}
+				break
+			else:
+				num += 1
+	else:
+		_on_Back_pressed()
 func _onConnectionFail():
 	pass
 func _onServerDisconnected():
@@ -207,7 +219,9 @@ func peer_back():
 	rpc_id(1,"close_peer",get_tree().get_network_unique_id())
 	$UI/MainUI.show()
 	$UI/WatingUI.hide()
+	$UI/Playing.hide()
 	to_reboot()
+	$UI/Playing.hide()
 	$CTimer2.start()
 
 func _on_CTimer_timeout():
@@ -215,10 +229,13 @@ func _on_CTimer_timeout():
 		wrong("连接失败，服务器不存在或人数已满")
 		$UI/MainUI.show()
 		$UI/WatingUI.hide()
+		$UI/Playing.hide()
+		$UI/Playing.hide()
 
 func _on_server_closed():
 	$UI/MainUI.show()
 	$UI/WatingUI.hide()
+	$UI/Playing.hide()
 	to_reboot()
 	wrong("服务器已关闭")
 
@@ -227,8 +244,9 @@ func _on_Back_pressed():
 		rpc("_on_server_closed")
 		host.close_connection()
 		self.get_tree().network_peer = null
-	peer_back()
-
+	else:
+		peer_back()
+	
 
 func _on_CTimer2_timeout():
 	to_reboot()
@@ -254,4 +272,58 @@ func _on_send_pressed():
 		$UI/WatingUI/TextEdit.text = ""
 	else:
 		wrong("发送内容不能为空")
+
+
+func _on_StartGame_pressed():
+	print(players[0])
+	if not players[0].id == -1 and not players[1].id == -1 and not players[2].id == -1 and not players[3].id == -1:
+		if get_tree().is_network_server():
+			rpc("game_start")
+			game_start()
+			print("start")
+		else:
+			wrong("只有服务器可以开始游戏")
+	else:
+		wrong("人数未满")
+remote func game_start():
+	gameStarting = true
+	$UI/WatingUI.hide()
+	$UI/MainUI.hide()
+	$UI/Playing.show()
+	if get_tree().is_network_server():
+		sync_color_to_clients()
+	
+func sync_color_to_clients():
+	# 定义四种颜色
+	var colors := [
+		Color(0.2, 0.8, 0.2),  # 浅绿色 (50, 205, 50)
+		Color(0.9, 0.4, 0.4),  # 暗红色 (238, 99, 99)
+		Color(0, 0.74, 1),     # 深蓝色 (0, 191, 255)
+		Color(1, 0.84, 0)      # 金黄色 (255, 215, 0)
+	]
+	
+	# 假设我们有一个包含所有 ColorRect 节点的数组
+	var color_rects := get_tree().get_nodes_in_group("tilemap")
+	
+	# 随机分配颜色给每个 ColorRect
+	for color_rect in color_rects:
+		var random_color = colors[randi() % colors.size()]
+		color_rect.color = random_color
+		colorlist.append(random_color)
+		
+		# 使用 rpc 方法将颜色同步到所有客户端
+		rpc("set_color", color_rect.name, random_color)
+
+remote func set_color(color_rect_name, color):
+	# 找到对应的 ColorRect 节点并设置
+	var group_nodes = get_tree().get_nodes_in_group("tilemap")
+	# 遍历组中的所有节点
+	for node in group_nodes:
+		if node.name == color_rect_name:
+			node.color = color
+			
+func get_color(x,y):
+	return colorlist[(16 * y - 16 + x)-1]
+func _on_Button_pressed():
+	print(ucmcolor)
 
