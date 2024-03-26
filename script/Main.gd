@@ -7,6 +7,9 @@ var server_port
 var gameStarting = false
 var host := NetworkedMultiplayerENet.new()
 var move_card = preload("res://tscn/move_card.tscn")
+var move_card_path = ["res://assets/cards/move_cards/1.png","res://assets/cards/move_cards/2.png","res://assets/cards/move_cards/3.png","res://assets/cards/move_cards/4.png","res://assets/cards/move_cards/5.png","res://assets/cards/move_cards/6.png","res://assets/cards/move_cards/7.png","res://assets/cards/move_cards/8.png","res://assets/cards/move_cards/9.png","res://assets/cards/move_cards/10.png","res://assets/cards/move_cards/11.png","res://assets/cards/move_cards/12.png"]
+var special_card = preload("res://tscn/special_card.tscn")
+var special_card_path = ["res://assets/cards/special_cards/1.png","res://assets/cards/special_cards/2.png","res://assets/cards/special_cards/3.png","res://assets/cards/special_cards/4.png","res://assets/cards/special_cards/5.png","res://assets/cards/special_cards/6.png"]
 var p1 = {
 	"id":-1,
 	"name":"0",
@@ -27,7 +30,7 @@ var p4 = {
 	"name":"0",
 	"color":""
 }
-
+var card_g = 7
 remote var players = [p1,p2,p3,p4]
 remote var chats = ""
 var playing_player = ""
@@ -36,7 +39,6 @@ var long = 16
 remote var ucmcolor : Color
 var cards_num = 0
 func _ready() -> void:
-	print(self.get_tree().network_peer)
 	self.get_tree().connect('network_peer_connected', self, '_onNewPlayerConnected')
 	self.get_tree().connect('network_peer_disconnected', self, '_onPlayerDisconnected')
 	self.get_tree().connect('server_disconnected', self, '_onServerDisconnected')
@@ -44,7 +46,7 @@ func _ready() -> void:
 	self.get_tree().connect('connection_failed', self, '_onConnectionFail')
 	
 func _process(delta):
-	$UI/Playing/Label.text = str(colorlist)
+	randomize()
 	myName = $UI/MainUI/PlayerName.text
 	server_ip = $UI/MainUI/IP.text
 	server_port = $UI/MainUI/Port.text
@@ -331,53 +333,187 @@ remote func set_color(color_rect_name, color):
 func get_color(x,y):
 	return colorlist[(16 * y - 16 + x)-1]
 ###########################################################################
-func _on_Button_pressed():
-	#print(ucmcolor)
-	#randi_send_card(5)
-	pass
+
+func _on_quit_pressed():
+	get_tree().quit()
+
 remote func randi_send_card(num):
 	for i in range(num):
-		if round(rand_range(1,2)) == 1:
-			if cards_num == 0 and num >=1:
-				var move_cards = move_card.instance()
-				move_cards.position = $UI/Playing/cards/cardspawn/card1.position
-				$UI/Playing/cards.add_child(move_cards)
-				cards_num += 1
-			if cards_num == 1 and num >=2:
-				var move_cards = move_card.instance()
-				move_cards.position = $UI/Playing/cards/cardspawn/card2.position
-				$UI/Playing/cards.add_child(move_cards)
-				cards_num += 1
-			if cards_num == 2 and num >=3:
-				var move_cards = move_card.instance()
-				move_cards.position = $UI/Playing/cards/cardspawn/card3.position
-				$UI/Playing/cards.add_child(move_cards)
-				cards_num += 1
-			if cards_num == 3 and num >=4:
-				var move_cards = move_card.instance()
-				move_cards.position = $UI/Playing/cards/cardspawn/card4.position
-				$UI/Playing/cards.add_child(move_cards)
-				cards_num += 1
-			if cards_num ==4 and num >=5:
-				var move_cards = move_card.instance()
-				move_cards.position = $UI/Playing/cards/cardspawn/card5.position
-				$UI/Playing/cards.add_child(move_cards)
-				cards_num += 1
-			if cards_num == 5 and num >=6:
-				var move_cards = move_card.instance()
-				move_cards.position = $UI/Playing/cards/cardspawn/card6.position
-				$UI/Playing/cards.add_child(move_cards)
-				cards_num += 1
-			if cards_num == 6 and num >=7:
-				var move_cards = move_card.instance()
-				move_cards.position = $UI/Playing/cards/cardspawn/card7.position
-				$UI/Playing/cards.add_child(move_cards)
-				cards_num += 1
-			if cards_num == 7 and num >=8:
-				var move_cards = move_card.instance()
-				move_cards.position = $UI/Playing/cards/cardspawn/card8.position
-				$UI/Playing/cards.add_child(move_cards)
-				cards_num += 1
+		if cards_num == 0 and num >=1:
+			var move_cards
+			# 使用 randi() 函数生成一个 0 到数组长度减一的随机整数
+			var random_index
+			# 使用随机索引从数组中获取一项
+			var random_item
+			if round(rand_range(1,9)) < card_g:
+				move_cards = move_card.instance()
+				random_index = randi() % move_card_path.size()
+				random_item = move_card_path[random_index]
+				
+			else:
+				move_cards = special_card.instance()
+				random_index = randi() % special_card_path.size()
+				random_item = special_card_path[random_index]
+			move_cards.position = $UI/Playing/cards/cards2.position
+			move_cards.set_process_input(true)
+			$Tween.interpolate_property(move_cards,"position",position,$UI/Playing/cards/cardspawn/card1.position, 1,Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+			$Tween.start()
+			$UI/Playing/cards.add_child(move_cards)
+			move_cards.set_texture(load(random_item))
+			cards_num += 1
+			move_cards.add_to_group("card")
+		if cards_num == 1 and num >=2:
+			var move_cards
+			# 使用 randi() 函数生成一个 0 到数组长度减一的随机整数
+			var random_index
+			# 使用随机索引从数组中获取一项
+			var random_item
+			if round(rand_range(1,9)) < card_g:
+				move_cards = move_card.instance()
+				random_index = randi() % move_card_path.size()
+				random_item = move_card_path[random_index]
+			else:
+				move_cards = special_card.instance()
+				random_index = randi() % special_card_path.size()
+				random_item = special_card_path[random_index]
+			move_cards.set_texture(load(random_item))
+			move_cards.position = $UI/Playing/cards/cards2.position
+			move_cards.set_process_input(true)
+			$Tween.interpolate_property(move_cards,"position",position,$UI/Playing/cards/cardspawn/card2.position, 1,Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+			$Tween.start()
+			$UI/Playing/cards.add_child(move_cards)
+			cards_num += 1
+			move_cards.add_to_group("card")
+		if cards_num == 2 and num >=3:
+			var move_cards
+			# 使用 randi() 函数生成一个 0 到数组长度减一的随机整数
+			var random_index
+			# 使用随机索引从数组中获取一项
+			var random_item
+			if round(rand_range(1,9)) < card_g:
+				move_cards = move_card.instance()
+				random_index = randi() % move_card_path.size()
+				random_item = move_card_path[random_index]
+			else:
+				move_cards = special_card.instance()
+				random_index = randi() % special_card_path.size()
+				random_item = special_card_path[random_index]
+			move_cards.set_texture(load(random_item))
+			move_cards.position = $UI/Playing/cards/cards2.position
+			move_cards.set_process_input(true)
+			$Tween.interpolate_property(move_cards,"position",position,$UI/Playing/cards/cardspawn/card3.position, 1,Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+			$Tween.start()
+			$UI/Playing/cards.add_child(move_cards)
+			cards_num += 1
+			move_cards.add_to_group("card")
+		if cards_num == 3 and num >=4:
+			var move_cards
+			# 使用 randi() 函数生成一个 0 到数组长度减一的随机整数
+			var random_index
+			# 使用随机索引从数组中获取一项
+			var random_item
+			if round(rand_range(1,9)) < card_g:
+				move_cards = move_card.instance()
+				random_index = randi() % move_card_path.size()
+				random_item = move_card_path[random_index]
+			else:
+				move_cards = special_card.instance()
+				random_index = randi() % special_card_path.size()
+				random_item = special_card_path[random_index]
+			move_cards.set_texture(load(random_item))
+			move_cards.position = $UI/Playing/cards/cards2.position
+			move_cards.set_process_input(true)
+			$Tween.interpolate_property(move_cards,"position",position,$UI/Playing/cards/cardspawn/card4.position, 1,Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+			$Tween.start()
+			$UI/Playing/cards.add_child(move_cards)
+			cards_num += 1
+			move_cards.add_to_group("card")
+		if cards_num ==4 and num >=5:
+			var move_cards
+			# 使用 randi() 函数生成一个 0 到数组长度减一的随机整数
+			var random_index
+			# 使用随机索引从数组中获取一项
+			var random_item
+			if round(rand_range(1,9)) < card_g:
+				move_cards = move_card.instance()
+				random_index = randi() % move_card_path.size()
+				random_item = move_card_path[random_index]
+			else:
+				move_cards = special_card.instance()
+				random_index = randi() % special_card_path.size()
+				random_item = special_card_path[random_index]
+			move_cards.set_texture(load(random_item))
+			move_cards.position = $UI/Playing/cards/cards2.position
+			move_cards.set_process_input(true)
+			$Tween.interpolate_property(move_cards,"position",position,$UI/Playing/cards/cardspawn/card5.position, 1,Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+			$Tween.start()
+			$UI/Playing/cards.add_child(move_cards)
+			cards_num += 1
+			move_cards.add_to_group("card")
+		if cards_num == 5 and num >=6:
+			var move_cards
+			# 使用 randi() 函数生成一个 0 到数组长度减一的随机整数
+			var random_index
+			# 使用随机索引从数组中获取一项
+			var random_item
+			if round(rand_range(1,9)) < card_g:
+				move_cards = move_card.instance()
+				random_index = randi() % move_card_path.size()
+				random_item = move_card_path[random_index]
+			else:
+				move_cards = special_card.instance()
+				random_index = randi() % special_card_path.size()
+				random_item = special_card_path[random_index]
+			move_cards.set_texture(load(random_item))
+			move_cards.position = $UI/Playing/cards/cards2.position
+			move_cards.set_process_input(true)
+			$Tween.interpolate_property(move_cards,"position",position,$UI/Playing/cards/cardspawn/card6.position, 1,Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+			$Tween.start()
+			$UI/Playing/cards.add_child(move_cards)
+			cards_num += 1
+			move_cards.add_to_group("card")
+		if cards_num == 6 and num >=7:
+			var move_cards
+			# 使用 randi() 函数生成一个 0 到数组长度减一的随机整数
+			var random_index
+			# 使用随机索引从数组中获取一项
+			var random_item
+			if round(rand_range(1,9)) < card_g:
+				move_cards = move_card.instance()
+				random_index = randi() % move_card_path.size()
+				random_item = move_card_path[random_index]
+			else:
+				move_cards = special_card.instance()
+				random_index = randi() % special_card_path.size()
+				random_item = special_card_path[random_index]
+			move_cards.set_texture(load(random_item))
+			move_cards.position = $UI/Playing/cards/cards2.position
+			move_cards.set_process_input(true)
+			$Tween.interpolate_property(move_cards,"position",position,$UI/Playing/cards/cardspawn/card7.position, 1,Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+			$Tween.start()
+			$UI/Playing/cards.add_child(move_cards)
+			cards_num += 1
+			move_cards.add_to_group("card")
+		if cards_num == 7 and num >=8:
+			var move_cards
+			# 使用 randi() 函数生成一个 0 到数组长度减一的随机整数
+			var random_index
+			# 使用随机索引从数组中获取一项
+			var random_item
+			if round(rand_range(1,9)) < card_g:
+				move_cards = move_card.instance()
+				random_index = randi() % move_card_path.size()
+				random_item = move_card_path[random_index]
+			else:
+				move_cards = special_card.instance()
+				random_index = randi() % special_card_path.size()
+				random_item = special_card_path[random_index]
+			move_cards.set_texture(load(random_item))
+			move_cards.position = $UI/Playing/cards/cards2.position
+			move_cards.set_process_input(true)
+			$Tween.interpolate_property(move_cards,"position",position,$UI/Playing/cards/cardspawn/card8.position, 1,Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+			$Tween.start()
+			$UI/Playing/cards.add_child(move_cards)
+			cards_num += 1
+			move_cards.add_to_group("card")
 	
-
-
