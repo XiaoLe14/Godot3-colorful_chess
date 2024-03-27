@@ -4,10 +4,6 @@ signal special_card_click(id)
 signal move_card_click(id)
 var start_pos = Vector2(0,0)
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	$Timer.start()
-
 
 
 func _on_TextureButton_pressed():
