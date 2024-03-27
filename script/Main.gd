@@ -356,8 +356,9 @@ remote func randi_send_card(num):
 				random_item = special_card_path[random_index]
 			move_cards.position = $UI/Playing/cards/cards2.position
 			move_cards.set_process_input(true)
-			$Tween.interpolate_property(move_cards,"position",position,$UI/Playing/cards/cardspawn/card1.position, 1,Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+			$Tween.interpolate_property(move_cards,"position",position,$UI/Playing/cards/cardspawn/card1.position, 0.8,Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 			$Tween.start()
+			move_cards.start_pos = $UI/Playing/cards/cardspawn/card1.position
 			$UI/Playing/cards.add_child(move_cards)
 			move_cards.set_texture(load(random_item))
 			cards_num += 1
@@ -379,7 +380,8 @@ remote func randi_send_card(num):
 			move_cards.set_texture(load(random_item))
 			move_cards.position = $UI/Playing/cards/cards2.position
 			move_cards.set_process_input(true)
-			$Tween.interpolate_property(move_cards,"position",position,$UI/Playing/cards/cardspawn/card2.position, 1,Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+			move_cards.start_pos = $UI/Playing/cards/cardspawn/card2.position
+			$Tween.interpolate_property(move_cards,"position",position,$UI/Playing/cards/cardspawn/card2.position, 0.8,Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 			$Tween.start()
 			$UI/Playing/cards.add_child(move_cards)
 			cards_num += 1
@@ -401,7 +403,8 @@ remote func randi_send_card(num):
 			move_cards.set_texture(load(random_item))
 			move_cards.position = $UI/Playing/cards/cards2.position
 			move_cards.set_process_input(true)
-			$Tween.interpolate_property(move_cards,"position",position,$UI/Playing/cards/cardspawn/card3.position, 1,Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+			move_cards.start_pos = $UI/Playing/cards/cardspawn/card3.position
+			$Tween.interpolate_property(move_cards,"position",position,$UI/Playing/cards/cardspawn/card3.position, 0.8,Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 			$Tween.start()
 			$UI/Playing/cards.add_child(move_cards)
 			cards_num += 1
@@ -423,7 +426,8 @@ remote func randi_send_card(num):
 			move_cards.set_texture(load(random_item))
 			move_cards.position = $UI/Playing/cards/cards2.position
 			move_cards.set_process_input(true)
-			$Tween.interpolate_property(move_cards,"position",position,$UI/Playing/cards/cardspawn/card4.position, 1,Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+			move_cards.start_pos = $UI/Playing/cards/cardspawn/card4.position
+			$Tween.interpolate_property(move_cards,"position",position,$UI/Playing/cards/cardspawn/card4.position, 0.8,Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 			$Tween.start()
 			$UI/Playing/cards.add_child(move_cards)
 			cards_num += 1
@@ -445,7 +449,8 @@ remote func randi_send_card(num):
 			move_cards.set_texture(load(random_item))
 			move_cards.position = $UI/Playing/cards/cards2.position
 			move_cards.set_process_input(true)
-			$Tween.interpolate_property(move_cards,"position",position,$UI/Playing/cards/cardspawn/card5.position, 1,Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+			move_cards.start_pos = $UI/Playing/cards/cardspawn/card5.position
+			$Tween.interpolate_property(move_cards,"position",position,$UI/Playing/cards/cardspawn/card5.position, 0.8,Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 			$Tween.start()
 			$UI/Playing/cards.add_child(move_cards)
 			cards_num += 1
@@ -467,7 +472,8 @@ remote func randi_send_card(num):
 			move_cards.set_texture(load(random_item))
 			move_cards.position = $UI/Playing/cards/cards2.position
 			move_cards.set_process_input(true)
-			$Tween.interpolate_property(move_cards,"position",position,$UI/Playing/cards/cardspawn/card6.position, 1,Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+			move_cards.start_pos = $UI/Playing/cards/cardspawn/card6.position
+			$Tween.interpolate_property(move_cards,"position",position,$UI/Playing/cards/cardspawn/card6.position, 0.8,Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 			$Tween.start()
 			$UI/Playing/cards.add_child(move_cards)
 			cards_num += 1
@@ -489,7 +495,8 @@ remote func randi_send_card(num):
 			move_cards.set_texture(load(random_item))
 			move_cards.position = $UI/Playing/cards/cards2.position
 			move_cards.set_process_input(true)
-			$Tween.interpolate_property(move_cards,"position",position,$UI/Playing/cards/cardspawn/card7.position, 1,Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+			move_cards.start_pos = $UI/Playing/cards/cardspawn/card7.position
+			$Tween.interpolate_property(move_cards,"position",position,$UI/Playing/cards/cardspawn/card7.position, 0.8,Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 			$Tween.start()
 			$UI/Playing/cards.add_child(move_cards)
 			cards_num += 1
@@ -511,9 +518,24 @@ remote func randi_send_card(num):
 			move_cards.set_texture(load(random_item))
 			move_cards.position = $UI/Playing/cards/cards2.position
 			move_cards.set_process_input(true)
-			$Tween.interpolate_property(move_cards,"position",position,$UI/Playing/cards/cardspawn/card8.position, 1,Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+			move_cards.start_pos = $UI/Playing/cards/cardspawn/card8.position
+			$Tween.interpolate_property(move_cards,"position",position,$UI/Playing/cards/cardspawn/card8.position, 0.8,Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 			$Tween.start()
 			$UI/Playing/cards.add_child(move_cards)
 			cards_num += 1
 			move_cards.add_to_group("card")
+	var nodes = get_tree().get_nodes_in_group("card")
 	
+	# 遍历所有节点
+	for node in nodes:
+		# 连接 "ready" 信号到一个回调函数
+		node.connect("move_card_click", self, "_on_m_card_clickd")
+		node.connect("special_card_click", self, "_on_s_card_clickd")
+func _on_m_card_clickd(id):
+	var numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
+	var base_id = ".png"  # 基础文件扩展名
+	for number in numbers:
+		if (number + base_id) in id:
+			print(number)
+func _on_s_card_clickd(id):
+	print("s"+str(id))

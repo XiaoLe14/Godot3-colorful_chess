@@ -23,11 +23,10 @@ __meta__ = {
 }
 
 [node name="ColorRect" type="ColorRect" parent="."]
-visible = false
-margin_left = -1018.0
-margin_top = -185.0
-margin_right = 15.0
-margin_bottom = 409.0
+margin_left = -1398.0
+margin_top = -326.0
+margin_right = -365.0
+margin_bottom = 268.0
 color = Color( 0.27451, 0.27451, 0.27451, 1 )
 
 [node name="UI" type="CanvasLayer" parent="."]

@@ -1,7 +1,8 @@
 extends TouchScreenButton
 var up = false
+signal special_card_click(id)
 signal move_card_click(id)
-onready var start_pos = position
+var start_pos = Vector2(0,0)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -42,8 +43,5 @@ func _on_exited():
 	$Tween.start()
 
 func _on_click():
-	emit_signal("move_card_click",normal.load_path)
+	emit_signal("special_card_click",normal.load_path)
 
-
-func _on_Timer_timeout():
-	start_pos = position
