@@ -38,6 +38,8 @@ var colorlist = []
 var long = 16
 remote var ucmcolor : Color
 var cards_num = 0
+remote var cx = 8
+remote var cy = 5
 func _ready() -> void:
 	self.get_tree().connect('network_peer_connected', self, '_onNewPlayerConnected')
 	self.get_tree().connect('network_peer_disconnected', self, '_onPlayerDisconnected')
@@ -46,6 +48,7 @@ func _ready() -> void:
 	self.get_tree().connect('connection_failed', self, '_onConnectionFail')
 	
 func _process(delta):
+	
 	randomize()
 	myName = $UI/MainUI/PlayerName.text
 	server_ip = $UI/MainUI/IP.text
@@ -75,7 +78,13 @@ func _process(delta):
 		var cmy = ($UI/Playing/map/Chessman.position.y + 20 )/ 40
 		ucmcolor = get_color(cmx,cmy)
 		rset("ucmcolor",ucmcolor)
-func wrong(why):
+		rset("cx",$UI/Playing/map/Chessman.cx)
+		rset("cy",$UI/Playing/map/Chessman.cy)
+	else:
+		if gameStarting:
+			$UI/Playing/map/Chessman.cx = cx
+			$UI/Playing/map/Chessman.cy = cy
+remote func wrong(why):
 	$UI/Wrong/WrongTimer.start()
 	$UI/Wrong/Label.text = why
 	$UI/Wrong.show()
@@ -532,10 +541,37 @@ remote func randi_send_card(num):
 		node.connect("move_card_click", self, "_on_m_card_clickd")
 		node.connect("special_card_click", self, "_on_s_card_clickd")
 func _on_m_card_clickd(id):
-	var numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
+	var numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]##############################
+	var base_id = ".png"  # 基础文件扩展名
+	for number in numbers:
+		if number == str(1):
+			var turn = {
+				"c":3,
+				"r":1,
+				"r2":1
+			}
+			if not is_network_master():
+				rpc_id(1,"move_chess",turn,get_tree().get_network_unique_id())
+			else:
+				move_chess(turn,1)
+		else:
+			print(number)
+func _on_s_card_clickd(id):
+	var numbers = ["1", "2", "3", "4", "5", "6"]############################
 	var base_id = ".png"  # 基础文件扩展名
 	for number in numbers:
 		if (number + base_id) in id:
 			print(number)
-func _on_s_card_clickd(id):
-	print("s"+str(id))
+remote func move_chess(turn:Dictionary,id):
+	if is_network_master():
+		for key in turn:
+			if key == "c":
+				if not ($UI/Playing/map/Chessman.cy - turn[key]) < 0:
+					$UI/Playing/map/Chessman.cy -= turn[key]
+				else:
+					if id == 1:
+						wrong("可能会走出地图！")
+					else:
+						rpc_id(id,"wrong","可能会走出地图！")
+			else:
+				print(key,turn[key])
