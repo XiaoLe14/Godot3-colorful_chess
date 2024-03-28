@@ -566,7 +566,7 @@ remote func move_chess(turn:Dictionary,id):
 	if is_network_master():
 		for key in turn:
 			if key == "c":
-				if not ($UI/Playing/map/Chessman.cy - turn[key]) < 0:
+				if not ($UI/Playing/map/Chessman.cy - turn[key]) <= 0:
 					$UI/Playing/map/Chessman.cy -= turn[key]
 				else:
 					if id == 1:
