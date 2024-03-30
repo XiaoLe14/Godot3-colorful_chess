@@ -3,6 +3,7 @@ var up = false
 signal special_card_click(id)
 signal move_card_click(id)
 var start_pos = Vector2(0,0)
+var mode = true
 
 
 
@@ -39,5 +40,6 @@ func _on_exited():
 	$Tween.start()
 
 func _on_click():
-	emit_signal("special_card_click",normal.load_path)
+	if mode:
+		emit_signal("special_card_click",normal.load_path)
 

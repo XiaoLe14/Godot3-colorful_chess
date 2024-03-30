@@ -40,6 +40,57 @@ remote var ucmcolor : Color
 var cards_num = 0
 remote var cx = 8
 remote var cy = 5
+var mm = {
+	"1":{
+		"color":"blue",
+		"turn":[-3,1,1]
+	},
+	"2":{
+		"color":"blue",
+		"turn":[-3,2]
+	},
+	"3":{
+		"color":"blue",
+		"turn":[-3,-2]
+	},
+	"4":{
+		"color":"blue",
+		"turn":[-2]
+	},
+	"5":{
+		"color":"blue",
+		"turn":[-1]
+	},
+	"6":{
+		"color":"blue",
+		"turn":[-3]
+	},
+	"7":{
+		"color":"blue",
+		"turn":[-1,-1,2]
+	},
+	"8":{
+		"color":"blue",
+		"turn":[-3,1]
+	},
+	"9":{
+		"color":"blue",
+		"turn":[-1,2]
+	},
+	"10":{
+		"color":"blue",
+		"turn":[-1,-2]
+	},
+	"11":{
+		"color":"blue",
+		"turn":[-2,-1,-1]
+	},
+	"12":{
+		"color":"blue",
+		"turn":[-1,-2,-1]
+	},
+	
+}
 func _ready() -> void:
 	self.get_tree().connect('network_peer_connected', self, '_onNewPlayerConnected')
 	self.get_tree().connect('network_peer_disconnected', self, '_onPlayerDisconnected')
@@ -541,37 +592,67 @@ remote func randi_send_card(num):
 		node.connect("move_card_click", self, "_on_m_card_clickd")
 		node.connect("special_card_click", self, "_on_s_card_clickd")
 func _on_m_card_clickd(id):
-	var numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]##############################
-	var base_id = ".png"  # 基础文件扩展名
-	for number in numbers:
-		if number == str(1):
-			var turn = {
-				"c":3,
-				"r":1,
-				"r2":1
-			}
-			if not is_network_master():
-				rpc_id(1,"move_chess",turn,get_tree().get_network_unique_id())
-			else:
-				move_chess(turn,1)
+	var idnum = extract_numbers_from_string(str(str(id).substr(14,2)))
+	var num = 0
+	if $UI/Playing/map/Chessman.cx <= 0 or $UI/Playing/map/Chessman.cy <= 0:
+		wrong("可能会走出边界！")
+		return
+	for turning in mm[idnum]["turn"]:
+		if is_even_or_odd(num) == "Even":
+			if ($UI/Playing/map/Chessman.cy + turning) <= 0:
+				wrong("可能会走出边界！")
+				return false
 		else:
-			print(number)
+			if ($UI/Playing/map/Chessman.cx + turning) <= 0:
+				wrong("可能会走出边界！")
+				return false
+	for node in get_tree().get_nodes_in_group("card"):
+		node.mode = false
+	for turning in mm[idnum]["turn"]:
+		if is_even_or_odd(num) == "Even":
+			if not is_network_master():
+				rpc_id(1,"move_chess","upordown",turning)
+				
+				yield(get_tree().create_timer(1.0), "timeout")
+			else:
+				move_chess("upordown",turning)
+				yield(get_tree().create_timer(1.0), "timeout")
+		else:
+			if not is_network_master():
+				rpc_id(1,"move_chess","leftorright",turning)
+				yield(get_tree().create_timer(1.0), "timeout")
+			else:
+				move_chess("leftorright",turning)
+				yield(get_tree().create_timer(1.0), "timeout")
+		num += 1
+	for node in get_tree().get_nodes_in_group("card"):
+		node.mode = true
+	return true
 func _on_s_card_clickd(id):
 	var numbers = ["1", "2", "3", "4", "5", "6"]############################
 	var base_id = ".png"  # 基础文件扩展名
 	for number in numbers:
 		if (number + base_id) in id:
 			print(number)
-remote func move_chess(turn:Dictionary,id):
+remote func move_chess(direction:String,long:int):
 	if is_network_master():
-		for key in turn:
-			if key == "c":
-				if not ($UI/Playing/map/Chessman.cy - turn[key]) <= 0:
-					$UI/Playing/map/Chessman.cy -= turn[key]
-				else:
-					if id == 1:
-						wrong("可能会走出地图！")
-					else:
-						rpc_id(id,"wrong","可能会走出地图！")
-			else:
-				print(key,turn[key])
+		if direction == "upordown":
+			$UI/Playing/map/Chessman.cy += long
+		if direction == "leftorright":
+			$UI/Playing/map/Chessman.cx += long
+func is_even_or_odd(number: int) -> String:
+	
+	if number % 2 == 0 or number == 0:
+		return "Even"
+	else:
+		return "Odd"
+func extract_numbers_from_string(input_string: String) -> String:
+	var result = ""
+	var num = ["1","2","3","4","5","6","7","8","9","0"]
+	for char1 in input_string:
+		if char1 in num:
+			result += char1
+	return result
+
+
+

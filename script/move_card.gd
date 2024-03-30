@@ -3,7 +3,7 @@ var up = false
 signal move_card_click(id)
 signal special_card_click(id)
 var start_pos = Vector2(0,0)
-
+var mode = true
 
 
 func _on_TextureButton_pressed():
@@ -39,7 +39,8 @@ func _on_exited():
 	$Tween.start()
 
 func _on_click():
-	emit_signal("move_card_click",normal.load_path)
+	if mode:
+		emit_signal("move_card_click",normal.load_path)
 
 
 

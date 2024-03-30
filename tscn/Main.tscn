@@ -33,7 +33,7 @@ margin_right = 860.0
 margin_bottom = 264.0
 custom_fonts/normal_font = SubResource( 1 )
 bbcode_enabled = true
-bbcode_text = "[center][rainbow freq=1.0 sat=2 val=5]The Colorful Chess[/rainbow][/center]"
+bbcode_text = "[center][rainbow freq=0.2 sat=3 val=1]The Colorful Chess[/rainbow][/center]"
 text = "The Colorful Chess"
 
 [node name="createServer" type="Button" parent="UI/MainUI"]
@@ -1710,6 +1710,8 @@ wait_time = 0.5
 one_shot = true
 
 [node name="Tween" type="Tween" parent="."]
+
+[node name="Timer" type="Timer" parent="."]
 
 [connection signal="pressed" from="UI/MainUI/createServer" to="." method="_on_createServer_pressed"]
 [connection signal="pressed" from="UI/MainUI/joinServer" to="." method="_on_joinServer_pressed"]
