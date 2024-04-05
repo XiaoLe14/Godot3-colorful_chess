@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://script/Main.gd" type="Script" id=1]
 [ext_resource path="res://assets/Broken Console Bold.ttf" type="DynamicFontData" id=2]
@@ -9,101 +9,126 @@
 [ext_resource path="res://assets/cards/card.png" type="Texture" id=7]
 [ext_resource path="res://script/Chessman.gd" type="Script" id=8]
 [ext_resource path="res://assets/chessman.png" type="Texture" id=9]
+[ext_resource path="res://assets/itmes/BE.png" type="Texture" id=10]
+[ext_resource path="res://assets/background/bg.png" type="Texture" id=11]
+[ext_resource path="res://assets/turnbutton/turn-dir2.png" type="Texture" id=12]
+[ext_resource path="res://assets/turnbutton/turn-dir.png" type="Texture" id=13]
+[ext_resource path="res://assets/passbutton/pass.png" type="Texture" id=14]
+[ext_resource path="res://assets/passbutton/pass2.png" type="Texture" id=15]
 
 [sub_resource type="DynamicFont" id=1]
 size = 56
+outline_size = 4
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 38
+outline_size = 2
+outline_color = Color( 0, 0, 0, 1 )
+extra_spacing_top = 5
 font_data = ExtResource( 2 )
 
 [node name="Main" type="Node2D"]
-position = Vector2( 230, 6 )
+position = Vector2( 776, 8 )
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_horizontal_guides_": [  ],
 "_edit_vertical_guides_": [  ]
 }
 
+[node name="Bg" type="Sprite" parent="."]
+visible = false
+position = Vector2( -40.0001, 392 )
+scale = Vector2( 1.2, 1.2 )
+texture = ExtResource( 11 )
+
 [node name="UI" type="CanvasLayer" parent="."]
 
 [node name="MainUI" type="Node2D" parent="UI"]
 
 [node name="title" type="RichTextLabel" parent="UI/MainUI"]
-margin_left = 152.0
-margin_top = 144.0
-margin_right = 860.0
-margin_bottom = 264.0
+margin_left = 408.0
+margin_top = 104.0
+margin_right = 1116.0
+margin_bottom = 224.0
 custom_fonts/normal_font = SubResource( 1 )
 bbcode_enabled = true
-bbcode_text = "[center][rainbow freq=0.2 sat=3 val=1]The Colorful Chess[/rainbow][/center]"
-text = "The Colorful Chess"
+bbcode_text = "
+[center][rainbow freq=0.2 sat=3 val=1]The Colorful Chess[/rainbow][/center]"
+text = "
+The Colorful Chess"
 
 [node name="createServer" type="Button" parent="UI/MainUI"]
-margin_left = 296.0
-margin_top = 392.0
-margin_right = 504.0
-margin_bottom = 440.0
+margin_left = 552.0
+margin_top = 407.0
+margin_right = 760.0
+margin_bottom = 455.0
 custom_fonts/font = ExtResource( 3 )
 text = "创建服务器"
 
 [node name="joinServer" type="Button" parent="UI/MainUI"]
-margin_left = 520.0
-margin_top = 392.0
-margin_right = 728.0
-margin_bottom = 440.0
+margin_left = 776.0
+margin_top = 407.0
+margin_right = 984.0
+margin_bottom = 455.0
 custom_fonts/font = ExtResource( 3 )
 text = "加入服务器"
 
-[node name="PlayerName" type="TextEdit" parent="UI/MainUI"]
-margin_left = 416.0
-margin_top = 246.0
-margin_right = 624.0
-margin_bottom = 278.0
+[node name="PlayerName" type="LineEdit" parent="UI/MainUI"]
+margin_left = 672.0
+margin_top = 261.0
+margin_right = 880.0
+margin_bottom = 297.0
 custom_fonts/font = ExtResource( 4 )
+max_length = 20
+context_menu_enabled = false
 
 [node name="PlayerNameLabel" type="Label" parent="UI/MainUI"]
-margin_left = 304.0
-margin_top = 246.0
-margin_right = 408.0
-margin_bottom = 278.0
+margin_left = 560.0
+margin_top = 261.0
+margin_right = 664.0
+margin_bottom = 293.0
 custom_fonts/font = ExtResource( 3 )
 text = "玩家名："
 
-[node name="IP" type="TextEdit" parent="UI/MainUI"]
-margin_left = 416.0
-margin_top = 286.0
-margin_right = 624.0
-margin_bottom = 318.0
+[node name="IP" type="LineEdit" parent="UI/MainUI"]
+margin_left = 672.0
+margin_top = 301.0
+margin_right = 880.0
+margin_bottom = 337.0
 custom_fonts/font = ExtResource( 4 )
 text = "127.0.0.1"
 
 [node name="IPLabel" type="Label" parent="UI/MainUI"]
-margin_left = 336.0
-margin_top = 286.0
-margin_right = 408.0
-margin_bottom = 318.0
+margin_left = 592.0
+margin_top = 301.0
+margin_right = 664.0
+margin_bottom = 333.0
 custom_fonts/font = ExtResource( 3 )
 text = "地址："
 
-[node name="Port" type="TextEdit" parent="UI/MainUI"]
-margin_left = 416.0
-margin_top = 326.0
-margin_right = 624.0
-margin_bottom = 358.0
+[node name="Port" type="LineEdit" parent="UI/MainUI"]
+margin_left = 672.0
+margin_top = 341.0
+margin_right = 880.0
+margin_bottom = 377.0
 custom_fonts/font = ExtResource( 4 )
 text = "3366"
 
 [node name="PortLabel" type="Label" parent="UI/MainUI"]
-margin_left = 336.0
-margin_top = 326.0
-margin_right = 416.0
-margin_bottom = 358.0
+margin_left = 592.0
+margin_top = 341.0
+margin_right = 672.0
+margin_bottom = 373.0
 custom_fonts/font = ExtResource( 3 )
 text = "端口："
 
 [node name="quit" type="Button" parent="UI/MainUI"]
-margin_left = 408.0
-margin_top = 454.0
-margin_right = 616.0
-margin_bottom = 501.0
+margin_left = 664.0
+margin_top = 469.0
+margin_right = 872.0
+margin_bottom = 516.0
 custom_fonts/font = ExtResource( 3 )
 text = "退出游戏"
 
@@ -111,35 +136,36 @@ text = "退出游戏"
 visible = false
 
 [node name="ColorRect" type="ColorRect" parent="UI/WatingUI"]
+modulate = Color( 1, 1, 1, 0.537255 )
 margin_left = -2.0
-margin_top = 224.0
-margin_right = 193.0
+margin_top = 149.0
+margin_right = 284.0
 margin_bottom = 539.0
-color = Color( 0.164706, 0.164706, 0.164706, 1 )
+color = Color( 0.345098, 0.345098, 0.345098, 1 )
 
 [node name="title" type="Label" parent="UI/WatingUI"]
-margin_left = 384.0
-margin_top = 48.0
-margin_right = 640.0
-margin_bottom = 112.0
+margin_left = 672.0
+margin_top = 49.0
+margin_right = 928.0
+margin_bottom = 113.0
 custom_fonts/font = ExtResource( 5 )
 text = "等待大厅"
 
 [node name="1" type="Label" parent="UI/WatingUI"]
-margin_left = 192.0
-margin_top = 464.0
-margin_right = 352.0
-margin_bottom = 496.0
+margin_left = 288.0
+margin_top = 516.0
+margin_right = 448.0
+margin_bottom = 548.0
 custom_fonts/font = ExtResource( 3 )
 text = "等待中"
 align = 1
 clip_text = true
 
 [node name="2" type="Label" parent="UI/WatingUI"]
-margin_left = 360.0
-margin_top = 464.0
-margin_right = 512.0
-margin_bottom = 496.0
+margin_left = 624.0
+margin_top = 516.0
+margin_right = 776.0
+margin_bottom = 548.0
 custom_fonts/font = ExtResource( 3 )
 text = "等待中"
 align = 1
@@ -147,44 +173,44 @@ valign = 1
 clip_text = true
 
 [node name="3" type="Label" parent="UI/WatingUI"]
-margin_left = 512.0
-margin_top = 464.0
-margin_right = 670.0
-margin_bottom = 496.0
+margin_left = 904.0
+margin_top = 516.0
+margin_right = 1062.0
+margin_bottom = 548.0
 custom_fonts/font = ExtResource( 3 )
 text = "等待中"
 align = 1
 clip_text = true
 
 [node name="4" type="Label" parent="UI/WatingUI"]
-margin_left = 680.0
-margin_top = 464.0
-margin_right = 832.0
-margin_bottom = 496.0
+margin_left = 1192.0
+margin_top = 516.0
+margin_right = 1344.0
+margin_bottom = 548.0
 custom_fonts/font = ExtResource( 3 )
 text = "等待中"
 align = 1
 clip_text = true
 
 [node name="StartGame" type="Button" parent="UI/WatingUI"]
-margin_left = 672.0
-margin_top = 520.0
-margin_right = 816.0
-margin_bottom = 552.0
+margin_left = 1056.0
+margin_top = 608.0
+margin_right = 1200.0
+margin_bottom = 656.0
 custom_fonts/font = ExtResource( 4 )
 text = "开始"
 
 [node name="Back" type="Button" parent="UI/WatingUI"]
-margin_left = 224.0
-margin_top = 520.0
-margin_right = 368.0
-margin_bottom = 552.0
+margin_left = 504.0
+margin_top = 608.0
+margin_right = 648.0
+margin_bottom = 656.0
 custom_fonts/font = ExtResource( 4 )
 text = "返回"
 
 [node name="Chat" type="RichTextLabel" parent="UI/WatingUI"]
-margin_top = 224.0
-margin_right = 184.0
+margin_top = 153.0
+margin_right = 272.0
 margin_bottom = 512.0
 custom_fonts/mono_font = ExtResource( 6 )
 custom_fonts/bold_italics_font = ExtResource( 6 )
@@ -192,16 +218,16 @@ custom_fonts/italics_font = ExtResource( 6 )
 custom_fonts/bold_font = ExtResource( 6 )
 custom_fonts/normal_font = ExtResource( 6 )
 
-[node name="TextEdit" type="TextEdit" parent="UI/WatingUI"]
-margin_top = 512.0
-margin_right = 144.0
-margin_bottom = 536.0
+[node name="TextEdit" type="LineEdit" parent="UI/WatingUI"]
+margin_top = 508.0
+margin_right = 208.0
+margin_bottom = 538.0
 custom_fonts/font = ExtResource( 6 )
 
 [node name="send" type="Button" parent="UI/WatingUI"]
-margin_left = 144.0
+margin_left = 208.0
 margin_top = 512.0
-margin_right = 190.0
+margin_right = 270.0
 margin_bottom = 536.0
 text = "SEND"
 
@@ -210,28 +236,169 @@ visible = false
 z_index = 4096
 
 [node name="ColorRect" type="ColorRect" parent="UI/Wrong"]
+modulate = Color( 1, 1, 1, 0.321569 )
+margin_left = -48.0
 margin_top = 216.0
-margin_right = 1016.0
+margin_right = 1672.0
 margin_bottom = 280.0
-color = Color( 0.27451, 0.27451, 0.27451, 1 )
+color = Color( 0.584314, 0.584314, 0.584314, 1 )
 
 [node name="Label" type="Label" parent="UI/Wrong"]
-margin_left = 12.0
 margin_top = 216.0
-margin_right = 1009.0
+margin_right = 1600.0
 margin_bottom = 280.0
 custom_fonts/font = ExtResource( 5 )
+text = "."
 align = 1
 
 [node name="WrongTimer" type="Timer" parent="UI/Wrong"]
 wait_time = 2.0
 one_shot = true
 
+[node name="PopupDialog" type="PopupDialog" parent="UI/Wrong"]
+margin_left = 520.0
+margin_top = 113.0
+margin_right = 1008.0
+margin_bottom = 417.0
+
 [node name="Playing" type="Node2D" parent="UI"]
 visible = false
 
+[node name="ColorRect2" type="ColorRect" parent="UI/Playing"]
+modulate = Color( 1, 1, 1, 0.784314 )
+margin_left = 785.0
+margin_top = 15.0
+margin_right = 912.0
+margin_bottom = 193.0
+color = Color( 0.0941176, 0.0941176, 0.0941176, 1 )
+
+[node name="ColorRect" type="ColorRect" parent="UI/Playing"]
+modulate = Color( 1, 1, 1, 0.784314 )
+margin_left = 940.0
+margin_top = 32.0
+margin_right = 1584.0
+margin_bottom = 440.0
+color = Color( 0.0941176, 0.0941176, 0.0941176, 1 )
+
+[node name="players" type="Node2D" parent="UI/Playing"]
+
+[node name="1" type="Node2D" parent="UI/Playing/players"]
+position = Vector2( 101, 105 )
+
+[node name="ColorRect" type="ColorRect" parent="UI/Playing/players/1"]
+modulate = Color( 1, 1, 1, 0.784314 )
+margin_left = 16.0
+margin_top = 12.0
+margin_right = 232.0
+margin_bottom = 153.0
+color = Color( 0.0941176, 0.0941176, 0.0941176, 1 )
+
+[node name="ColorRect2" type="ColorRect" parent="UI/Playing/players/1"]
+margin_left = 8.0
+margin_top = 6.0
+margin_right = 224.0
+margin_bottom = 144.0
+color = Color( 0.427451, 0.427451, 0.427451, 1 )
+
+[node name="2" type="Node2D" parent="UI/Playing/players"]
+position = Vector2( 357, 105 )
+
+[node name="ColorRect" type="ColorRect" parent="UI/Playing/players/2"]
+modulate = Color( 1, 1, 1, 0.784314 )
+margin_left = 19.0
+margin_top = 12.0
+margin_right = 232.0
+margin_bottom = 153.0
+color = Color( 0.0941176, 0.0941176, 0.0941176, 1 )
+
+[node name="ColorRect2" type="ColorRect" parent="UI/Playing/players/2"]
+margin_left = 8.0
+margin_top = 6.0
+margin_right = 224.0
+margin_bottom = 144.0
+color = Color( 0.427451, 0.427451, 0.427451, 1 )
+
+[node name="3" type="Node2D" parent="UI/Playing/players"]
+position = Vector2( 101, 289 )
+
+[node name="ColorRect" type="ColorRect" parent="UI/Playing/players/3"]
+modulate = Color( 1, 1, 1, 0.784314 )
+margin_left = 18.0
+margin_top = 12.0
+margin_right = 232.0
+margin_bottom = 153.0
+color = Color( 0.0941176, 0.0941176, 0.0941176, 1 )
+
+[node name="ColorRect2" type="ColorRect" parent="UI/Playing/players/3"]
+margin_left = 8.0
+margin_top = 6.0
+margin_right = 224.0
+margin_bottom = 144.0
+color = Color( 0.427451, 0.427451, 0.427451, 1 )
+
+[node name="4" type="Node2D" parent="UI/Playing/players"]
+position = Vector2( 357, 289 )
+
+[node name="ColorRect" type="ColorRect" parent="UI/Playing/players/4"]
+modulate = Color( 1, 1, 1, 0.784314 )
+margin_left = 18.0
+margin_top = 12.0
+margin_right = 232.0
+margin_bottom = 153.0
+color = Color( 0.0941176, 0.0941176, 0.0941176, 1 )
+
+[node name="ColorRect2" type="ColorRect" parent="UI/Playing/players/4"]
+margin_left = 8.0
+margin_top = 6.0
+margin_right = 224.0
+margin_bottom = 144.0
+color = Color( 0.427451, 0.427451, 0.427451, 1 )
+
+[node name="Name" type="Node2D" parent="UI/Playing"]
+position = Vector2( 129, -168 )
+
+[node name="name1" type="RichTextLabel" parent="UI/Playing/Name"]
+margin_left = -20.0
+margin_top = 289.0
+margin_right = 196.0
+margin_bottom = 329.0
+custom_fonts/normal_font = ExtResource( 4 )
+bbcode_enabled = true
+bbcode_text = "1"
+text = "1"
+
+[node name="name2" type="RichTextLabel" parent="UI/Playing/Name"]
+margin_left = 236.0
+margin_top = 289.0
+margin_right = 452.0
+margin_bottom = 329.0
+custom_fonts/normal_font = ExtResource( 4 )
+bbcode_enabled = true
+bbcode_text = "2"
+text = "2"
+
+[node name="name3" type="RichTextLabel" parent="UI/Playing/Name"]
+margin_left = -20.0
+margin_top = 473.0
+margin_right = 196.0
+margin_bottom = 513.0
+custom_fonts/normal_font = ExtResource( 4 )
+bbcode_enabled = true
+bbcode_text = "3"
+text = "3"
+
+[node name="name4" type="RichTextLabel" parent="UI/Playing/Name"]
+margin_left = 236.0
+margin_top = 473.0
+margin_right = 452.0
+margin_bottom = 513.0
+custom_fonts/normal_font = ExtResource( 4 )
+bbcode_enabled = true
+bbcode_text = "4"
+text = "4"
+
 [node name="map" type="Node2D" parent="UI/Playing"]
-position = Vector2( 376, 9 )
+position = Vector2( 928, 24 )
 
 [node name="ColorRect" type="ColorRect" parent="UI/Playing/map"]
 margin_left = -5.0
@@ -1664,45 +1831,115 @@ script = ExtResource( 8 )
 cx = 8
 cy = 5
 
+[node name="Timer" type="Timer" parent="UI/Playing/map/Chessman"]
+wait_time = 3.0
+one_shot = true
+
 [node name="cards" type="Node2D" parent="UI/Playing"]
 
 [node name="cardspawn" type="Node2D" parent="UI/Playing/cards"]
 
 [node name="card1" type="Node2D" parent="UI/Playing/cards/cardspawn"]
-position = Vector2( 16, 415 )
+position = Vector2( 216, 560 )
 
 [node name="card2" type="Node2D" parent="UI/Playing/cards/cardspawn"]
-position = Vector2( 144, 415 )
+position = Vector2( 375, 560 )
 
 [node name="card3" type="Node2D" parent="UI/Playing/cards/cardspawn"]
-position = Vector2( 272, 415 )
+position = Vector2( 535, 560 )
 
 [node name="card4" type="Node2D" parent="UI/Playing/cards/cardspawn"]
-position = Vector2( 400, 415 )
+position = Vector2( 695, 560 )
 
 [node name="card5" type="Node2D" parent="UI/Playing/cards/cardspawn"]
-position = Vector2( 528, 415 )
+position = Vector2( 855, 560 )
 
 [node name="card6" type="Node2D" parent="UI/Playing/cards/cardspawn"]
-position = Vector2( 656, 415 )
+position = Vector2( 1015, 560 )
 
 [node name="card7" type="Node2D" parent="UI/Playing/cards/cardspawn"]
-position = Vector2( 784, 415 )
+position = Vector2( 1176, 560 )
 
 [node name="card8" type="Node2D" parent="UI/Playing/cards/cardspawn"]
-position = Vector2( 912, 415 )
+position = Vector2( 1335, 560 )
 
 [node name="cards2" type="Node2D" parent="UI/Playing/cards"]
-position = Vector2( 230, 6.00002 )
+position = Vector2( 776, 8.00001 )
 scale = Vector2( 0.4, 0.4 )
 
 [node name="Card" type="Sprite" parent="UI/Playing/cards/cards2"]
-position = Vector2( 165, 225 )
+position = Vector2( 160, 220 )
 scale = Vector2( 0.8, 0.8 )
 texture = ExtResource( 7 )
 
+[node name="itmes" type="Node2D" parent="UI/Playing"]
+
+[node name="ColorRect" type="ColorRect" parent="UI/Playing/itmes"]
+modulate = Color( 1, 1, 1, 0.784314 )
+margin_left = 14.0
+margin_top = 12.0
+margin_right = 311.0
+margin_bottom = 80.0
+color = Color( 0.0941176, 0.0941176, 0.0941176, 1 )
+
+[node name="ColorRect2" type="ColorRect" parent="UI/Playing/itmes"]
+margin_left = 8.0
+margin_top = 6.0
+margin_right = 304.0
+margin_bottom = 72.0
+color = Color( 0.313726, 0.807843, 0.956863, 1 )
+
+[node name="Be" type="Sprite" parent="UI/Playing/itmes"]
+position = Vector2( 52.44, 37.48 )
+scale = Vector2( 0.281058, 0.282128 )
+texture = ExtResource( 10 )
+
+[node name="RichTextLabel" type="RichTextLabel" parent="UI/Playing/itmes"]
+modulate = Color( 1, 0.960784, 0, 1 )
+margin_left = 92.0
+margin_top = 18.0
+margin_right = 275.0
+margin_bottom = 65.0
+custom_fonts/normal_font = SubResource( 2 )
+bbcode_text = "0"
+text = "0"
+
+[node name="pass" type="ColorRect" parent="UI/Playing/itmes"]
+modulate = Color( 1, 1, 1, 0.784314 )
+margin_left = 788.0
+margin_top = 297.0
+margin_right = 915.0
+margin_bottom = 349.0
+color = Color( 0.0941176, 0.0941176, 0.0941176, 1 )
+
+[node name="passbutton" type="TextureButton" parent="UI/Playing/itmes"]
+margin_left = 779.0
+margin_top = 289.0
+margin_right = 1218.0
+margin_bottom = 473.0
+rect_scale = Vector2( 0.3, 0.3 )
+texture_normal = ExtResource( 14 )
+texture_pressed = ExtResource( 15 )
+
+[node name="turn" type="ColorRect" parent="UI/Playing/itmes"]
+modulate = Color( 1, 1, 1, 0.784314 )
+margin_left = 788.0
+margin_top = 221.0
+margin_right = 915.0
+margin_bottom = 273.0
+color = Color( 0.0941176, 0.0941176, 0.0941176, 1 )
+
+[node name="turnbutton2" type="TextureButton" parent="UI/Playing/itmes"]
+margin_left = 779.0
+margin_top = 213.0
+margin_right = 1218.0
+margin_bottom = 397.0
+rect_scale = Vector2( 0.3, 0.3 )
+texture_normal = ExtResource( 13 )
+texture_pressed = ExtResource( 12 )
+
 [node name="CTimer" type="Timer" parent="."]
-wait_time = 0.5
+wait_time = 2.0
 one_shot = true
 
 [node name="CTimer2" type="Timer" parent="."]
@@ -1720,5 +1957,7 @@ one_shot = true
 [connection signal="pressed" from="UI/WatingUI/Back" to="." method="_on_Back_pressed"]
 [connection signal="pressed" from="UI/WatingUI/send" to="." method="_on_send_pressed"]
 [connection signal="timeout" from="UI/Wrong/WrongTimer" to="." method="_on_WrongTimer_timeout"]
+[connection signal="pressed" from="UI/Playing/itmes/passbutton" to="." method="_on_passbutton_pressed"]
+[connection signal="pressed" from="UI/Playing/itmes/turnbutton2" to="." method="_on_turnbutton_pressed"]
 [connection signal="timeout" from="CTimer" to="." method="_on_CTimer_timeout"]
 [connection signal="timeout" from="CTimer2" to="." method="_on_CTimer2_timeout"]

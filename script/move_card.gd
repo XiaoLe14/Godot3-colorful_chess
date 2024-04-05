@@ -40,7 +40,8 @@ func _on_exited():
 
 func _on_click():
 	if mode:
-		emit_signal("move_card_click",normal.load_path)
+		emit_signal("move_card_click",normal.load_path,name)
+		
 
 
 
