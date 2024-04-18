@@ -992,3 +992,9 @@ func _on_Admin_pass_button_pressed():
 		Round_pass()
 	else:
 		rpc_id(1,"Round_pass")
+
+remote func wow(why):
+	if not $UI/Wow/AnimationPlayer.is_playing():
+		$UI/Wow/Wow/Label.text = str(why)
+		$UI/Wow/AnimationPlayer.play("run")
+	

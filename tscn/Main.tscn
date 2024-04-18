@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://script/Main.gd" type="Script" id=1]
 [ext_resource path="res://assets/Broken Console Bold.ttf" type="DynamicFontData" id=2]
@@ -22,6 +22,7 @@
 [ext_resource path="res://assets/turnbutton/turn3-1.png" type="Texture" id=20]
 [ext_resource path="res://assets/turnbutton/turn4.png" type="Texture" id=21]
 [ext_resource path="res://assets/light.png" type="Texture" id=22]
+[ext_resource path="res://assets/wow.svg" type="Texture" id=23]
 
 [sub_resource type="DynamicFont" id=1]
 size = 56
@@ -35,6 +36,36 @@ outline_size = 2
 outline_color = Color( 0, 0, 0, 1 )
 extra_spacing_top = 5
 font_data = ExtResource( 2 )
+
+[sub_resource type="CanvasItemMaterial" id=3]
+
+[sub_resource type="Animation" id=4]
+resource_name = "run"
+length = 3.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Wow:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.8, 3 ),
+"transitions": PoolRealArray( 0.420448, 11.3137, 11.3137 ),
+"update": 0,
+"values": [ Vector2( 5877.51, 759.382 ), Vector2( 2812.7, 543.744 ), Vector2( -4224.29, 51.5946 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = false
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.3, 0.6, 3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 5877, 759 ), Vector2( 2812, 543 ), Vector2( 2812, 543 ), Vector2( -4224, 51 ) ]
+}
 
 [node name="Main" type="Node2D"]
 position = Vector2( 776, 8 )
@@ -2037,6 +2068,34 @@ margin_top = 8.0
 margin_right = 84.0
 margin_bottom = 28.0
 text = "PASS"
+
+[node name="Wow" type="Node2D" parent="UI"]
+position = Vector2( 18.001, -1.52588e-05 )
+rotation = -0.139626
+
+[node name="Wow" type="Sprite" parent="UI/Wow"]
+modulate = Color( 1, 1, 1, 0.886275 )
+material = SubResource( 3 )
+position = Vector2( 2812.68, 543.742 )
+rotation = 0.0698132
+scale = Vector2( 1, 1 )
+texture = ExtResource( 23 )
+
+[node name="Label" type="Label" parent="UI/Wow/Wow"]
+margin_left = -2811.0
+margin_top = -50.0
+margin_right = -1377.0
+margin_bottom = 78.0
+custom_fonts/font = ExtResource( 5 )
+align = 1
+valign = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="UI/Wow"]
+anims/run = SubResource( 4 )
+
+[node name="RayCast2D" type="RayCast2D" parent="UI/Wow"]
+position = Vector2( 2671.9, 446.2 )
+cast_to = Vector2( -5356.78, -376.18 )
 
 [node name="CTimer" type="Timer" parent="."]
 wait_time = 2.0
