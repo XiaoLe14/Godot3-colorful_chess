@@ -35,7 +35,7 @@ remote var cr = 0
 remote var players = [p1,p2,p3,p4]
 remote var chats = ""
 var playing_player = ""
-var colorlist = []
+remote var colorlist = []
 var long = 16
 remote var ucmcolor : Color
 var cards_num = 0
@@ -240,35 +240,43 @@ var mm = {
 }
 var cms1 = {
 	"is_used":false,
-	"id":0
+	"id":0,
+	"node":1
 }
 var cms2 = {
 	"is_used":false,
-	"id":0
+	"id":0,
+	"node":2
 }
 var cms3 = {
 	"is_used":false,
-	"id":0
+	"id":0,
+	"node":3
 }
 var cms4 = {
 	"is_used":false,
-	"id":0
+	"id":0,
+	"node":4
 }
 var cms5 = {
 	"is_used":false,
-	"id":0
+	"id":0,
+	"node":5
 }
 var cms6 = {
 	"is_used":false,
-	"id":0
+	"id":0,
+	"node":6
 }
 var cms7 = {
 	"is_used":false,
-	"id":0
+	"id":0,
+	"node":7
 }
 var cms8 = {
 	"is_used":false,
-	"id":0
+	"id":0,
+	"node":8
 }
 var cmspawns = [cms1,cms2,cms3,cms4,cms5,cms6,cms7,cms8]
 remote var Round = 1
@@ -312,7 +320,7 @@ func _process(delta):
 	if gameStarting and is_network_master():
 		var cmx = ($UI/Playing/map/Chessman.position.x + 20 )/ 40
 		var cmy = ($UI/Playing/map/Chessman.position.y + 20 )/ 40
-		#ucmcolor = get_color(cmx,cmy)
+		ucmcolor = get_color(cmx,cmy)
 		rset("ucmcolor",ucmcolor)
 		rset("cx",$UI/Playing/map/Chessman.cx)
 		rset("cy",$UI/Playing/map/Chessman.cy)
@@ -472,7 +480,6 @@ func _on_WrongTimer_timeout():
 	$UI/Wrong/Label.text = ""
 
 func get_player_num():
-	print(players)
 	var count := 0  # 初始化计数器
 	for player in players:
 		if player.id != -1:  # 检查每个玩家的 id 是否不等于 -1
@@ -515,7 +522,6 @@ func peer_back():
 
 func _on_CTimer_timeout():
 	if not self.get_tree().network_peer.get_connection_status() == 2:
-		print(self.get_tree().network_peer.get_connection_status())
 		wrong("连接失败，服务器不存在或人数已满")
 		$UI/MainUI.show()
 		$UI/WatingUI.hide()
@@ -565,12 +571,10 @@ func _on_send_pressed():
 
 
 func _on_StartGame_pressed():
-	print(players[0])
 	if not players[0].id == -1 and not players[1].id == -1 and not players[2].id == -1 and not players[3].id == -1:
 		if get_tree().is_network_server():
 			rpc("game_start")
 			game_start()
-			print("start")
 		else:
 			wrong("只有服务器可以开始游戏")
 	else:
@@ -618,20 +622,21 @@ remote func set_color(color_rect_name, color):
 			node.color = color
 			
 func get_color(x,y):
-	return colorlist[(16 * y - 16 + x)-1]
+	return colorlist[(16 * y - 16 + x)-2]
 ###########################################################################
 
 func _on_quit_pressed():
 	get_tree().quit()
 
 remote func randi_send_card(num,id):
+	var instance_num = 0
 	for i in range(num):
 		var spawnum = 0
 		var random_index
 		var card_path
 		var card
 		for spawn in cmspawns:
-			if spawn.is_used == false and not spawnum > 7:
+			if spawn.is_used == false:
 				if rand_range(0,10) < card_g:
 					random_index = randi() % move_card_path.size()
 					card_path = move_card_path[random_index]
@@ -645,7 +650,7 @@ remote func randi_send_card(num,id):
 					card.connect("special_card_click", self, "_on_s_card_clickd")
 				
 				$UI/Playing/cards.add_child(card)
-				var card_spawn = $UI/Playing/cards/cardspawn.get_children()[spawnum].position
+				var card_spawn = $UI/Playing/cards/cardspawn.get_children()[spawn.node - 1].position
 				card.set_texture(load(card_path))
 				card.position = position
 				$Tween.interpolate_property(card,"position",position,card_spawn, 0.8,Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
@@ -654,20 +659,17 @@ remote func randi_send_card(num,id):
 				card.add_to_group("card")
 				
 				spawn.is_used = true
-				spawn.id = random_index +1
+				spawn.id = card.name
 				yield(get_tree().create_timer(0.3), "timeout")
+				instance_num += 1
 				break
-			else:
-				if spawnum <= 7:
-					spawnum += 1
-				else:
-					if is_network_master():
-						wrong("没空位了")
-						return
-					else:
-						rpc_id(id,"wrong","没空位了")
-						return
+	if not instance_num == num:
+		if is_network_master():
+			wrong("剩余卡槽不足")
+		else:
+			rpc_id(id,"wrong","剩余卡槽不足")
 func _on_m_card_clickd(id,cname):
+	var fastmove=false
 	var num1 = 0
 	for a in players:
 		if a.id == get_tree().get_network_unique_id():
@@ -681,6 +683,11 @@ func _on_m_card_clickd(id,cname):
 	var num = 1
 	var tcx = $UI/Playing/map/Chessman.cx
 	var tcy = $UI/Playing/map/Chessman.cy
+	var nowcolor = ucmcolor
+	if nowcolor == name_to_rgb(mm[idnum]["color"]):
+		fastmove = true
+	else:
+		pass
 	for turning in mm[idnum]["turn"]:
 		if is_even_or_odd(num) == "Even":
 			var an = check_chess(tcx,tcy,"Even",turning)
@@ -704,7 +711,6 @@ func _on_m_card_clickd(id,cname):
 		node.mode = false
 		if node.name == cname:
 			delete_card(node,true)
-	print(mm[idnum]["turn"])
 	num = 0
 	for turning in mm[idnum]["turn"]:
 		turn_button_disabled(true)
@@ -727,12 +733,24 @@ func _on_m_card_clickd(id,cname):
 	for node in get_tree().get_nodes_in_group("card"):
 		node.mode = true
 	turn_button_disabled(false)
-	if is_network_master():
-		Round_pass()
+	if not fastmove:
+		print(1)
+		print(nowcolor)
+		print(name_to_rgb(mm[idnum]["color"]))
+		if is_network_master():
+			Round_pass()
+		else:
+			rpc_id(1,"Round_pass")
 	else:
-		rpc_id(1,"Round_pass")
+		print(2)
+		if is_network_master():
+			print(2.1)
+			fast_move()
+		else:
+			rpc_id(1,"fast_move")
+			print(2.2)
 	for cardspawn in cmspawns:
-		if cardspawn.id == int(idnum):
+		if str(cardspawn.id) == cname:
 			cardspawn.id = 0
 			cardspawn.is_used = false
 			return
@@ -741,8 +759,11 @@ func _on_s_card_clickd(id):
 	var base_id = ".png"  # 基础文件扩展名
 	for number in numbers:
 		if (number + base_id) in id:
-			print(number)
-	
+			pass
+remote func fast_move():
+	print(3)
+	rpc('wow',"快捷移动,继续当前会合")
+	wow("快捷移动,继续当前会合")
 remote func move_chess(direction:String,long:int):
 	if is_network_master():
 		if direction == "Even":
@@ -994,7 +1015,25 @@ func _on_Admin_pass_button_pressed():
 		rpc_id(1,"Round_pass")
 
 remote func wow(why):
+	print(4)
 	if not $UI/Wow/AnimationPlayer.is_playing():
+		print(4.1)
 		$UI/Wow/Wow/Label.text = str(why)
 		$UI/Wow/AnimationPlayer.play("run")
-	
+	else:
+		print("playing!")
+func name_to_rgb(name:String):
+	var colors := [
+		Color(0.2, 0.8, 0.2),  # 浅绿色 (50, 205, 50)
+		Color(0.9, 0.4, 0.4),  # 暗红色 (238, 99, 99)
+		Color(0, 0.74, 1),     # 深蓝色 (0, 191, 255)
+		Color(1, 0.84, 0)      # 金黄色 (255, 215, 0)
+	]	
+	if name == "green":
+		return colors[0]
+	if name == "red":
+		return colors[1]
+	if name == "blue":
+		return colors[2]
+	if name == "yellow":
+		return colors[3]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://script/Main.gd" type="Script" id=1]
 [ext_resource path="res://assets/Broken Console Bold.ttf" type="DynamicFontData" id=2]
@@ -23,6 +23,7 @@
 [ext_resource path="res://assets/turnbutton/turn4.png" type="Texture" id=21]
 [ext_resource path="res://assets/light.png" type="Texture" id=22]
 [ext_resource path="res://assets/wow.svg" type="Texture" id=23]
+[ext_resource path="res://tscn/100.tres" type="DynamicFont" id=24]
 
 [sub_resource type="DynamicFont" id=1]
 size = 56
@@ -49,7 +50,7 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.8, 3 ),
+"times": PoolRealArray( 0, 0.8, 2.6 ),
 "transitions": PoolRealArray( 0.420448, 11.3137, 11.3137 ),
 "update": 0,
 "values": [ Vector2( 5877.51, 759.382 ), Vector2( 2812.7, 543.744 ), Vector2( -4224.29, 51.5946 ) ]
@@ -2072,13 +2073,13 @@ text = "PASS"
 [node name="Wow" type="Node2D" parent="UI"]
 position = Vector2( 18.001, -1.52588e-05 )
 rotation = -0.139626
+z_index = 20
 
 [node name="Wow" type="Sprite" parent="UI/Wow"]
 modulate = Color( 1, 1, 1, 0.886275 )
 material = SubResource( 3 )
-position = Vector2( 2812.68, 543.742 )
+position = Vector2( 5877.51, 759.382 )
 rotation = 0.0698132
-scale = Vector2( 1, 1 )
 texture = ExtResource( 23 )
 
 [node name="Label" type="Label" parent="UI/Wow/Wow"]
@@ -2086,7 +2087,7 @@ margin_left = -2811.0
 margin_top = -50.0
 margin_right = -1377.0
 margin_bottom = 78.0
-custom_fonts/font = ExtResource( 5 )
+custom_fonts/font = ExtResource( 24 )
 align = 1
 valign = 1
 
