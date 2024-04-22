@@ -21,7 +21,7 @@
 [ext_resource path="res://assets/turnbutton/turn3.png" type="Texture" id=19]
 [ext_resource path="res://assets/turnbutton/turn3-1.png" type="Texture" id=20]
 [ext_resource path="res://assets/turnbutton/turn4.png" type="Texture" id=21]
-[ext_resource path="res://assets/light.png" type="Texture" id=22]
+[ext_resource path="res://assets/map.svg" type="Texture" id=22]
 [ext_resource path="res://assets/wow.svg" type="Texture" id=23]
 [ext_resource path="res://tscn/100.tres" type="DynamicFont" id=24]
 
@@ -69,7 +69,7 @@ tracks/1/keys = {
 }
 
 [node name="Main" type="Node2D"]
-position = Vector2( 776, 8 )
+position = Vector2( 661, 7 )
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_horizontal_guides_": [  ],
@@ -77,7 +77,7 @@ __meta__ = {
 }
 
 [node name="Bg" type="Sprite" parent="."]
-position = Vector2( -60, 409 )
+position = Vector2( 115, 410 )
 scale = Vector2( 1.2, 1.2 )
 texture = ExtResource( 11 )
 
@@ -304,18 +304,18 @@ visible = false
 
 [node name="ColorRect2" type="ColorRect" parent="UI/Playing"]
 modulate = Color( 1, 1, 1, 0.784314 )
-margin_left = 785.0
-margin_top = 15.0
-margin_right = 912.0
-margin_bottom = 193.0
+margin_left = 670.0
+margin_top = 14.0
+margin_right = 797.0
+margin_bottom = 192.0
 color = Color( 0.0941176, 0.0941176, 0.0941176, 1 )
 
 [node name="ColorRect" type="ColorRect" parent="UI/Playing"]
 modulate = Color( 1, 1, 1, 0.784314 )
-margin_left = 940.0
-margin_top = 32.0
-margin_right = 1584.0
-margin_bottom = 440.0
+margin_left = 898.0
+margin_top = 35.0
+margin_right = 1580.0
+margin_bottom = 472.0
 color = Color( 0.0941176, 0.0941176, 0.0941176, 1 )
 
 [node name="players" type="Node2D" parent="UI/Playing"]
@@ -436,1436 +436,1135 @@ bbcode_text = "4"
 text = "4"
 
 [node name="map" type="Node2D" parent="UI/Playing"]
-position = Vector2( 928, 24 )
+position = Vector2( 888, 24 )
 
-[node name="Light" type="Sprite" parent="UI/Playing/map"]
-position = Vector2( 320, 200 )
-scale = Vector2( 0.702525, 0.700525 )
-z_index = 10
+[node name="Map" type="Sprite" parent="UI/Playing/map"]
+position = Vector2( 342, 220.531 )
+scale = Vector2( 0.706955, 0.703249 )
+z_index = 11
 texture = ExtResource( 22 )
 
 [node name="ColorRect" type="ColorRect" parent="UI/Playing/map"]
+visible = false
 margin_left = -5.0
 margin_top = -6.0
 margin_right = 646.0
 margin_bottom = 406.0
 color = Color( 0, 0, 0, 1 )
 
-[node name="groups" type="Node2D" parent="UI/Playing/map"]
+[node name="group" type="Node2D" parent="UI/Playing/map"]
+position = Vector2( 2, 2 )
 
-[node name="ColorRect" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect" type="ColorRect" parent="UI/Playing/map/group"]
+margin_top = -1.0
 margin_right = 40.0
-margin_bottom = 40.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 39.0
 
-[node name="ColorRect2" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect2" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 40.0
+margin_top = -1.0
 margin_right = 80.0
-margin_bottom = 40.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 39.0
 
-[node name="ColorRect3" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect3" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 80.0
+margin_top = -1.0
 margin_right = 120.0
-margin_bottom = 40.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 39.0
 
-[node name="ColorRect4" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect4" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 120.0
+margin_top = -1.0
 margin_right = 160.0
-margin_bottom = 40.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 39.0
 
-[node name="ColorRect5" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect5" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 160.0
+margin_top = -1.0
 margin_right = 200.0
-margin_bottom = 40.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 39.0
 
-[node name="ColorRect6" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect6" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 200.0
+margin_top = -1.0
 margin_right = 240.0
-margin_bottom = 40.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 39.0
 
-[node name="ColorRect7" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect7" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 240.0
+margin_top = -1.0
 margin_right = 280.0
-margin_bottom = 40.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 39.0
 
-[node name="ColorRect8" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect8" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 280.0
+margin_top = -1.0
 margin_right = 320.0
-margin_bottom = 40.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 39.0
 
-[node name="ColorRect9" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect9" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 320.0
+margin_top = -1.0
 margin_right = 360.0
-margin_bottom = 40.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 39.0
 
-[node name="ColorRect10" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect10" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 360.0
+margin_top = -1.0
 margin_right = 400.0
-margin_bottom = 40.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 39.0
 
-[node name="ColorRect11" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect11" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 400.0
+margin_top = -1.0
 margin_right = 440.0
-margin_bottom = 40.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 39.0
 
-[node name="ColorRect12" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect12" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 440.0
+margin_top = -1.0
 margin_right = 480.0
-margin_bottom = 40.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 39.0
 
-[node name="ColorRect13" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect13" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 480.0
+margin_top = -1.0
 margin_right = 520.0
-margin_bottom = 40.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 39.0
 
-[node name="ColorRect14" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect14" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 520.0
+margin_top = -1.0
 margin_right = 560.0
-margin_bottom = 40.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 39.0
 
-[node name="ColorRect15" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect15" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 560.0
+margin_top = -1.0
 margin_right = 600.0
-margin_bottom = 40.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 39.0
 
-[node name="ColorRect16" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect16" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 600.0
+margin_top = -1.0
 margin_right = 640.0
-margin_bottom = 40.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 39.0
 
-[node name="ColorRect17" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
-margin_top = 40.0
+[node name="ColorRect17" type="ColorRect" parent="UI/Playing/map/group"]
+margin_left = 640.0
+margin_top = -1.0
+margin_right = 680.0
+margin_bottom = 39.0
+
+[node name="ColorRect18" type="ColorRect" parent="UI/Playing/map/group"]
+margin_top = 39.0
 margin_right = 40.0
-margin_bottom = 80.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 79.0
 
-[node name="ColorRect18" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect19" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 40.0
-margin_top = 40.0
+margin_top = 39.0
 margin_right = 80.0
-margin_bottom = 80.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 79.0
 
-[node name="ColorRect19" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect20" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 80.0
-margin_top = 40.0
+margin_top = 39.0
 margin_right = 120.0
-margin_bottom = 80.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 79.0
 
-[node name="ColorRect20" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect21" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 120.0
-margin_top = 40.0
+margin_top = 39.0
 margin_right = 160.0
-margin_bottom = 80.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 79.0
 
-[node name="ColorRect21" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect22" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 160.0
-margin_top = 40.0
+margin_top = 39.0
 margin_right = 200.0
-margin_bottom = 80.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 79.0
 
-[node name="ColorRect22" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect23" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 200.0
-margin_top = 40.0
+margin_top = 39.0
 margin_right = 240.0
-margin_bottom = 80.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 79.0
 
-[node name="ColorRect23" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect24" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 240.0
-margin_top = 40.0
+margin_top = 39.0
 margin_right = 280.0
-margin_bottom = 80.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 79.0
 
-[node name="ColorRect24" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect25" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 280.0
-margin_top = 40.0
+margin_top = 39.0
 margin_right = 320.0
-margin_bottom = 80.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 79.0
 
-[node name="ColorRect25" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect26" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 320.0
-margin_top = 40.0
+margin_top = 39.0
 margin_right = 360.0
-margin_bottom = 80.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 79.0
 
-[node name="ColorRect26" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect27" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 360.0
-margin_top = 40.0
+margin_top = 39.0
 margin_right = 400.0
-margin_bottom = 80.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 79.0
 
-[node name="ColorRect27" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect28" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 400.0
-margin_top = 40.0
+margin_top = 39.0
 margin_right = 440.0
-margin_bottom = 80.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 79.0
 
-[node name="ColorRect28" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect29" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 440.0
-margin_top = 40.0
+margin_top = 39.0
 margin_right = 480.0
-margin_bottom = 80.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 79.0
 
-[node name="ColorRect29" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect30" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 480.0
-margin_top = 40.0
+margin_top = 39.0
 margin_right = 520.0
-margin_bottom = 80.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 79.0
 
-[node name="ColorRect30" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect31" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 520.0
-margin_top = 40.0
+margin_top = 39.0
 margin_right = 560.0
-margin_bottom = 80.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 79.0
 
-[node name="ColorRect31" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect32" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 560.0
-margin_top = 40.0
+margin_top = 39.0
 margin_right = 600.0
-margin_bottom = 80.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 79.0
 
-[node name="ColorRect32" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect33" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 600.0
-margin_top = 40.0
+margin_top = 39.0
 margin_right = 640.0
-margin_bottom = 80.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 79.0
 
-[node name="ColorRect33" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
-margin_top = 80.0
+[node name="ColorRect34" type="ColorRect" parent="UI/Playing/map/group"]
+margin_left = 640.0
+margin_top = 39.0
+margin_right = 680.0
+margin_bottom = 79.0
+
+[node name="ColorRect35" type="ColorRect" parent="UI/Playing/map/group"]
+margin_top = 79.0
 margin_right = 40.0
-margin_bottom = 120.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 119.0
 
-[node name="ColorRect34" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect36" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 40.0
-margin_top = 80.0
+margin_top = 79.0
 margin_right = 80.0
-margin_bottom = 120.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 119.0
 
-[node name="ColorRect35" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect37" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 80.0
-margin_top = 80.0
+margin_top = 79.0
 margin_right = 120.0
-margin_bottom = 120.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 119.0
 
-[node name="ColorRect36" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect38" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 120.0
-margin_top = 80.0
+margin_top = 79.0
 margin_right = 160.0
-margin_bottom = 120.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 119.0
 
-[node name="ColorRect37" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect39" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 160.0
-margin_top = 80.0
+margin_top = 79.0
 margin_right = 200.0
-margin_bottom = 120.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 119.0
 
-[node name="ColorRect38" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect40" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 200.0
-margin_top = 80.0
+margin_top = 79.0
 margin_right = 240.0
-margin_bottom = 120.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 119.0
 
-[node name="ColorRect39" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect41" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 240.0
-margin_top = 80.0
+margin_top = 79.0
 margin_right = 280.0
-margin_bottom = 120.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 119.0
 
-[node name="ColorRect40" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect42" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 280.0
-margin_top = 80.0
+margin_top = 79.0
 margin_right = 320.0
-margin_bottom = 120.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 119.0
 
-[node name="ColorRect41" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect43" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 320.0
-margin_top = 80.0
+margin_top = 79.0
 margin_right = 360.0
-margin_bottom = 120.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 119.0
 
-[node name="ColorRect42" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect44" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 360.0
-margin_top = 80.0
+margin_top = 79.0
 margin_right = 400.0
-margin_bottom = 120.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 119.0
 
-[node name="ColorRect43" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect45" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 400.0
-margin_top = 80.0
+margin_top = 79.0
 margin_right = 440.0
-margin_bottom = 120.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 119.0
 
-[node name="ColorRect44" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect46" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 440.0
-margin_top = 80.0
+margin_top = 79.0
 margin_right = 480.0
-margin_bottom = 120.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 119.0
 
-[node name="ColorRect45" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect47" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 480.0
-margin_top = 80.0
+margin_top = 79.0
 margin_right = 520.0
-margin_bottom = 120.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 119.0
 
-[node name="ColorRect46" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect48" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 520.0
-margin_top = 80.0
+margin_top = 79.0
 margin_right = 560.0
-margin_bottom = 120.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 119.0
 
-[node name="ColorRect47" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect49" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 560.0
-margin_top = 80.0
+margin_top = 79.0
 margin_right = 600.0
-margin_bottom = 120.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 119.0
 
-[node name="ColorRect48" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect50" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 600.0
-margin_top = 80.0
+margin_top = 79.0
 margin_right = 640.0
-margin_bottom = 120.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 119.0
 
-[node name="ColorRect49" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
-margin_top = 120.0
+[node name="ColorRect51" type="ColorRect" parent="UI/Playing/map/group"]
+margin_left = 640.0
+margin_top = 79.0
+margin_right = 680.0
+margin_bottom = 119.0
+
+[node name="ColorRect52" type="ColorRect" parent="UI/Playing/map/group"]
+margin_top = 119.0
 margin_right = 40.0
-margin_bottom = 160.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 159.0
 
-[node name="ColorRect50" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect53" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 40.0
-margin_top = 120.0
+margin_top = 119.0
 margin_right = 80.0
-margin_bottom = 160.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 159.0
 
-[node name="ColorRect51" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect54" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 80.0
-margin_top = 120.0
+margin_top = 119.0
 margin_right = 120.0
-margin_bottom = 160.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 159.0
 
-[node name="ColorRect52" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect55" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 120.0
-margin_top = 120.0
+margin_top = 119.0
 margin_right = 160.0
-margin_bottom = 160.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 159.0
 
-[node name="ColorRect53" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect56" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 160.0
-margin_top = 120.0
+margin_top = 119.0
 margin_right = 200.0
-margin_bottom = 160.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 159.0
 
-[node name="ColorRect54" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect57" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 200.0
-margin_top = 120.0
+margin_top = 119.0
 margin_right = 240.0
-margin_bottom = 160.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 159.0
 
-[node name="ColorRect55" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect58" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 240.0
-margin_top = 120.0
+margin_top = 119.0
 margin_right = 280.0
-margin_bottom = 160.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 159.0
 
-[node name="ColorRect56" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect59" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 280.0
-margin_top = 120.0
+margin_top = 119.0
 margin_right = 320.0
-margin_bottom = 160.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 159.0
 
-[node name="ColorRect57" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect60" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 320.0
-margin_top = 120.0
+margin_top = 119.0
 margin_right = 360.0
-margin_bottom = 160.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 159.0
 
-[node name="ColorRect58" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect61" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 360.0
-margin_top = 120.0
+margin_top = 119.0
 margin_right = 400.0
-margin_bottom = 160.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 159.0
 
-[node name="ColorRect59" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect62" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 400.0
-margin_top = 120.0
+margin_top = 119.0
 margin_right = 440.0
-margin_bottom = 160.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 159.0
 
-[node name="ColorRect60" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect63" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 440.0
-margin_top = 120.0
+margin_top = 119.0
 margin_right = 480.0
-margin_bottom = 160.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 159.0
 
-[node name="ColorRect61" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect64" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 480.0
-margin_top = 120.0
+margin_top = 119.0
 margin_right = 520.0
-margin_bottom = 160.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 159.0
 
-[node name="ColorRect62" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect65" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 520.0
-margin_top = 120.0
+margin_top = 119.0
 margin_right = 560.0
-margin_bottom = 160.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 159.0
 
-[node name="ColorRect63" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect66" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 560.0
-margin_top = 120.0
+margin_top = 119.0
 margin_right = 600.0
-margin_bottom = 160.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 159.0
 
-[node name="ColorRect64" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect67" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 600.0
-margin_top = 120.0
+margin_top = 119.0
 margin_right = 640.0
-margin_bottom = 160.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 159.0
 
-[node name="ColorRect65" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
-margin_top = 160.0
+[node name="ColorRect68" type="ColorRect" parent="UI/Playing/map/group"]
+margin_left = 640.0
+margin_top = 119.0
+margin_right = 680.0
+margin_bottom = 159.0
+
+[node name="ColorRect69" type="ColorRect" parent="UI/Playing/map/group"]
+margin_top = 159.0
 margin_right = 40.0
-margin_bottom = 200.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 199.0
 
-[node name="ColorRect66" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect70" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 40.0
-margin_top = 160.0
+margin_top = 159.0
 margin_right = 80.0
-margin_bottom = 200.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 199.0
 
-[node name="ColorRect67" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect71" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 80.0
-margin_top = 160.0
+margin_top = 159.0
 margin_right = 120.0
-margin_bottom = 200.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 199.0
 
-[node name="ColorRect68" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect72" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 120.0
-margin_top = 160.0
+margin_top = 159.0
 margin_right = 160.0
-margin_bottom = 200.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 199.0
 
-[node name="ColorRect69" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect73" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 160.0
-margin_top = 160.0
+margin_top = 159.0
 margin_right = 200.0
-margin_bottom = 200.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 199.0
 
-[node name="ColorRect70" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect74" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 200.0
-margin_top = 160.0
+margin_top = 159.0
 margin_right = 240.0
-margin_bottom = 200.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 199.0
 
-[node name="ColorRect71" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect75" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 240.0
-margin_top = 160.0
+margin_top = 159.0
 margin_right = 280.0
-margin_bottom = 200.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 199.0
 
-[node name="ColorRect72" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect76" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 280.0
-margin_top = 160.0
+margin_top = 159.0
 margin_right = 320.0
-margin_bottom = 200.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 199.0
 
-[node name="ColorRect73" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect77" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 320.0
-margin_top = 160.0
+margin_top = 159.0
 margin_right = 360.0
-margin_bottom = 200.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 199.0
 
-[node name="ColorRect74" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect78" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 360.0
-margin_top = 160.0
+margin_top = 159.0
 margin_right = 400.0
-margin_bottom = 200.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 199.0
 
-[node name="ColorRect75" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect79" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 400.0
-margin_top = 160.0
+margin_top = 159.0
 margin_right = 440.0
-margin_bottom = 200.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 199.0
 
-[node name="ColorRect76" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect80" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 440.0
-margin_top = 160.0
+margin_top = 159.0
 margin_right = 480.0
-margin_bottom = 200.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 199.0
 
-[node name="ColorRect77" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect81" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 480.0
-margin_top = 160.0
+margin_top = 159.0
 margin_right = 520.0
-margin_bottom = 200.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 199.0
 
-[node name="ColorRect78" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect82" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 520.0
-margin_top = 160.0
+margin_top = 159.0
 margin_right = 560.0
-margin_bottom = 200.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 199.0
 
-[node name="ColorRect79" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect83" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 560.0
-margin_top = 160.0
+margin_top = 159.0
 margin_right = 600.0
-margin_bottom = 200.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 199.0
 
-[node name="ColorRect80" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect84" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 600.0
-margin_top = 160.0
+margin_top = 159.0
 margin_right = 640.0
-margin_bottom = 200.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 199.0
 
-[node name="ColorRect81" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
-margin_top = 200.0
+[node name="ColorRect85" type="ColorRect" parent="UI/Playing/map/group"]
+margin_left = 640.0
+margin_top = 159.0
+margin_right = 680.0
+margin_bottom = 199.0
+
+[node name="ColorRect86" type="ColorRect" parent="UI/Playing/map/group"]
+margin_top = 199.0
 margin_right = 40.0
-margin_bottom = 240.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 239.0
 
-[node name="ColorRect82" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect87" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 40.0
-margin_top = 200.0
+margin_top = 199.0
 margin_right = 80.0
-margin_bottom = 240.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 239.0
 
-[node name="ColorRect83" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect88" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 80.0
-margin_top = 200.0
+margin_top = 199.0
 margin_right = 120.0
-margin_bottom = 240.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 239.0
 
-[node name="ColorRect84" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect89" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 120.0
-margin_top = 200.0
+margin_top = 199.0
 margin_right = 160.0
-margin_bottom = 240.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 239.0
 
-[node name="ColorRect85" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect90" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 160.0
-margin_top = 200.0
+margin_top = 199.0
 margin_right = 200.0
-margin_bottom = 240.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 239.0
 
-[node name="ColorRect86" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect91" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 200.0
-margin_top = 200.0
+margin_top = 199.0
 margin_right = 240.0
-margin_bottom = 240.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 239.0
 
-[node name="ColorRect87" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect92" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 240.0
-margin_top = 200.0
+margin_top = 199.0
 margin_right = 280.0
-margin_bottom = 240.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 239.0
 
-[node name="ColorRect88" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect93" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 280.0
-margin_top = 200.0
+margin_top = 199.0
 margin_right = 320.0
-margin_bottom = 240.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 239.0
 
-[node name="ColorRect89" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect94" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 320.0
-margin_top = 200.0
+margin_top = 199.0
 margin_right = 360.0
-margin_bottom = 240.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 239.0
 
-[node name="ColorRect90" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect95" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 360.0
-margin_top = 200.0
+margin_top = 199.0
 margin_right = 400.0
-margin_bottom = 240.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 239.0
 
-[node name="ColorRect91" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect96" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 400.0
-margin_top = 200.0
+margin_top = 199.0
 margin_right = 440.0
-margin_bottom = 240.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 239.0
 
-[node name="ColorRect92" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect97" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 440.0
-margin_top = 200.0
+margin_top = 199.0
 margin_right = 480.0
-margin_bottom = 240.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 239.0
 
-[node name="ColorRect93" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect98" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 480.0
-margin_top = 200.0
+margin_top = 199.0
 margin_right = 520.0
-margin_bottom = 240.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 239.0
 
-[node name="ColorRect94" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect99" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 520.0
-margin_top = 200.0
+margin_top = 199.0
 margin_right = 560.0
-margin_bottom = 240.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 239.0
 
-[node name="ColorRect95" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect100" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 560.0
-margin_top = 200.0
+margin_top = 199.0
 margin_right = 600.0
-margin_bottom = 240.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 239.0
 
-[node name="ColorRect96" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect101" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 600.0
-margin_top = 200.0
+margin_top = 199.0
 margin_right = 640.0
-margin_bottom = 240.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 239.0
 
-[node name="ColorRect97" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
-margin_top = 240.0
+[node name="ColorRect102" type="ColorRect" parent="UI/Playing/map/group"]
+margin_left = 640.0
+margin_top = 199.0
+margin_right = 680.0
+margin_bottom = 239.0
+
+[node name="ColorRect103" type="ColorRect" parent="UI/Playing/map/group"]
+margin_top = 239.0
 margin_right = 40.0
-margin_bottom = 280.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 279.0
 
-[node name="ColorRect98" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect104" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 40.0
-margin_top = 240.0
+margin_top = 239.0
 margin_right = 80.0
-margin_bottom = 280.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 279.0
 
-[node name="ColorRect99" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect105" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 80.0
-margin_top = 240.0
+margin_top = 239.0
 margin_right = 120.0
-margin_bottom = 280.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 279.0
 
-[node name="ColorRect100" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect106" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 120.0
-margin_top = 240.0
+margin_top = 239.0
 margin_right = 160.0
-margin_bottom = 280.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 279.0
 
-[node name="ColorRect101" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect107" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 160.0
-margin_top = 240.0
+margin_top = 239.0
 margin_right = 200.0
-margin_bottom = 280.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 279.0
 
-[node name="ColorRect102" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect108" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 200.0
-margin_top = 240.0
+margin_top = 239.0
 margin_right = 240.0
-margin_bottom = 280.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 279.0
 
-[node name="ColorRect103" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect109" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 240.0
-margin_top = 240.0
+margin_top = 239.0
 margin_right = 280.0
-margin_bottom = 280.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 279.0
 
-[node name="ColorRect104" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect110" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 280.0
-margin_top = 240.0
+margin_top = 239.0
 margin_right = 320.0
-margin_bottom = 280.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 279.0
 
-[node name="ColorRect105" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect111" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 320.0
-margin_top = 240.0
+margin_top = 239.0
 margin_right = 360.0
-margin_bottom = 280.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 279.0
 
-[node name="ColorRect106" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect112" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 360.0
-margin_top = 240.0
+margin_top = 239.0
 margin_right = 400.0
-margin_bottom = 280.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 279.0
 
-[node name="ColorRect107" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect113" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 400.0
-margin_top = 240.0
+margin_top = 239.0
 margin_right = 440.0
-margin_bottom = 280.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 279.0
 
-[node name="ColorRect108" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect114" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 440.0
-margin_top = 240.0
+margin_top = 239.0
 margin_right = 480.0
-margin_bottom = 280.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 279.0
 
-[node name="ColorRect109" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect115" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 480.0
-margin_top = 240.0
+margin_top = 239.0
 margin_right = 520.0
-margin_bottom = 280.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 279.0
 
-[node name="ColorRect110" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect116" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 520.0
-margin_top = 240.0
+margin_top = 239.0
 margin_right = 560.0
-margin_bottom = 280.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 279.0
 
-[node name="ColorRect111" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect117" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 560.0
-margin_top = 240.0
+margin_top = 239.0
 margin_right = 600.0
-margin_bottom = 280.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 279.0
 
-[node name="ColorRect112" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect118" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 600.0
-margin_top = 240.0
+margin_top = 239.0
 margin_right = 640.0
-margin_bottom = 280.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 279.0
 
-[node name="ColorRect113" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
-margin_top = 280.0
+[node name="ColorRect119" type="ColorRect" parent="UI/Playing/map/group"]
+margin_left = 640.0
+margin_top = 239.0
+margin_right = 680.0
+margin_bottom = 279.0
+
+[node name="ColorRect120" type="ColorRect" parent="UI/Playing/map/group"]
+margin_top = 279.0
 margin_right = 40.0
-margin_bottom = 320.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 319.0
 
-[node name="ColorRect114" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect121" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 40.0
-margin_top = 280.0
+margin_top = 279.0
 margin_right = 80.0
-margin_bottom = 320.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 319.0
 
-[node name="ColorRect115" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect122" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 80.0
-margin_top = 280.0
+margin_top = 279.0
 margin_right = 120.0
-margin_bottom = 320.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 319.0
 
-[node name="ColorRect116" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect123" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 120.0
-margin_top = 280.0
+margin_top = 279.0
 margin_right = 160.0
-margin_bottom = 320.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 319.0
 
-[node name="ColorRect117" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect124" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 160.0
-margin_top = 280.0
+margin_top = 279.0
 margin_right = 200.0
-margin_bottom = 320.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 319.0
 
-[node name="ColorRect118" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect125" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 200.0
-margin_top = 280.0
+margin_top = 279.0
 margin_right = 240.0
-margin_bottom = 320.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 319.0
 
-[node name="ColorRect119" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect126" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 240.0
-margin_top = 280.0
+margin_top = 279.0
 margin_right = 280.0
-margin_bottom = 320.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 319.0
 
-[node name="ColorRect120" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect127" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 280.0
-margin_top = 280.0
+margin_top = 279.0
 margin_right = 320.0
-margin_bottom = 320.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 319.0
 
-[node name="ColorRect121" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect128" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 320.0
-margin_top = 280.0
+margin_top = 279.0
 margin_right = 360.0
-margin_bottom = 320.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 319.0
 
-[node name="ColorRect122" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect129" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 360.0
-margin_top = 280.0
+margin_top = 279.0
 margin_right = 400.0
-margin_bottom = 320.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 319.0
 
-[node name="ColorRect123" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect130" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 400.0
-margin_top = 280.0
+margin_top = 279.0
 margin_right = 440.0
-margin_bottom = 320.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 319.0
 
-[node name="ColorRect124" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect131" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 440.0
-margin_top = 280.0
+margin_top = 279.0
 margin_right = 480.0
-margin_bottom = 320.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 319.0
 
-[node name="ColorRect125" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect132" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 480.0
-margin_top = 280.0
+margin_top = 279.0
 margin_right = 520.0
-margin_bottom = 320.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 319.0
 
-[node name="ColorRect126" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect133" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 520.0
-margin_top = 280.0
+margin_top = 279.0
 margin_right = 560.0
-margin_bottom = 320.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 319.0
 
-[node name="ColorRect127" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect134" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 560.0
-margin_top = 280.0
+margin_top = 279.0
 margin_right = 600.0
-margin_bottom = 320.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 319.0
 
-[node name="ColorRect128" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect135" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 600.0
-margin_top = 280.0
+margin_top = 279.0
 margin_right = 640.0
-margin_bottom = 320.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 319.0
 
-[node name="ColorRect129" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
-margin_top = 320.0
+[node name="ColorRect136" type="ColorRect" parent="UI/Playing/map/group"]
+margin_left = 640.0
+margin_top = 279.0
+margin_right = 680.0
+margin_bottom = 319.0
+
+[node name="ColorRect137" type="ColorRect" parent="UI/Playing/map/group"]
+margin_top = 319.0
 margin_right = 40.0
-margin_bottom = 360.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 359.0
 
-[node name="ColorRect130" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect138" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 40.0
-margin_top = 320.0
+margin_top = 319.0
 margin_right = 80.0
-margin_bottom = 360.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 359.0
 
-[node name="ColorRect131" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect139" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 80.0
-margin_top = 320.0
+margin_top = 319.0
 margin_right = 120.0
-margin_bottom = 360.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 359.0
 
-[node name="ColorRect132" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect140" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 120.0
-margin_top = 320.0
+margin_top = 319.0
 margin_right = 160.0
-margin_bottom = 360.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 359.0
 
-[node name="ColorRect133" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect141" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 160.0
-margin_top = 320.0
+margin_top = 319.0
 margin_right = 200.0
-margin_bottom = 360.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 359.0
 
-[node name="ColorRect134" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect142" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 200.0
-margin_top = 320.0
+margin_top = 319.0
 margin_right = 240.0
-margin_bottom = 360.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 359.0
 
-[node name="ColorRect135" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect143" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 240.0
-margin_top = 320.0
+margin_top = 319.0
 margin_right = 280.0
-margin_bottom = 360.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 359.0
 
-[node name="ColorRect136" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect144" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 280.0
-margin_top = 320.0
+margin_top = 319.0
 margin_right = 320.0
-margin_bottom = 360.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 359.0
 
-[node name="ColorRect137" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect145" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 320.0
-margin_top = 320.0
+margin_top = 319.0
 margin_right = 360.0
-margin_bottom = 360.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 359.0
 
-[node name="ColorRect138" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect146" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 360.0
-margin_top = 320.0
+margin_top = 319.0
 margin_right = 400.0
-margin_bottom = 360.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 359.0
 
-[node name="ColorRect139" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect147" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 400.0
-margin_top = 320.0
+margin_top = 319.0
 margin_right = 440.0
-margin_bottom = 360.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 359.0
 
-[node name="ColorRect140" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect148" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 440.0
-margin_top = 320.0
+margin_top = 319.0
 margin_right = 480.0
-margin_bottom = 360.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 359.0
 
-[node name="ColorRect141" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect149" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 480.0
-margin_top = 320.0
+margin_top = 319.0
 margin_right = 520.0
-margin_bottom = 360.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 359.0
 
-[node name="ColorRect142" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect150" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 520.0
-margin_top = 320.0
+margin_top = 319.0
 margin_right = 560.0
-margin_bottom = 360.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 359.0
 
-[node name="ColorRect143" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect151" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 560.0
-margin_top = 320.0
+margin_top = 319.0
 margin_right = 600.0
-margin_bottom = 360.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 359.0
 
-[node name="ColorRect144" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect152" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 600.0
-margin_top = 320.0
+margin_top = 319.0
 margin_right = 640.0
-margin_bottom = 360.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 359.0
 
-[node name="ColorRect145" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
-margin_top = 360.0
+[node name="ColorRect153" type="ColorRect" parent="UI/Playing/map/group"]
+margin_left = 640.0
+margin_top = 319.0
+margin_right = 680.0
+margin_bottom = 359.0
+
+[node name="ColorRect154" type="ColorRect" parent="UI/Playing/map/group"]
+margin_top = 359.0
 margin_right = 40.0
-margin_bottom = 400.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 399.0
 
-[node name="ColorRect146" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect155" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 40.0
-margin_top = 360.0
+margin_top = 359.0
 margin_right = 80.0
-margin_bottom = 400.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 399.0
 
-[node name="ColorRect147" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect156" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 80.0
-margin_top = 360.0
+margin_top = 359.0
 margin_right = 120.0
-margin_bottom = 400.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 399.0
 
-[node name="ColorRect148" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect157" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 120.0
-margin_top = 360.0
+margin_top = 359.0
 margin_right = 160.0
-margin_bottom = 400.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 399.0
 
-[node name="ColorRect149" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect158" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 160.0
-margin_top = 360.0
+margin_top = 359.0
 margin_right = 200.0
-margin_bottom = 400.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 399.0
 
-[node name="ColorRect150" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect159" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 200.0
-margin_top = 360.0
+margin_top = 359.0
 margin_right = 240.0
-margin_bottom = 400.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 399.0
 
-[node name="ColorRect151" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect160" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 240.0
-margin_top = 360.0
+margin_top = 359.0
 margin_right = 280.0
-margin_bottom = 400.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 399.0
 
-[node name="ColorRect152" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect161" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 280.0
-margin_top = 360.0
+margin_top = 359.0
 margin_right = 320.0
-margin_bottom = 400.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 399.0
 
-[node name="ColorRect153" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect162" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 320.0
-margin_top = 360.0
+margin_top = 359.0
 margin_right = 360.0
-margin_bottom = 400.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 399.0
 
-[node name="ColorRect154" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect163" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 360.0
-margin_top = 360.0
+margin_top = 359.0
 margin_right = 400.0
-margin_bottom = 400.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 399.0
 
-[node name="ColorRect155" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect164" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 400.0
-margin_top = 360.0
+margin_top = 359.0
 margin_right = 440.0
-margin_bottom = 400.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 399.0
 
-[node name="ColorRect156" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect165" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 440.0
-margin_top = 360.0
+margin_top = 359.0
 margin_right = 480.0
-margin_bottom = 400.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 399.0
 
-[node name="ColorRect157" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect166" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 480.0
-margin_top = 360.0
+margin_top = 359.0
 margin_right = 520.0
-margin_bottom = 400.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 399.0
 
-[node name="ColorRect158" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect167" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 520.0
-margin_top = 360.0
+margin_top = 359.0
 margin_right = 560.0
-margin_bottom = 400.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 399.0
 
-[node name="ColorRect159" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect168" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 560.0
-margin_top = 360.0
+margin_top = 359.0
 margin_right = 600.0
-margin_bottom = 400.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 399.0
 
-[node name="ColorRect160" type="ColorRect" parent="UI/Playing/map/groups" groups=["tilemap"]]
+[node name="ColorRect169" type="ColorRect" parent="UI/Playing/map/group"]
 margin_left = 600.0
-margin_top = 360.0
+margin_top = 359.0
 margin_right = 640.0
-margin_bottom = 400.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+margin_bottom = 399.0
+
+[node name="ColorRect170" type="ColorRect" parent="UI/Playing/map/group"]
+margin_left = 640.0
+margin_top = 359.0
+margin_right = 680.0
+margin_bottom = 399.0
+
+[node name="ColorRect171" type="ColorRect" parent="UI/Playing/map/group"]
+margin_top = 399.0
+margin_right = 40.0
+margin_bottom = 439.0
+
+[node name="ColorRect172" type="ColorRect" parent="UI/Playing/map/group"]
+margin_left = 40.0
+margin_top = 399.0
+margin_right = 80.0
+margin_bottom = 439.0
+
+[node name="ColorRect173" type="ColorRect" parent="UI/Playing/map/group"]
+margin_left = 80.0
+margin_top = 399.0
+margin_right = 120.0
+margin_bottom = 439.0
+
+[node name="ColorRect174" type="ColorRect" parent="UI/Playing/map/group"]
+margin_left = 120.0
+margin_top = 399.0
+margin_right = 160.0
+margin_bottom = 439.0
+
+[node name="ColorRect175" type="ColorRect" parent="UI/Playing/map/group"]
+margin_left = 160.0
+margin_top = 399.0
+margin_right = 200.0
+margin_bottom = 439.0
+
+[node name="ColorRect176" type="ColorRect" parent="UI/Playing/map/group"]
+margin_left = 200.0
+margin_top = 399.0
+margin_right = 240.0
+margin_bottom = 439.0
+
+[node name="ColorRect177" type="ColorRect" parent="UI/Playing/map/group"]
+margin_left = 240.0
+margin_top = 399.0
+margin_right = 280.0
+margin_bottom = 439.0
+
+[node name="ColorRect178" type="ColorRect" parent="UI/Playing/map/group"]
+margin_left = 280.0
+margin_top = 399.0
+margin_right = 320.0
+margin_bottom = 439.0
+
+[node name="ColorRect179" type="ColorRect" parent="UI/Playing/map/group"]
+margin_left = 320.0
+margin_top = 399.0
+margin_right = 360.0
+margin_bottom = 439.0
+
+[node name="ColorRect180" type="ColorRect" parent="UI/Playing/map/group"]
+margin_left = 360.0
+margin_top = 399.0
+margin_right = 400.0
+margin_bottom = 439.0
+
+[node name="ColorRect181" type="ColorRect" parent="UI/Playing/map/group"]
+margin_left = 400.0
+margin_top = 399.0
+margin_right = 440.0
+margin_bottom = 439.0
+
+[node name="ColorRect182" type="ColorRect" parent="UI/Playing/map/group"]
+margin_left = 440.0
+margin_top = 399.0
+margin_right = 480.0
+margin_bottom = 439.0
+
+[node name="ColorRect183" type="ColorRect" parent="UI/Playing/map/group"]
+margin_left = 480.0
+margin_top = 399.0
+margin_right = 520.0
+margin_bottom = 439.0
+
+[node name="ColorRect184" type="ColorRect" parent="UI/Playing/map/group"]
+margin_left = 520.0
+margin_top = 399.0
+margin_right = 560.0
+margin_bottom = 439.0
+
+[node name="ColorRect185" type="ColorRect" parent="UI/Playing/map/group"]
+margin_left = 560.0
+margin_top = 399.0
+margin_right = 600.0
+margin_bottom = 439.0
+
+[node name="ColorRect186" type="ColorRect" parent="UI/Playing/map/group"]
+margin_left = 600.0
+margin_top = 399.0
+margin_right = 640.0
+margin_bottom = 439.0
+
+[node name="ColorRect187" type="ColorRect" parent="UI/Playing/map/group"]
+margin_left = 640.0
+margin_top = 399.0
+margin_right = 680.0
+margin_bottom = 439.0
 
 [node name="Chessman" type="Sprite" parent="UI/Playing/map"]
 position = Vector2( 300, 60 )
@@ -1908,7 +1607,7 @@ position = Vector2( 1176, 560 )
 position = Vector2( 1335, 560 )
 
 [node name="cards2" type="Node2D" parent="UI/Playing/cards"]
-position = Vector2( 776, 8.00001 )
+position = Vector2( 661, 7.00001 )
 scale = Vector2( 0.4, 0.4 )
 
 [node name="Card" type="Sprite" parent="UI/Playing/cards/cards2"]
@@ -1950,17 +1649,17 @@ text = "0"
 
 [node name="pass" type="ColorRect" parent="UI/Playing/itmes"]
 modulate = Color( 1, 1, 1, 0.784314 )
-margin_left = 785.0
-margin_top = 373.0
-margin_right = 912.0
-margin_bottom = 425.0
+margin_left = 670.0
+margin_top = 372.0
+margin_right = 797.0
+margin_bottom = 424.0
 color = Color( 0.0941176, 0.0941176, 0.0941176, 1 )
 
 [node name="passbutton" type="TextureButton" parent="UI/Playing/itmes"]
-margin_left = 776.0
-margin_top = 365.0
-margin_right = 1215.0
-margin_bottom = 549.0
+margin_left = 661.0
+margin_top = 364.0
+margin_right = 1100.0
+margin_bottom = 548.0
 rect_scale = Vector2( 0.3, 0.3 )
 texture_normal = ExtResource( 14 )
 texture_pressed = ExtResource( 15 )
@@ -1969,71 +1668,71 @@ texture_pressed = ExtResource( 15 )
 
 [node name="ColorRect" type="ColorRect" parent="UI/Playing/itmes/turnButton"]
 modulate = Color( 1, 1, 1, 0.784314 )
-margin_left = 774.0
-margin_top = 215.0
-margin_right = 838.0
-margin_bottom = 278.0
+margin_left = 659.0
+margin_top = 214.0
+margin_right = 723.0
+margin_bottom = 277.0
 color = Color( 0.0941176, 0.0941176, 0.0941176, 1 )
 
 [node name="ColorRect2" type="ColorRect" parent="UI/Playing/itmes/turnButton"]
 modulate = Color( 1, 1, 1, 0.784314 )
-margin_left = 850.0
-margin_top = 215.0
-margin_right = 914.0
-margin_bottom = 278.0
+margin_left = 735.0
+margin_top = 214.0
+margin_right = 799.0
+margin_bottom = 277.0
 color = Color( 0.0941176, 0.0941176, 0.0941176, 1 )
 
 [node name="ColorRect3" type="ColorRect" parent="UI/Playing/itmes/turnButton"]
 modulate = Color( 1, 1, 1, 0.784314 )
-margin_left = 774.0
-margin_top = 288.0
-margin_right = 838.0
-margin_bottom = 351.0
+margin_left = 659.0
+margin_top = 287.0
+margin_right = 723.0
+margin_bottom = 350.0
 color = Color( 0.0941176, 0.0941176, 0.0941176, 1 )
 
 [node name="ColorRect4" type="ColorRect" parent="UI/Playing/itmes/turnButton"]
 modulate = Color( 1, 1, 1, 0.784314 )
-margin_left = 851.0
-margin_top = 289.0
-margin_right = 915.0
-margin_bottom = 352.0
+margin_left = 736.0
+margin_top = 288.0
+margin_right = 800.0
+margin_bottom = 351.0
 color = Color( 0.0941176, 0.0941176, 0.0941176, 1 )
 
 [node name="up" type="TextureButton" parent="UI/Playing/itmes/turnButton"]
-margin_left = 768.0
-margin_top = 209.0
-margin_right = 957.0
-margin_bottom = 398.0
+margin_left = 653.0
+margin_top = 208.0
+margin_right = 842.0
+margin_bottom = 397.0
 rect_scale = Vector2( 0.35, 0.35 )
 texture_normal = ExtResource( 12 )
 texture_pressed = ExtResource( 17 )
 texture_disabled = ExtResource( 17 )
 
 [node name="down" type="TextureButton" parent="UI/Playing/itmes/turnButton"]
-margin_left = 844.0
-margin_top = 209.0
-margin_right = 1033.0
-margin_bottom = 398.0
+margin_left = 729.0
+margin_top = 208.0
+margin_right = 918.0
+margin_bottom = 397.0
 rect_scale = Vector2( 0.35, 0.35 )
 texture_normal = ExtResource( 19 )
 texture_pressed = ExtResource( 20 )
 texture_disabled = ExtResource( 20 )
 
 [node name="left" type="TextureButton" parent="UI/Playing/itmes/turnButton"]
-margin_left = 768.0
-margin_top = 282.0
-margin_right = 957.0
-margin_bottom = 471.0
+margin_left = 653.0
+margin_top = 281.0
+margin_right = 842.0
+margin_bottom = 470.0
 rect_scale = Vector2( 0.35, 0.35 )
 texture_normal = ExtResource( 21 )
 texture_pressed = ExtResource( 13 )
 texture_disabled = ExtResource( 13 )
 
 [node name="right" type="TextureButton" parent="UI/Playing/itmes/turnButton"]
-margin_left = 844.0
-margin_top = 282.0
-margin_right = 1033.0
-margin_bottom = 471.0
+margin_left = 729.0
+margin_top = 281.0
+margin_right = 918.0
+margin_bottom = 470.0
 rect_scale = Vector2( 0.35, 0.35 )
 texture_normal = ExtResource( 16 )
 texture_pressed = ExtResource( 18 )
@@ -2042,8 +1741,9 @@ texture_disabled = ExtResource( 18 )
 [node name="Label" type="Label" parent="UI/Playing"]
 margin_left = 357.0
 margin_top = 12.0
-margin_right = 397.0
-margin_bottom = 26.0
+margin_right = 585.0
+margin_bottom = 38.0
+custom_fonts/font = ExtResource( 3 )
 
 [node name="Label2" type="Label" parent="UI/Playing"]
 margin_left = 520.0
@@ -2052,11 +1752,12 @@ margin_right = 560.0
 margin_bottom = 20.0
 
 [node name="Label3" type="Label" parent="UI/Playing"]
-margin_left = 610.0
-margin_right = 650.0
+margin_left = 491.0
+margin_right = 531.0
 margin_bottom = 14.0
 
 [node name="admin" type="Node2D" parent="UI"]
+visible = false
 
 [node name="ColorRect" type="ColorRect" parent="UI/admin"]
 margin_right = 325.0
