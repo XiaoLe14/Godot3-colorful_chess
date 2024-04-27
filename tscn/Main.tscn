@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=71 format=2]
 
 [ext_resource path="res://script/Main.gd" type="Script" id=1]
 [ext_resource path="res://assets/Broken Console Bold.ttf" type="DynamicFontData" id=2]
@@ -24,12 +24,238 @@
 [ext_resource path="res://assets/map.svg" type="Texture" id=22]
 [ext_resource path="res://assets/wow.svg" type="Texture" id=23]
 [ext_resource path="res://tscn/100.tres" type="DynamicFont" id=24]
+[ext_resource path="res://script/PlayerName.gd" type="Script" id=25]
+[ext_resource path="res://script/IP.gd" type="Script" id=26]
+[ext_resource path="res://assets/tscnplayername.tres" type="Animation" id=27]
+[ext_resource path="res://assets/tscnip.tres" type="Animation" id=28]
+[ext_resource path="res://script/UI.gd" type="Script" id=29]
+[ext_resource path="res://script/Port.gd" type="Script" id=30]
+[ext_resource path="res://script/TextEdit.gd" type="Script" id=31]
+[ext_resource path="res://2.32.tres" type="DynamicFont" id=32]
+[ext_resource path="res://2.20.tres" type="DynamicFont" id=33]
+[ext_resource path="res://2.64.tres" type="DynamicFont" id=34]
+[ext_resource path="res://tscn/2.30.tres" type="DynamicFont" id=35]
+
+[sub_resource type="Animation" id=24]
+resource_name = "bg"
+length = 96.0
+step = 1.0
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 25, 46, 68, 85, 96 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1240, 326 ), Vector2( 1473, -805 ), Vector2( -296, -1443 ), Vector2( -1293, 1094 ), Vector2( 1437, 1193 ), Vector2( 1240, 326 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 25, 46, 68 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ -360.0, -346.8, -346.8, -360.0 ]
+}
 
 [sub_resource type="DynamicFont" id=1]
 size = 56
 outline_size = 4
 outline_color = Color( 0, 0, 0, 1 )
 font_data = ExtResource( 2 )
+
+[sub_resource type="StyleBoxFlat" id=15]
+bg_color = Color( 0, 0.741176, 0.913725, 1 )
+
+[sub_resource type="StyleBoxFlat" id=16]
+bg_color = Color( 0, 0.462745, 0.686275, 1 )
+
+[sub_resource type="StyleBoxFlat" id=17]
+bg_color = Color( 0.27451, 0.529412, 0.8, 1 )
+
+[sub_resource type="StyleBoxFlat" id=18]
+bg_color = Color( 0.635294, 0.392157, 1, 1 )
+
+[sub_resource type="StyleBoxFlat" id=19]
+bg_color = Color( 0.219608, 0.0156863, 0.407843, 1 )
+
+[sub_resource type="StyleBoxFlat" id=20]
+bg_color = Color( 0.517647, 0.219608, 0.913725, 1 )
+
+[sub_resource type="StyleBoxFlat" id=5]
+bg_color = Color( 0, 0.439216, 0.54902, 1 )
+
+[sub_resource type="StyleBoxFlat" id=6]
+bg_color = Color( 0, 0.556863, 0.694118, 1 )
+
+[sub_resource type="Animation" id=10]
+resource_name = "playername"
+tracks/0/type = "value"
+tracks/0/path = NodePath("ColorRect:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 0.182752, 1 ),
+"update": 0,
+"values": [ Vector2( 104, 32 ), Vector2( 0, 32 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("ColorRect:rect_size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 0.182752, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 4 ), Vector2( 208, 4 ) ]
+}
+
+[sub_resource type="StyleBoxFlat" id=8]
+bg_color = Color( 0, 0.439216, 0.54902, 1 )
+
+[sub_resource type="StyleBoxFlat" id=9]
+bg_color = Color( 0, 0.556863, 0.694118, 1 )
+
+[sub_resource type="Animation" id=11]
+resource_name = "ip"
+tracks/0/type = "value"
+tracks/0/path = NodePath("ColorRect:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 0.182, 0.182 ),
+"update": 0,
+"values": [ Vector2( 104, 32 ), Vector2( 0, 32 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("ColorRect:rect_size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 0.182, 0.182 ),
+"update": 0,
+"values": [ Vector2( 0, 4 ), Vector2( 208, 4 ) ]
+}
+
+[sub_resource type="StyleBoxFlat" id=12]
+bg_color = Color( 0, 0.439216, 0.54902, 1 )
+
+[sub_resource type="StyleBoxFlat" id=13]
+bg_color = Color( 0, 0.556863, 0.694118, 1 )
+
+[sub_resource type="Animation" id=14]
+resource_name = "port"
+tracks/0/type = "value"
+tracks/0/path = NodePath("ColorRect:rect_size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 0.182, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 4 ), Vector2( 208, 4 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("ColorRect:rect_position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 0.182, 1 ),
+"update": 0,
+"values": [ Vector2( 104, 32 ), Vector2( 0, 32 ) ]
+}
+
+[sub_resource type="StyleBoxFlat" id=21]
+bg_color = Color( 1, 0.0784314, 0.0784314, 1 )
+
+[sub_resource type="StyleBoxFlat" id=22]
+bg_color = Color( 0.462745, 0.00392157, 0.00392157, 1 )
+
+[sub_resource type="StyleBoxFlat" id=23]
+bg_color = Color( 0.839216, 0.054902, 0.054902, 1 )
+
+[sub_resource type="StyleBoxFlat" id=28]
+bg_color = Color( 0.286275, 0.321569, 1, 1 )
+
+[sub_resource type="StyleBoxFlat" id=29]
+bg_color = Color( 0.113725, 0.129412, 0.584314, 1 )
+
+[sub_resource type="StyleBoxFlat" id=30]
+bg_color = Color( 0.270588, 0.254902, 0.803922, 1 )
+
+[sub_resource type="StyleBoxFlat" id=25]
+bg_color = Color( 0.533333, 0.807843, 0.219608, 1 )
+
+[sub_resource type="StyleBoxFlat" id=26]
+bg_color = Color( 0.345098, 0.486275, 0.129412, 1 )
+
+[sub_resource type="StyleBoxFlat" id=27]
+bg_color = Color( 0.368627, 0.603922, 0.156863, 1 )
+
+[sub_resource type="StyleBoxFlat" id=31]
+bg_color = Color( 0.627451, 0.490196, 0.145098, 1 )
+
+[sub_resource type="StyleBoxFlat" id=32]
+bg_color = Color( 0.854902, 0.545098, 0.133333, 1 )
+
+[sub_resource type="Animation" id=36]
+resource_name = "chat"
+tracks/0/type = "value"
+tracks/0/path = NodePath("ColorRect2:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 0.182, 1 ),
+"update": 0,
+"values": [ Vector2( 109, 28 ), Vector2( 0, 28 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("ColorRect2:rect_size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 0.182, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 3 ), Vector2( 207, 3 ) ]
+}
+
+[sub_resource type="StyleBoxFlat" id=33]
+bg_color = Color( 0.819608, 0.14902, 0.14902, 1 )
+
+[sub_resource type="StyleBoxFlat" id=34]
+bg_color = Color( 0.537255, 0.0588235, 0.0588235, 1 )
+
+[sub_resource type="StyleBoxFlat" id=35]
+bg_color = Color( 0.65098, 0.133333, 0.133333, 1 )
 
 [sub_resource type="DynamicFont" id=2]
 size = 38
@@ -77,11 +303,16 @@ __meta__ = {
 }
 
 [node name="Bg" type="Sprite" parent="."]
-position = Vector2( 115, 410 )
-scale = Vector2( 1.2, 1.2 )
+position = Vector2( 1240, 326 )
+rotation = -6.28319
+scale = Vector2( 0.6, 0.6 )
 texture = ExtResource( 11 )
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Bg"]
+anims/bg = SubResource( 24 )
+
 [node name="UI" type="CanvasLayer" parent="."]
+script = ExtResource( 29 )
 
 [node name="MainUI" type="Node2D" parent="UI"]
 
@@ -93,9 +324,30 @@ margin_bottom = 224.0
 custom_fonts/normal_font = SubResource( 1 )
 bbcode_enabled = true
 bbcode_text = "
-[center][rainbow freq=0.2 sat=3 val=1]The Colorful Chess[/rainbow][/center]"
+[center][rainbow freq=0.2 sat=3 val=1]Colorful Card Chess[/rainbow][/center]"
 text = "
-The Colorful Chess"
+Colorful Card Chess"
+
+[node name="ColorRect3" type="ColorRect" parent="UI/MainUI"]
+margin_left = 662.0
+margin_top = 467.0
+margin_right = 874.0
+margin_bottom = 518.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="ColorRect2" type="ColorRect" parent="UI/MainUI"]
+margin_left = 774.0
+margin_top = 405.0
+margin_right = 986.0
+margin_bottom = 457.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="ColorRect" type="ColorRect" parent="UI/MainUI"]
+margin_left = 550.0
+margin_top = 405.0
+margin_right = 762.0
+margin_bottom = 457.0
+color = Color( 0, 0, 0, 1 )
 
 [node name="createServer" type="Button" parent="UI/MainUI"]
 margin_left = 552.0
@@ -103,6 +355,9 @@ margin_top = 407.0
 margin_right = 760.0
 margin_bottom = 455.0
 custom_fonts/font = ExtResource( 3 )
+custom_styles/hover = SubResource( 15 )
+custom_styles/pressed = SubResource( 16 )
+custom_styles/normal = SubResource( 17 )
 text = "创建服务器"
 
 [node name="joinServer" type="Button" parent="UI/MainUI"]
@@ -111,6 +366,9 @@ margin_top = 407.0
 margin_right = 984.0
 margin_bottom = 455.0
 custom_fonts/font = ExtResource( 3 )
+custom_styles/hover = SubResource( 18 )
+custom_styles/pressed = SubResource( 19 )
+custom_styles/normal = SubResource( 20 )
 text = "加入服务器"
 
 [node name="PlayerName" type="LineEdit" parent="UI/MainUI"]
@@ -119,8 +377,27 @@ margin_top = 261.0
 margin_right = 880.0
 margin_bottom = 297.0
 custom_fonts/font = ExtResource( 4 )
+custom_styles/focus = SubResource( 5 )
+custom_styles/normal = SubResource( 6 )
 max_length = 20
 context_menu_enabled = false
+script = ExtResource( 25 )
+
+[node name="ColorRect2" type="ColorRect" parent="UI/MainUI/PlayerName"]
+margin_top = 32.0
+margin_right = 208.0
+margin_bottom = 36.0
+color = Color( 0, 0.345098, 0.513726, 1 )
+
+[node name="ColorRect" type="ColorRect" parent="UI/MainUI/PlayerName"]
+margin_left = 104.0
+margin_top = 32.0
+margin_right = 104.0
+margin_bottom = 36.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="UI/MainUI/PlayerName"]
+anims/playername = SubResource( 10 )
 
 [node name="PlayerNameLabel" type="Label" parent="UI/MainUI"]
 margin_left = 560.0
@@ -136,7 +413,26 @@ margin_top = 301.0
 margin_right = 880.0
 margin_bottom = 337.0
 custom_fonts/font = ExtResource( 4 )
+custom_styles/focus = SubResource( 8 )
+custom_styles/normal = SubResource( 9 )
 text = "127.0.0.1"
+script = ExtResource( 26 )
+
+[node name="ColorRect2" type="ColorRect" parent="UI/MainUI/IP"]
+margin_top = 32.0
+margin_right = 208.0
+margin_bottom = 36.0
+color = Color( 0, 0.345098, 0.513726, 1 )
+
+[node name="ColorRect" type="ColorRect" parent="UI/MainUI/IP"]
+margin_left = 104.0
+margin_top = 32.0
+margin_right = 104.0
+margin_bottom = 36.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="UI/MainUI/IP"]
+anims/ip = SubResource( 11 )
 
 [node name="IPLabel" type="Label" parent="UI/MainUI"]
 margin_left = 592.0
@@ -152,7 +448,26 @@ margin_top = 341.0
 margin_right = 880.0
 margin_bottom = 377.0
 custom_fonts/font = ExtResource( 4 )
+custom_styles/focus = SubResource( 12 )
+custom_styles/normal = SubResource( 13 )
 text = "3366"
+script = ExtResource( 30 )
+
+[node name="ColorRect2" type="ColorRect" parent="UI/MainUI/Port"]
+margin_top = 32.0
+margin_right = 208.0
+margin_bottom = 36.0
+color = Color( 0, 0.345098, 0.513726, 1 )
+
+[node name="ColorRect" type="ColorRect" parent="UI/MainUI/Port"]
+margin_left = 104.0
+margin_top = 32.0
+margin_right = 104.0
+margin_bottom = 36.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="UI/MainUI/Port"]
+anims/port = SubResource( 14 )
 
 [node name="PortLabel" type="Label" parent="UI/MainUI"]
 margin_left = 592.0
@@ -168,6 +483,9 @@ margin_top = 469.0
 margin_right = 872.0
 margin_bottom = 516.0
 custom_fonts/font = ExtResource( 3 )
+custom_styles/hover = SubResource( 21 )
+custom_styles/pressed = SubResource( 22 )
+custom_styles/normal = SubResource( 23 )
 text = "退出游戏"
 
 [node name="WatingUI" type="Node2D" parent="UI"]
@@ -175,18 +493,17 @@ visible = false
 
 [node name="ColorRect" type="ColorRect" parent="UI/WatingUI"]
 modulate = Color( 1, 1, 1, 0.537255 )
-margin_left = -2.0
-margin_top = 149.0
-margin_right = 284.0
-margin_bottom = 539.0
-color = Color( 0.345098, 0.345098, 0.345098, 1 )
+margin_top = 153.0
+margin_right = 272.0
+margin_bottom = 509.0
+color = Color( 0.223529, 0.223529, 0.223529, 1 )
 
 [node name="title" type="Label" parent="UI/WatingUI"]
 margin_left = 672.0
 margin_top = 49.0
 margin_right = 928.0
 margin_bottom = 113.0
-custom_fonts/font = ExtResource( 5 )
+custom_fonts/font = ExtResource( 34 )
 text = "等待大厅"
 
 [node name="1" type="Label" parent="UI/WatingUI"]
@@ -194,7 +511,7 @@ margin_left = 288.0
 margin_top = 516.0
 margin_right = 448.0
 margin_bottom = 548.0
-custom_fonts/font = ExtResource( 3 )
+custom_fonts/font = ExtResource( 32 )
 text = "等待中"
 align = 1
 clip_text = true
@@ -204,7 +521,7 @@ margin_left = 624.0
 margin_top = 516.0
 margin_right = 776.0
 margin_bottom = 548.0
-custom_fonts/font = ExtResource( 3 )
+custom_fonts/font = ExtResource( 32 )
 text = "等待中"
 align = 1
 valign = 1
@@ -215,7 +532,7 @@ margin_left = 904.0
 margin_top = 516.0
 margin_right = 1062.0
 margin_bottom = 548.0
-custom_fonts/font = ExtResource( 3 )
+custom_fonts/font = ExtResource( 32 )
 text = "等待中"
 align = 1
 clip_text = true
@@ -225,48 +542,97 @@ margin_left = 1192.0
 margin_top = 516.0
 margin_right = 1344.0
 margin_bottom = 548.0
-custom_fonts/font = ExtResource( 3 )
+custom_fonts/font = ExtResource( 32 )
 text = "等待中"
 align = 1
 clip_text = true
+
+[node name="ColorRect3" type="ColorRect" parent="UI/WatingUI"]
+margin_left = 1055.0
+margin_top = 607.0
+margin_right = 1201.0
+margin_bottom = 657.0
+color = Color( 0, 0, 0, 1 )
 
 [node name="StartGame" type="Button" parent="UI/WatingUI"]
 margin_left = 1056.0
 margin_top = 608.0
 margin_right = 1200.0
 margin_bottom = 656.0
-custom_fonts/font = ExtResource( 4 )
+custom_fonts/font = ExtResource( 35 )
+custom_styles/hover = SubResource( 28 )
+custom_styles/pressed = SubResource( 29 )
+custom_styles/normal = SubResource( 30 )
 text = "开始"
+
+[node name="ColorRect2" type="ColorRect" parent="UI/WatingUI"]
+margin_left = 503.0
+margin_top = 607.0
+margin_right = 649.0
+margin_bottom = 657.0
+color = Color( 0, 0, 0, 1 )
 
 [node name="Back" type="Button" parent="UI/WatingUI"]
 margin_left = 504.0
 margin_top = 608.0
 margin_right = 648.0
 margin_bottom = 656.0
-custom_fonts/font = ExtResource( 4 )
+custom_fonts/font = ExtResource( 35 )
+custom_styles/hover = SubResource( 25 )
+custom_styles/pressed = SubResource( 26 )
+custom_styles/normal = SubResource( 27 )
 text = "返回"
 
 [node name="Chat" type="RichTextLabel" parent="UI/WatingUI"]
 margin_top = 153.0
 margin_right = 272.0
-margin_bottom = 512.0
-custom_fonts/mono_font = ExtResource( 6 )
-custom_fonts/bold_italics_font = ExtResource( 6 )
-custom_fonts/italics_font = ExtResource( 6 )
-custom_fonts/bold_font = ExtResource( 6 )
-custom_fonts/normal_font = ExtResource( 6 )
+margin_bottom = 509.0
+custom_fonts/mono_font = ExtResource( 33 )
+custom_fonts/bold_italics_font = ExtResource( 33 )
+custom_fonts/italics_font = ExtResource( 33 )
+custom_fonts/bold_font = ExtResource( 33 )
+custom_fonts/normal_font = ExtResource( 33 )
 
 [node name="TextEdit" type="LineEdit" parent="UI/WatingUI"]
-margin_top = 508.0
-margin_right = 208.0
-margin_bottom = 538.0
+margin_top = 509.0
+margin_right = 207.0
+margin_bottom = 540.0
 custom_fonts/font = ExtResource( 6 )
+custom_styles/focus = SubResource( 31 )
+custom_styles/normal = SubResource( 32 )
+script = ExtResource( 31 )
+
+[node name="ColorRect" type="ColorRect" parent="UI/WatingUI/TextEdit"]
+margin_top = 28.0
+margin_right = 209.0
+margin_bottom = 31.0
+color = Color( 0.835294, 0.431373, 0, 1 )
+
+[node name="ColorRect2" type="ColorRect" parent="UI/WatingUI/TextEdit"]
+margin_left = 109.0
+margin_top = 28.0
+margin_right = 109.0
+margin_bottom = 31.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="UI/WatingUI/TextEdit"]
+anims/chat = SubResource( 36 )
+
+[node name="ColorRect4" type="ColorRect" parent="UI/WatingUI"]
+margin_left = 207.0
+margin_top = 509.0
+margin_right = 273.0
+margin_bottom = 540.0
+color = Color( 0, 0, 0, 1 )
 
 [node name="send" type="Button" parent="UI/WatingUI"]
 margin_left = 208.0
-margin_top = 512.0
-margin_right = 270.0
-margin_bottom = 536.0
+margin_top = 510.0
+margin_right = 272.0
+margin_bottom = 539.0
+custom_styles/hover = SubResource( 33 )
+custom_styles/pressed = SubResource( 34 )
+custom_styles/normal = SubResource( 35 )
 text = "SEND"
 
 [node name="Wrong" type="Node2D" parent="UI"]
@@ -1793,6 +2159,8 @@ align = 1
 valign = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="UI/Wow"]
+anims/ip = ExtResource( 28 )
+anims/playername = ExtResource( 27 )
 anims/run = SubResource( 4 )
 
 [node name="RayCast2D" type="RayCast2D" parent="UI/Wow"]
@@ -1811,11 +2179,20 @@ one_shot = true
 
 [node name="Timer" type="Timer" parent="."]
 
+[connection signal="animation_finished" from="Bg/AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 [connection signal="pressed" from="UI/MainUI/createServer" to="." method="_on_createServer_pressed"]
 [connection signal="pressed" from="UI/MainUI/joinServer" to="." method="_on_joinServer_pressed"]
+[connection signal="mouse_entered" from="UI/MainUI/PlayerName" to="UI/MainUI/PlayerName" method="_on_PlayerName_mouse_entered"]
+[connection signal="mouse_exited" from="UI/MainUI/PlayerName" to="UI/MainUI/PlayerName" method="_on_PlayerName_mouse_exited"]
+[connection signal="mouse_entered" from="UI/MainUI/IP" to="UI/MainUI/IP" method="_on_IP_mouse_entered"]
+[connection signal="mouse_exited" from="UI/MainUI/IP" to="UI/MainUI/IP" method="_on_IP_mouse_exited"]
+[connection signal="mouse_entered" from="UI/MainUI/Port" to="UI/MainUI/Port" method="_on_Port_mouse_entered"]
+[connection signal="mouse_exited" from="UI/MainUI/Port" to="UI/MainUI/Port" method="_on_Port_mouse_exited"]
 [connection signal="pressed" from="UI/MainUI/quit" to="." method="_on_quit_pressed"]
 [connection signal="pressed" from="UI/WatingUI/StartGame" to="." method="_on_StartGame_pressed"]
 [connection signal="pressed" from="UI/WatingUI/Back" to="." method="_on_Back_pressed"]
+[connection signal="mouse_entered" from="UI/WatingUI/TextEdit" to="UI/WatingUI/TextEdit" method="_on_TextEdit_mouse_entered"]
+[connection signal="mouse_exited" from="UI/WatingUI/TextEdit" to="UI/WatingUI/TextEdit" method="_on_TextEdit_mouse_exited"]
 [connection signal="pressed" from="UI/WatingUI/send" to="." method="_on_send_pressed"]
 [connection signal="timeout" from="UI/Wrong/WrongTimer" to="." method="_on_WrongTimer_timeout"]
 [connection signal="pressed" from="UI/Playing/itmes/passbutton" to="." method="_on_passbutton_pressed"]

@@ -282,6 +282,7 @@ remote var Round = 1
 func _ready() -> void:
 	for child in $UI/Playing/map/group.get_children():
 		child.add_to_group("tilemap")
+	$Bg/AnimationPlayer.play("bg")
 	self.get_tree().connect('network_peer_connected', self, '_onNewPlayerConnected')
 	self.get_tree().connect('network_peer_disconnected', self, '_onPlayerDisconnected')
 	self.get_tree().connect('server_disconnected', self, '_onServerDisconnected')
@@ -290,7 +291,6 @@ func _ready() -> void:
 	
 func _process(delta):
 	$UI/Playing/Label3.text = str($UI/Playing/map/Chessman.cx)
-	
 	$UI/Playing/Label2.text = str($UI/Playing/map/Chessman.cy)
 	
 	randomize()
@@ -664,7 +664,7 @@ remote func randi_send_card(num,id):
 				instance_num += 1
 				break
 	if not instance_num == num:
-		if is_network_master():
+		if id == 1:
 			wrong("剩余卡槽不足")
 		else:
 			rpc_id(id,"wrong","剩余卡槽不足")
@@ -1038,3 +1038,5 @@ func name_to_rgb(name:String):
 		return colors[2]
 	if name == "yellow":
 		return colors[3]
+func _on_AnimationPlayer_animation_finished(anim_name):
+	$Bg/AnimationPlayer.play("bg")
