@@ -14,6 +14,13 @@ script = ExtResource( 2 )
 
 [node name="Tween" type="Tween" parent="."]
 
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
+[node name="Tween2" type="Tween" parent="."]
+
 [connection signal="mouse_entered" from="." to="." method="_on_TextureButton_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_TextureButton_mouse_exited"]
 [connection signal="pressed" from="." to="." method="_on_move_card_pressed"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

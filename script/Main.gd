@@ -802,13 +802,12 @@ func replace_brackets_pairs(user_input: String) -> String:
 
 	return output
 func delete_card(node,ibe:bool):
-	
-	$Tween.interpolate_property(node,"dissolve",1,0,0.5)
-	$Tween.start()
-	yield(get_tree().create_timer(0.5), "timeout")
+	var tw = create_and_add_tween()
+	tw.interpolate_property(node,"modulate",Color(1,1,1,1),Color(1,1,1,0),0.3)
+	tw.start()
+	yield(get_tree().create_timer(0.3), "timeout")
 	if ibe:
-		var pos = to_global(node.rect_position)
-		creat_be(3,pos)
+		creat_be(3,node.rect_global_position)
 	node.queue_free()
 func creat_be(num,pos):
 	for i in range(num):
@@ -996,10 +995,3 @@ func name_to_rgb(name:String):
 		return colors[3]
 func _on_AnimationPlayer_animation_finished(anim_name):
 	$Bg/AnimationPlayer.play("bg")
-
-
-
-
-func _on_Button_pressed():
-	for card in $UI/Playing/cards/HBoxContainer.get_children():
-		print(card.name+"|"+str(card.rect_global_position)+"|"+str(card.rect_position))

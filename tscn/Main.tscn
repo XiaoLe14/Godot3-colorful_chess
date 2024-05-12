@@ -2105,13 +2105,6 @@ margin_left = 491.0
 margin_right = 531.0
 margin_bottom = 14.0
 
-[node name="Button" type="Button" parent="UI/Playing"]
-margin_left = 84.0
-margin_top = 249.0
-margin_right = 291.0
-margin_bottom = 314.0
-text = "1231"
-
 [node name="admin" type="Node2D" parent="UI"]
 visible = false
 
@@ -2190,7 +2183,6 @@ one_shot = true
 [connection signal="pressed" from="UI/Playing/itmes/turnButton/down" to="." method="_on_down_pressed"]
 [connection signal="pressed" from="UI/Playing/itmes/turnButton/left" to="." method="_on_left_pressed"]
 [connection signal="pressed" from="UI/Playing/itmes/turnButton/right" to="." method="_on_right_pressed"]
-[connection signal="pressed" from="UI/Playing/Button" to="." method="_on_Button_pressed"]
 [connection signal="pressed" from="UI/admin/Admin_pass_button" to="." method="_on_Admin_pass_button_pressed"]
 [connection signal="timeout" from="CTimer" to="." method="_on_CTimer_timeout"]
 [connection signal="timeout" from="CTimer2" to="." method="_on_CTimer2_timeout"]
