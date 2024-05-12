@@ -237,49 +237,10 @@ var mm = {
 	},
 	
 }
-var cms1 = {
-	"is_used":false,
-	"id":0,
-	"node":1
-}
-var cms2 = {
-	"is_used":false,
-	"id":0,
-	"node":2
-}
-var cms3 = {
-	"is_used":false,
-	"id":0,
-	"node":3
-}
-var cms4 = {
-	"is_used":false,
-	"id":0,
-	"node":4
-}
-var cms5 = {
-	"is_used":false,
-	"id":0,
-	"node":5
-}
-var cms6 = {
-	"is_used":false,
-	"id":0,
-	"node":6
-}
-var cms7 = {
-	"is_used":false,
-	"id":0,
-	"node":7
-}
-var cms8 = {
-	"is_used":false,
-	"id":0,
-	"node":8
-}
-var cmspawns = [cms1,cms2,cms3,cms4,cms5,cms6,cms7,cms8]
+
 remote var Round = 1
 func _ready() -> void:
+	
 	for child in $UI/Playing/map/group.get_children():
 		child.add_to_group("tilemap")
 	$Bg/AnimationPlayer.play("bg")
@@ -339,7 +300,7 @@ func _process(delta):
 			$UI/Playing/Name/name3.bbcode_text = $"UI/WatingUI/3".text
 			$UI/Playing/Name/name4.bbcode_text = $"UI/WatingUI/4".text
 	if gameStarting:
-		$UI/Playing/Label.text = str(get_color($UI/Playing/map/Chessman.cx,$UI/Playing/map/Chessman.cy))
+		#$UI/Playing/Label.text = str(get_color($UI/Playing/map/Chessman.cx,$UI/Playing/map/Chessman.cy))
 		if Round == 1:
 			$UI/Playing/Name/name1.bbcode_text = "[color=green][center]"+replace_brackets_pairs(players[0].name)+"[/center][/color]"
 			$UI/Playing/Name/name2.bbcode_text = "[center]"+replace_brackets_pairs(players[1].name)+"[/center]"
@@ -628,46 +589,45 @@ func get_color(x,y):
 func _on_quit_pressed():
 	get_tree().quit()
 
+func create_and_add_tween() -> Tween:
+	var tween = Tween.new()
+	add_child(tween)
+	return tween
 remote func randi_send_card(num,id):
-	var instance_num = 0
+	var num1 = 1
 	for i in range(num):
-		var spawnum = 0
 		var random_index
 		var card_path
 		var card
-		for spawn in cmspawns:
-			if spawn.is_used == false:
-				if rand_range(0,10) < card_g:
-					random_index = randi() % move_card_path.size()
-					card_path = move_card_path[random_index]
-					card = move_card.instance()
-					card.connect("move_card_click", self, "_on_m_card_clickd")
+		if len($UI/Playing/cards/HBoxContainer.get_children()) == 8:
+			if id == 1:
+				wrong("剩余卡槽不足")
+				return false
+			else:
+				rpc_id(id,"wrong","剩余卡槽不足")
+				return false
+		if rand_range(0,10) < card_g:
+			random_index = randi() % move_card_path.size()
+			card_path = move_card_path[random_index]
+			card = move_card.instance()
+			card.connect("move_card_click", self, "_on_m_card_clickd")
 		
-				else:
-					random_index = randi() % special_card_path.size()
-					card_path = special_card_path[random_index]
-					card = special_card.instance()
-					card.connect("special_card_click", self, "_on_s_card_clickd")
-				
-				$UI/Playing/cards.add_child(card)
-				var card_spawn = $UI/Playing/cards/cardspawn.get_children()[spawn.node - 1].position
-				card.set_texture(load(card_path))
-				card.position = position
-				$Tween.interpolate_property(card,"position",position,card_spawn, 0.8,Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
-				$Tween.start()
-				card.start_pos = card_spawn
-				card.add_to_group("card")
-				
-				spawn.is_used = true
-				spawn.id = card.name
-				yield(get_tree().create_timer(0.3), "timeout")
-				instance_num += 1
-				break
-	if not instance_num == num:
-		if id == 1:
-			wrong("剩余卡槽不足")
 		else:
-			rpc_id(id,"wrong","剩余卡槽不足")
+			random_index = randi() % special_card_path.size()
+			card_path = special_card_path[random_index]
+			card = special_card.instance()
+			card.connect("special_card_click", self, "_on_s_card_clickd")
+		card.modulate = Color(1,1,1,0)
+		$UI/Playing/cards/HBoxContainer.add_child(card)
+		card.texture_normal = load(card_path)
+		card.add_to_group("card")
+		yield(get_tree().create_timer(0.01), "timeout")
+		var to_pos = card.rect_position
+		var tween = create_and_add_tween()
+		tween.interpolate_property(card,"rect_position",Vector2(1375,-1285),to_pos,0.5,Tween.TRANS_QUART,Tween.EASE_OUT)
+		tween.start()
+		card.modulate = Color(1,1,1,1)
+		yield(get_tree().create_timer(0.5), "timeout")
 func _on_m_card_clickd(id,cname):
 	var fastmove=false
 	var num1 = 0
@@ -750,11 +710,6 @@ func _on_m_card_clickd(id,cname):
 		else:
 			rpc_id(1,"fast_move")
 			print(2.2)
-	for cardspawn in cmspawns:
-		if str(cardspawn.id) == cname:
-			cardspawn.id = 0
-			cardspawn.is_used = false
-			return
 func _on_s_card_clickd(id):
 	var numbers = ["1", "2", "3", "4", "5", "6"]############################
 	var base_id = ".png"  # 基础文件扩展名
@@ -847,11 +802,12 @@ func replace_brackets_pairs(user_input: String) -> String:
 
 	return output
 func delete_card(node,ibe:bool):
-	$Tween.interpolate_property(node,"position",node.position,Vector2(node.position.x,node.position.y-60),0.5)
-	$Tween.interpolate_property(node,"scale",node.scale,Vector2(0,0),0.5)
+	
+	$Tween.interpolate_property(node,"dissolve",1,0,0.5)
+	$Tween.start()
 	yield(get_tree().create_timer(0.5), "timeout")
 	if ibe:
-		var pos = node.global_position
+		var pos = to_global(node.rect_position)
 		creat_be(3,pos)
 	node.queue_free()
 func creat_be(num,pos):
@@ -1040,3 +996,10 @@ func name_to_rgb(name:String):
 		return colors[3]
 func _on_AnimationPlayer_animation_finished(anim_name):
 	$Bg/AnimationPlayer.play("bg")
+
+
+
+
+func _on_Button_pressed():
+	for card in $UI/Playing/cards/HBoxContainer.get_children():
+		print(card.name+"|"+str(card.rect_global_position)+"|"+str(card.rect_position))

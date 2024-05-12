@@ -1946,32 +1946,6 @@ one_shot = true
 
 [node name="cards" type="Node2D" parent="UI/Playing"]
 
-[node name="cardspawn" type="Node2D" parent="UI/Playing/cards"]
-
-[node name="card1" type="Node2D" parent="UI/Playing/cards/cardspawn"]
-position = Vector2( 216, 560 )
-
-[node name="card2" type="Node2D" parent="UI/Playing/cards/cardspawn"]
-position = Vector2( 375, 560 )
-
-[node name="card3" type="Node2D" parent="UI/Playing/cards/cardspawn"]
-position = Vector2( 535, 560 )
-
-[node name="card4" type="Node2D" parent="UI/Playing/cards/cardspawn"]
-position = Vector2( 695, 560 )
-
-[node name="card5" type="Node2D" parent="UI/Playing/cards/cardspawn"]
-position = Vector2( 855, 560 )
-
-[node name="card6" type="Node2D" parent="UI/Playing/cards/cardspawn"]
-position = Vector2( 1015, 560 )
-
-[node name="card7" type="Node2D" parent="UI/Playing/cards/cardspawn"]
-position = Vector2( 1176, 560 )
-
-[node name="card8" type="Node2D" parent="UI/Playing/cards/cardspawn"]
-position = Vector2( 1335, 560 )
-
 [node name="cards2" type="Node2D" parent="UI/Playing/cards"]
 position = Vector2( 661, 7.00001 )
 scale = Vector2( 0.4, 0.4 )
@@ -1980,6 +1954,15 @@ scale = Vector2( 0.4, 0.4 )
 position = Vector2( 160, 220 )
 scale = Vector2( 0.8, 0.8 )
 texture = ExtResource( 7 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/Playing/cards"]
+margin_left = 109.0
+margin_top = 518.0
+margin_right = 3419.0
+margin_bottom = 1081.0
+rect_scale = Vector2( 0.4, 0.4 )
+custom_constants/separation = 50
+alignment = 1
 
 [node name="itmes" type="Node2D" parent="UI/Playing"]
 
@@ -2122,6 +2105,13 @@ margin_left = 491.0
 margin_right = 531.0
 margin_bottom = 14.0
 
+[node name="Button" type="Button" parent="UI/Playing"]
+margin_left = 84.0
+margin_top = 249.0
+margin_right = 291.0
+margin_bottom = 314.0
+text = "1231"
+
 [node name="admin" type="Node2D" parent="UI"]
 visible = false
 
@@ -2200,6 +2190,7 @@ one_shot = true
 [connection signal="pressed" from="UI/Playing/itmes/turnButton/down" to="." method="_on_down_pressed"]
 [connection signal="pressed" from="UI/Playing/itmes/turnButton/left" to="." method="_on_left_pressed"]
 [connection signal="pressed" from="UI/Playing/itmes/turnButton/right" to="." method="_on_right_pressed"]
+[connection signal="pressed" from="UI/Playing/Button" to="." method="_on_Button_pressed"]
 [connection signal="pressed" from="UI/admin/Admin_pass_button" to="." method="_on_Admin_pass_button_pressed"]
 [connection signal="timeout" from="CTimer" to="." method="_on_CTimer_timeout"]
 [connection signal="timeout" from="CTimer2" to="." method="_on_CTimer2_timeout"]
