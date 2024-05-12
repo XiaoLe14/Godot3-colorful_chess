@@ -957,6 +957,7 @@ func turn_button_disabled(mode:bool):
 	$UI/Playing/itmes/turnButton/down.disabled = mode
 	$UI/Playing/itmes/turnButton/left.disabled = mode
 	$UI/Playing/itmes/turnButton/right.disabled = mode
+	$UI/Playing/itmes/passbutton.disabled = mode
 
 
 

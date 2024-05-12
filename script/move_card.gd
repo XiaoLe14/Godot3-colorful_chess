@@ -32,17 +32,19 @@ func _on_entered():
 	start_pos = Vector2(rect_position.x,0)
 	to_pos = Vector2(rect_position.x,-50)
 	$Tween.interpolate_property($".","rect_position",start_pos,to_pos,0.1)
-	$Tween2.interpolate_property($".","rect_scale",Vector2(1.0,1.0),Vector2(1.2,1.2),0.1,Tween.TRANS_BACK)
+	var tween = create_tween().set_trans(Tween.TRANS_ELASTIC).set_ease(Tween.EASE_OUT)
+	tween.tween_property($".","rect_scale",Vector2(1.2,1.2),0.2)
+	
 	$Tween.start()
-	$Tween2.start()
+	#tween.start()
 func _on_exited():
 	uped = false
 	var leave_sp = Vector2(rect_position.x,-50)
 	var leave_tp = Vector2(rect_position.x,0)
+	var tween = get_tree().create_tween().set_trans(Tween.TRANS_ELASTIC).set_ease(Tween.EASE_OUT)
 	$Tween.interpolate_property($".","rect_position",leave_sp,leave_tp,0.1)
 	$Tween.start()
-	$Tween2.interpolate_property($".","rect_scale",Vector2(1.2,1.2),Vector2(1.0,1.0),0.1,Tween.TRANS_BACK)
-	$Tween2.start()
+	tween.tween_property($".","rect_scale",Vector2(1.0,1.0),0.2)
 
 func _on_click():
 	if mode:
