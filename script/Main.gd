@@ -672,22 +672,23 @@ func _on_m_card_clickd(id,cname):
 		if node.name == cname:
 			delete_card(node,true)
 	num = 0
+	var dir = $UI/Playing/map/Chessman.cr
 	for turning in mm[idnum]["turn"]:
 		turn_button_disabled(true)
 		if is_even_or_odd(num +1) == "Even":
 			if not is_network_master():
-				rpc_id(1,"move_chess","Even",turning)
+				rpc_id(1,"move_chess","Even",turning,dir,id)
 				
 				yield(get_tree().create_timer(1.0), "timeout")
 			else:
-				move_chess("Even",turning)
+				move_chess("Even",turning,dir,id)
 				yield(get_tree().create_timer(1.0), "timeout")
 		else:
 			if not is_network_master():
-				rpc_id(1,"move_chess","ne",turning)
+				rpc_id(1,"move_chess","ne",turning,dir,id)
 				yield(get_tree().create_timer(1.0), "timeout")
 			else:
-				move_chess("ne",turning)
+				move_chess("ne",turning,dir,id)
 				yield(get_tree().create_timer(1.0), "timeout")
 		num += 1
 	for node in get_tree().get_nodes_in_group("card"):
@@ -720,25 +721,61 @@ remote func fast_move():
 	print(3)
 	rpc('wow',"快捷移动,继续当前会合")
 	wow("快捷移动,继续当前会合")
-remote func move_chess(direction:String,long:int):
+remote func move_chess(direction:String,long:int,dir:int,id):
+	id = int(id)
 	if is_network_master():
 		if direction == "Even":
-			if $UI/Playing/map/Chessman.cr % 4 == 0:
+			print("e"+str(long))
+			if dir % 4 == 0:
+				if long < 0:
+					set_cr(3)
+				if long > 0:
+					set_cr(1)
 				$UI/Playing/map/Chessman.cx += long
-			if $UI/Playing/map/Chessman.cr % 4 == 1:
+			if dir % 4 == 1:
+				if long < 0:
+					set_cr(0)
+				if long > 0:
+					set_cr(2)
 				$UI/Playing/map/Chessman.cy += long
-			if $UI/Playing/map/Chessman.cr % 4 == 2:
+			if dir % 4 == 2:
+				if long < 0:
+					set_cr(1)
+				if long > 0:
+					set_cr(3)
 				$UI/Playing/map/Chessman.cx -= long
-			if $UI/Playing/map/Chessman.cr % 4 == 3:
+			if dir % 4 == 3:
+				if long < 0:
+					set_cr(2)
+				if long > 0:
+					set_cr(0)
 				$UI/Playing/map/Chessman.cy -= long
+				
 		if direction == "ne":
-			if $UI/Playing/map/Chessman.cr % 4 == 0:
+			print("n"+str(long))
+			if dir % 4 == 0:
+				if long > 0:
+					set_cr(2)
+				if long < 0:
+					set_cr(0)
 				$UI/Playing/map/Chessman.cy += long
-			if $UI/Playing/map/Chessman.cr % 4 == 1:
+			if dir % 4 == 1:
+				if long > 0:
+					set_cr(3)
+				if long < 0:
+					set_cr(1)
 				$UI/Playing/map/Chessman.cx -= long
-			if $UI/Playing/map/Chessman.cr % 4 == 2:
+			if dir % 4 == 2:
+				if long > 0:
+					set_cr(0)
+				if long < 0:
+					set_cr(2)
 				$UI/Playing/map/Chessman.cy -= long
-			if $UI/Playing/map/Chessman.cr % 4 == 3:
+			if dir % 4 == 3:
+				if long > 0:
+					set_cr(1)
+				if long < 0:
+					set_cr(3)
 				$UI/Playing/map/Chessman.cx += long
 func check_chess(tcx, tcy,direction:String,long:int):
 	if direction == "Even":
@@ -851,6 +888,9 @@ func check_round():
 			else:
 				return false
 		num1 += 1
+
+
+
 func _on_up_pressed():
 	if not check_round():
 		wrong("还没到你")
@@ -877,6 +917,7 @@ func _on_up_pressed():
 			return
 
 func _on_down_pressed():
+
 	if not check_round():
 		wrong("还没到你")
 		return

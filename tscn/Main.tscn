@@ -1,14 +1,13 @@
-[gd_scene load_steps=76 format=2]
+[gd_scene load_steps=74 format=2]
 
 [ext_resource path="res://script/Main.gd" type="Script" id=1]
 [ext_resource path="res://assets/Broken Console Bold.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://tscn/32.tres" type="DynamicFont" id=3]
-[ext_resource path="res://tscn/29.tres" type="DynamicFont" id=4]
+[ext_resource path="res://tscn/Chessman.tscn" type="PackedScene" id=4]
 [ext_resource path="res://tscn/64.tres" type="DynamicFont" id=5]
 [ext_resource path="res://tscn/20.tres" type="DynamicFont" id=6]
 [ext_resource path="res://assets/cards/card.png" type="Texture" id=7]
-[ext_resource path="res://script/Chessman.gd" type="Script" id=8]
-[ext_resource path="res://assets/chessman.png" type="Texture" id=9]
+[ext_resource path="res://tscn/像素25.tres" type="DynamicFont" id=8]
 [ext_resource path="res://assets/itmes/BE.png" type="Texture" id=10]
 [ext_resource path="res://assets/background/bg.png" type="Texture" id=11]
 [ext_resource path="res://assets/turnbutton/turn.png" type="Texture" id=12]
@@ -128,11 +127,6 @@ tracks/1/keys = {
 "update": 0,
 "values": [ Vector2( 0, 4 ), Vector2( 208, 4 ) ]
 }
-
-[sub_resource type="DynamicFont" id=40]
-size = 25
-extra_spacing_top = 10
-font_data = ExtResource( 2 )
 
 [sub_resource type="StyleBoxFlat" id=8]
 bg_color = Color( 0, 0.439216, 0.54902, 1 )
@@ -307,7 +301,6 @@ tracks/1/keys = {
 }
 
 [node name="Main" type="Node2D"]
-material = ExtResource( 36 )
 position = Vector2( 661, 7 )
 script = ExtResource( 1 )
 __meta__ = {
@@ -429,7 +422,7 @@ margin_left = 672.0
 margin_top = 301.0
 margin_right = 880.0
 margin_bottom = 337.0
-custom_fonts/font = SubResource( 40 )
+custom_fonts/font = ExtResource( 8 )
 custom_styles/focus = SubResource( 8 )
 custom_styles/normal = SubResource( 9 )
 text = "127.0.0.1"
@@ -464,7 +457,7 @@ margin_left = 672.0
 margin_top = 341.0
 margin_right = 880.0
 margin_bottom = 377.0
-custom_fonts/font = ExtResource( 4 )
+custom_fonts/font = ExtResource( 8 )
 custom_styles/focus = SubResource( 12 )
 custom_styles/normal = SubResource( 13 )
 text = "3366"
@@ -1949,17 +1942,7 @@ margin_top = 399.0
 margin_right = 680.0
 margin_bottom = 439.0
 
-[node name="Chessman" type="Sprite" parent="UI/Playing/map"]
-position = Vector2( 300, 60 )
-scale = Vector2( 0.1, 0.1 )
-texture = ExtResource( 9 )
-script = ExtResource( 8 )
-cx = 8
-cy = 5
-
-[node name="Timer" type="Timer" parent="UI/Playing/map/Chessman"]
-wait_time = 3.0
-one_shot = true
+[node name="Chessman" parent="UI/Playing/map" instance=ExtResource( 4 )]
 
 [node name="cards" type="Node2D" parent="UI/Playing"]
 
