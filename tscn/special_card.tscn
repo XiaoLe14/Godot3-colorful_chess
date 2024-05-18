@@ -1,19 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://script/special_card.gd" type="Script" id=1]
 [ext_resource path="res://assets/cards/special_cards/1.png" type="Texture" id=2]
-[ext_resource path="res://tscn/rongjie.gdshader" type="Shader" id=3]
-[ext_resource path="res://assets/itmes/ccd2b247fcba55c149f7afa9aa04eadd9d15e5db866a-XSGvoN_fw658.webp" type="Texture" id=4]
-
-[sub_resource type="ShaderMaterial" id=1]
-shader = ExtResource( 3 )
-shader_param/dissolve_value = 1.0
-shader_param/burn_size = 0.15
-shader_param/burn_color = Plane( 255, 215, 0, 0 )
-shader_param/dissolve_texture = ExtResource( 4 )
 
 [node name="special_card" type="TextureButton"]
-material = SubResource( 1 )
 margin_right = 412.0
 margin_bottom = 563.0
 rect_scale = Vector2( 0.4, 0.4 )

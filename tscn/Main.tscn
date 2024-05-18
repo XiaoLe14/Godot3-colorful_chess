@@ -1,4 +1,4 @@
-[gd_scene load_steps=74 format=2]
+[gd_scene load_steps=87 format=2]
 
 [ext_resource path="res://script/Main.gd" type="Script" id=1]
 [ext_resource path="res://assets/Broken Console Bold.ttf" type="DynamicFontData" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://tscn/20.tres" type="DynamicFont" id=6]
 [ext_resource path="res://assets/cards/card.png" type="Texture" id=7]
 [ext_resource path="res://tscn/像素25.tres" type="DynamicFont" id=8]
+[ext_resource path="res://tscn/move_card.tscn" type="PackedScene" id=9]
 [ext_resource path="res://assets/itmes/BE.png" type="Texture" id=10]
 [ext_resource path="res://assets/background/bg.png" type="Texture" id=11]
 [ext_resource path="res://assets/turnbutton/turn.png" type="Texture" id=12]
@@ -37,6 +38,37 @@
 [ext_resource path="res://new_shadermaterial.tres" type="Material" id=36]
 [ext_resource path="res://21miaobian.tres" type="DynamicFont" id=37]
 [ext_resource path="res://assets/YouSheYuFeiTeJianKangTi-2.ttf" type="DynamicFontData" id=38]
+[ext_resource path="res://script/destination.gd" type="Script" id=39]
+[ext_resource path="res://assets/destination/3.png" type="Texture" id=40]
+[ext_resource path="res://assets/destination/4.png" type="Texture" id=41]
+[ext_resource path="res://assets/destination/2.png" type="Texture" id=42]
+[ext_resource path="res://assets/destination/1.png" type="Texture" id=43]
+
+[sub_resource type="Shader" id=41]
+code = "shader_type canvas_item;
+
+uniform sampler2D texture : hint_albedo;
+uniform float pixel_size = 10.0; // 设置像素大小
+
+void fragment() {
+    // 获取当前片段的UV坐标
+    vec2 uv = UV;
+
+    // 根据像素大小计算像素化UV坐标
+    vec2 pixelated_uv = floor(uv * pixel_size) / pixel_size;
+
+    // 从纹理中采样颜色
+    vec4 color = texture(texture, pixelated_uv);
+
+    // 应用颜色
+    COLOR = color;
+}
+"
+
+[sub_resource type="ShaderMaterial" id=40]
+shader = SubResource( 41 )
+shader_param/pixel_size = 100.0
+shader_param/texture = ExtResource( 11 )
 
 [sub_resource type="Animation" id=24]
 resource_name = "bg"
@@ -270,6 +302,168 @@ outline_color = Color( 0, 0, 0, 1 )
 extra_spacing_top = 5
 font_data = ExtResource( 2 )
 
+[sub_resource type="RectangleShape2D" id=46]
+extents = Vector2( 19, 19 )
+
+[sub_resource type="Animation" id=42]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("move_card:material:shader_param/inset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("move_card:material:shader_param/y_rot")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("move_card:rect_scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0.4, 0.4 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("move_card:rect_position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -271, 248 ) ]
+}
+
+[sub_resource type="Animation" id=43]
+resource_name = "show_card"
+length = 2.0
+step = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("move_card:material:shader_param/y_rot")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.006, 0.576, 0.577, 0.978, 1.424, 1.791, 1.792, 1.997 ),
+"transitions": PoolRealArray( 1, 1, 2.63902, 1, 4, 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 90.0, -90.0, 0.0, 0.0, 90.0, -90.0, 0.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("move_card:rect_scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.988, 1.997 ),
+"transitions": PoolRealArray( 2.54912, 6.72717, 1 ),
+"update": 0,
+"values": [ Vector2( 0.2, 0.2 ), Vector2( 0.8, 0.8 ), Vector2( 0.2, 0.2 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("move_card:rect_position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.988, 1.997 ),
+"transitions": PoolRealArray( 2.54912, 6.72717, 1 ),
+"update": 0,
+"values": [ Vector2( -271, 248 ), Vector2( 537, 145 ), Vector2( 1672, 165 ) ]
+}
+
+[sub_resource type="Shader" id=44]
+code = "// Hey this is Hei! This shader \"fakes\" a 3D-camera perspective on CanvasItems.
+// License: MIT
+
+shader_type canvas_item;
+
+// Camera FOV
+uniform float fov : hint_range(1, 179) = 90;
+uniform bool cull_back = true;
+uniform float y_rot : hint_range(-180, 180) = 0.0;
+uniform float x_rot : hint_range(-180, 180) = 0.0;
+// At 0, the image retains its size when unrotated.
+// At 1, the image is resized so that it can do a full
+// rotation without clipping inside its rect.
+uniform float inset : hint_range(0, 1) = 0.0;
+// Consider changing this to a uniform and changing it from code
+
+varying flat vec2 o;
+varying vec3 p;
+
+const float PI = 3.14159;
+
+// Creates rotation matrix
+void vertex(){
+	float sin_b = sin(y_rot / 180.0 * PI);
+	float cos_b = cos(y_rot / 180.0 * PI);
+	float sin_c = sin(x_rot / 180.0 * PI);
+	float cos_c = cos(x_rot / 180.0 * PI);
+	
+	mat3 inv_rot_mat;
+	inv_rot_mat[0][0] = cos_b;
+	inv_rot_mat[0][1] = 0.0;
+	inv_rot_mat[0][2] = -sin_b;
+	
+	inv_rot_mat[1][0] = sin_b * sin_c;
+	inv_rot_mat[1][1] = cos_c;
+	inv_rot_mat[1][2] = cos_b * sin_c;
+	
+	inv_rot_mat[2][0] = sin_b * cos_c;
+	inv_rot_mat[2][1] = -sin_c;
+	inv_rot_mat[2][2] = cos_b * cos_c;
+	
+	
+	float t = tan(fov / 360.0 * PI);
+	p = inv_rot_mat * vec3((UV - 0.5), 0.5 / t);
+	float v = (0.5 / t) + 0.5;
+	p.xy *= v * inv_rot_mat[2].z;
+	o = v * inv_rot_mat[2].xy;
+
+	VERTEX += (UV - 0.5) / TEXTURE_PIXEL_SIZE * t * (1.0 - inset);
+}
+
+void fragment(){
+	if (cull_back && p.z <= 0.0) discard;
+	vec2 uv = (p.xy / p.z).xy - o;
+    COLOR = texture(TEXTURE, uv + 0.5);
+	COLOR.a *= step(max(abs(uv.x), abs(uv.y)), 0.5);
+}"
+
+[sub_resource type="ShaderMaterial" id=45]
+shader = SubResource( 44 )
+shader_param/fov = 97.574
+shader_param/cull_back = true
+shader_param/y_rot = 0.0
+shader_param/x_rot = 0.0
+shader_param/inset = 0.0
+
 [sub_resource type="CanvasItemMaterial" id=3]
 
 [sub_resource type="Animation" id=4]
@@ -309,7 +503,9 @@ __meta__ = {
 }
 
 [node name="Bg" type="Sprite" parent="."]
-position = Vector2( 1240, 326 )
+self_modulate = Color( 1, 1, 1, 0.784314 )
+material = SubResource( 40 )
+position = Vector2( 1220, 328 )
 rotation = -6.28319
 scale = Vector2( 0.6, 0.6 )
 texture = ExtResource( 11 )
@@ -321,22 +517,20 @@ anims/bg = SubResource( 24 )
 script = ExtResource( 29 )
 
 [node name="MainUI" type="Node2D" parent="UI"]
-material = ExtResource( 36 )
 use_parent_material = true
 
 [node name="title" type="RichTextLabel" parent="UI/MainUI"]
 material = ExtResource( 36 )
 use_parent_material = true
-margin_left = 408.0
-margin_top = 104.0
-margin_right = 1116.0
-margin_bottom = 224.0
+margin_top = 103.0
+margin_right = 1600.0
+margin_bottom = 223.0
 custom_fonts/normal_font = SubResource( 1 )
 bbcode_enabled = true
 bbcode_text = "
-[center][rainbow freq=0.2 sat=3 val=1]Colorful Card Chess[/rainbow][/center]"
+[center][wave amp=50 freq=1][rainbow freq=0.2 sat=3 val=1]RAINBOW CARD     [/rainbow][/wave][/center]"
 text = "
-Colorful Card Chess"
+RAINBOW CARD     "
 
 [node name="ColorRect3" type="ColorRect" parent="UI/MainUI"]
 margin_left = 662.0
@@ -435,9 +629,8 @@ margin_bottom = 36.0
 color = Color( 0, 0.345098, 0.513726, 1 )
 
 [node name="ColorRect" type="ColorRect" parent="UI/MainUI/IP"]
-margin_left = 104.0
 margin_top = 32.0
-margin_right = 104.0
+margin_right = 208.0
 margin_bottom = 36.0
 color = Color( 0, 0, 0, 1 )
 
@@ -505,7 +698,7 @@ visible = false
 modulate = Color( 1, 1, 1, 0.537255 )
 margin_top = 153.0
 margin_right = 272.0
-margin_bottom = 509.0
+margin_bottom = 508.0
 color = Color( 0.223529, 0.223529, 0.223529, 1 )
 
 [node name="title" type="Label" parent="UI/WatingUI"]
@@ -596,7 +789,7 @@ text = "返回"
 [node name="Chat" type="RichTextLabel" parent="UI/WatingUI"]
 margin_top = 153.0
 margin_right = 272.0
-margin_bottom = 509.0
+margin_bottom = 507.0
 custom_fonts/mono_font = ExtResource( 33 )
 custom_fonts/bold_italics_font = ExtResource( 33 )
 custom_fonts/italics_font = ExtResource( 33 )
@@ -699,102 +892,129 @@ color = Color( 0.0941176, 0.0941176, 0.0941176, 1 )
 [node name="1" type="Node2D" parent="UI/Playing/players"]
 position = Vector2( 101, 105 )
 
-[node name="ColorRect" type="ColorRect" parent="UI/Playing/players/1"]
-modulate = Color( 1, 1, 1, 0.784314 )
-margin_left = 16.0
-margin_top = 12.0
-margin_right = 232.0
-margin_bottom = 153.0
-color = Color( 0.0941176, 0.0941176, 0.0941176, 1 )
-
 [node name="ColorRect2" type="ColorRect" parent="UI/Playing/players/1"]
-margin_left = 8.0
-margin_top = 6.0
-margin_right = 224.0
-margin_bottom = 144.0
+margin_right = 347.0
+margin_bottom = 70.0
 color = Color( 0.737255, 0.235294, 0.235294, 1 )
 
 [node name="2" type="Node2D" parent="UI/Playing/players"]
-position = Vector2( 357, 105 )
-
-[node name="ColorRect" type="ColorRect" parent="UI/Playing/players/2"]
-modulate = Color( 1, 1, 1, 0.784314 )
-margin_left = 19.0
-margin_top = 12.0
-margin_right = 232.0
-margin_bottom = 153.0
-color = Color( 0.0941176, 0.0941176, 0.0941176, 1 )
+position = Vector2( 101, 192 )
 
 [node name="ColorRect2" type="ColorRect" parent="UI/Playing/players/2"]
-margin_left = 8.0
-margin_top = 6.0
-margin_right = 224.0
-margin_bottom = 144.0
+margin_right = 347.0
+margin_bottom = 70.0
 color = Color( 0.796078, 0.529412, 0.14902, 1 )
 
 [node name="3" type="Node2D" parent="UI/Playing/players"]
-position = Vector2( 101, 289 )
-
-[node name="ColorRect" type="ColorRect" parent="UI/Playing/players/3"]
-modulate = Color( 1, 1, 1, 0.784314 )
-margin_left = 18.0
-margin_top = 12.0
-margin_right = 232.0
-margin_bottom = 153.0
-color = Color( 0.0941176, 0.0941176, 0.0941176, 1 )
+position = Vector2( 101, 281 )
 
 [node name="ColorRect2" type="ColorRect" parent="UI/Playing/players/3"]
-margin_left = 8.0
-margin_top = 6.0
-margin_right = 224.0
-margin_bottom = 144.0
+margin_right = 347.0
+margin_bottom = 70.0
 color = Color( 0.129412, 0.501961, 0.72549, 1 )
 
 [node name="4" type="Node2D" parent="UI/Playing/players"]
-position = Vector2( 357, 289 )
-
-[node name="ColorRect" type="ColorRect" parent="UI/Playing/players/4"]
-modulate = Color( 1, 1, 1, 0.784314 )
-margin_left = 18.0
-margin_top = 12.0
-margin_right = 232.0
-margin_bottom = 153.0
-color = Color( 0.0941176, 0.0941176, 0.0941176, 1 )
+position = Vector2( 101, 372 )
 
 [node name="ColorRect2" type="ColorRect" parent="UI/Playing/players/4"]
-margin_left = 8.0
-margin_top = 6.0
-margin_right = 224.0
-margin_bottom = 144.0
+margin_right = 347.0
+margin_bottom = 70.0
 color = Color( 0, 0.509804, 0.0784314, 1 )
+
+[node name="Node2D" type="Node2D" parent="UI/Playing/players"]
+position = Vector2( 325, 105 )
+
+[node name="Be" type="Sprite" parent="UI/Playing/players/Node2D"]
+position = Vector2( 27, 32 )
+scale = Vector2( 0.281058, 0.282128 )
+texture = ExtResource( 10 )
+
+[node name="1l" type="RichTextLabel" parent="UI/Playing/players/Node2D/Be"]
+modulate = Color( 1, 0.960784, 0, 1 )
+margin_left = 110.297
+margin_top = -42.5339
+margin_right = 293.297
+margin_bottom = 4.46609
+rect_scale = Vector2( 3, 3 )
+custom_fonts/normal_font = SubResource( 2 )
+bbcode_text = "0"
+text = "0"
+
+[node name="Be2" type="Sprite" parent="UI/Playing/players/Node2D"]
+position = Vector2( 27, 120 )
+scale = Vector2( 0.281058, 0.282128 )
+texture = ExtResource( 10 )
+
+[node name="2l" type="RichTextLabel" parent="UI/Playing/players/Node2D/Be2"]
+modulate = Color( 1, 0.960784, 0, 1 )
+margin_left = 110.297
+margin_top = -60.2564
+margin_right = 293.297
+margin_bottom = -13.2564
+rect_scale = Vector2( 3, 3 )
+custom_fonts/normal_font = SubResource( 2 )
+bbcode_text = "0"
+text = "0"
+
+[node name="Be3" type="Sprite" parent="UI/Playing/players/Node2D"]
+position = Vector2( 27.0001, 215 )
+scale = Vector2( 0.281058, 0.282128 )
+texture = ExtResource( 10 )
+
+[node name="3l" type="RichTextLabel" parent="UI/Playing/players/Node2D/Be3"]
+modulate = Color( 1, 0.960784, 0, 1 )
+margin_left = 110.297
+margin_top = -67.3453
+margin_right = 293.297
+margin_bottom = -20.3453
+rect_scale = Vector2( 3, 3 )
+custom_fonts/normal_font = SubResource( 2 )
+bbcode_text = "0"
+text = "0"
+
+[node name="Be4" type="Sprite" parent="UI/Playing/players/Node2D"]
+position = Vector2( 29.0001, 302 )
+scale = Vector2( 0.281058, 0.282128 )
+texture = ExtResource( 10 )
+
+[node name="4l" type="RichTextLabel" parent="UI/Playing/players/Node2D/Be4"]
+modulate = Color( 1, 0.960784, 0, 1 )
+margin_left = 103.181
+margin_top = -46.0785
+margin_right = 286.181
+margin_bottom = 0.921509
+rect_scale = Vector2( 3, 3 )
+custom_fonts/normal_font = SubResource( 2 )
+bbcode_text = "0"
+text = "0"
 
 [node name="Name" type="Node2D" parent="UI/Playing"]
 position = Vector2( 129, -168 )
 
 [node name="name1" type="RichTextLabel" parent="UI/Playing/Name"]
-margin_left = -20.0
-margin_top = 289.0
-margin_right = 196.0
-margin_bottom = 329.0
+margin_left = -28.0
+margin_top = 293.0
+margin_right = 182.0
+margin_bottom = 333.0
 custom_fonts/normal_font = ExtResource( 37 )
 bbcode_enabled = true
 bbcode_text = "1"
 text = "1"
 
 [node name="name2" type="RichTextLabel" parent="UI/Playing/Name"]
-margin_left = 236.0
-margin_top = 289.0
-margin_right = 452.0
-margin_bottom = 329.0
+margin_left = -28.0
+margin_top = 376.0
+margin_right = 182.0
+margin_bottom = 416.0
 custom_fonts/normal_font = ExtResource( 37 )
 bbcode_enabled = true
 bbcode_text = "2"
 text = "2"
 
 [node name="name3" type="RichTextLabel" parent="UI/Playing/Name"]
-margin_left = -20.0
+margin_left = -28.0
 margin_top = 473.0
-margin_right = 196.0
+margin_right = 182.0
 margin_bottom = 513.0
 custom_fonts/normal_font = ExtResource( 37 )
 bbcode_enabled = true
@@ -802,10 +1022,10 @@ bbcode_text = "3"
 text = "3"
 
 [node name="name4" type="RichTextLabel" parent="UI/Playing/Name"]
-margin_left = 236.0
-margin_top = 473.0
-margin_right = 452.0
-margin_bottom = 513.0
+margin_left = -28.0
+margin_top = 562.0
+margin_right = 182.0
+margin_bottom = 602.0
 custom_fonts/normal_font = ExtResource( 37 )
 bbcode_enabled = true
 bbcode_text = "4"
@@ -830,6 +1050,9 @@ color = Color( 0, 0, 0, 1 )
 
 [node name="group" type="Node2D" parent="UI/Playing/map"]
 position = Vector2( 2, 2 )
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="ColorRect" type="ColorRect" parent="UI/Playing/map/group"]
 margin_top = -1.0
@@ -1942,7 +2165,80 @@ margin_top = 399.0
 margin_right = 680.0
 margin_bottom = 439.0
 
+[node name="destinationOwner" type="Node2D" parent="UI/Playing/map"]
+position = Vector2( 2, 2 )
+
+[node name="1" type="Node2D" parent="UI/Playing/map/destinationOwner"]
+script = ExtResource( 39 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="1" type="Sprite" parent="UI/Playing/map/destinationOwner/1"]
+position = Vector2( 20, 20 )
+scale = Vector2( 0.674999, 0.646226 )
+texture = ExtResource( 43 )
+
+[node name="Area2D" type="Area2D" parent="UI/Playing/map/destinationOwner/1"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="UI/Playing/map/destinationOwner/1/Area2D"]
+position = Vector2( 20, 20 )
+shape = SubResource( 46 )
+
+[node name="2" type="Node2D" parent="UI/Playing/map/destinationOwner"]
+script = ExtResource( 39 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="1" type="Sprite" parent="UI/Playing/map/destinationOwner/2"]
+position = Vector2( 20, 20 )
+scale = Vector2( 0.674999, 0.646226 )
+texture = ExtResource( 42 )
+
+[node name="Area2D" type="Area2D" parent="UI/Playing/map/destinationOwner/2"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="UI/Playing/map/destinationOwner/2/Area2D"]
+position = Vector2( 20, 20 )
+shape = SubResource( 46 )
+
+[node name="3" type="Node2D" parent="UI/Playing/map/destinationOwner"]
+script = ExtResource( 39 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="1" type="Sprite" parent="UI/Playing/map/destinationOwner/3"]
+position = Vector2( 20, 20 )
+scale = Vector2( 0.674999, 0.646226 )
+texture = ExtResource( 40 )
+
+[node name="Area2D" type="Area2D" parent="UI/Playing/map/destinationOwner/3"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="UI/Playing/map/destinationOwner/3/Area2D"]
+position = Vector2( 20, 20 )
+shape = SubResource( 46 )
+
+[node name="4" type="Node2D" parent="UI/Playing/map/destinationOwner"]
+script = ExtResource( 39 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="1" type="Sprite" parent="UI/Playing/map/destinationOwner/4"]
+position = Vector2( 20, 20 )
+scale = Vector2( 0.674999, 0.646226 )
+texture = ExtResource( 41 )
+
+[node name="Area2D" type="Area2D" parent="UI/Playing/map/destinationOwner/4"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="UI/Playing/map/destinationOwner/4/Area2D"]
+position = Vector2( 20, 20 )
+shape = SubResource( 46 )
+
 [node name="Chessman" parent="UI/Playing/map" instance=ExtResource( 4 )]
+cx = 9
+cy = 6
 
 [node name="cards" type="Node2D" parent="UI/Playing"]
 
@@ -2094,16 +2390,17 @@ margin_right = 585.0
 margin_bottom = 38.0
 custom_fonts/font = ExtResource( 3 )
 
-[node name="Label2" type="Label" parent="UI/Playing"]
-margin_left = 520.0
-margin_top = 6.0
-margin_right = 560.0
-margin_bottom = 20.0
+[node name="AnimationPlayer" type="AnimationPlayer" parent="UI/Playing"]
+anims/RESET = SubResource( 42 )
+anims/show_card = SubResource( 43 )
 
-[node name="Label3" type="Label" parent="UI/Playing"]
-margin_left = 491.0
-margin_right = 531.0
-margin_bottom = 14.0
+[node name="move_card" parent="UI/Playing" instance=ExtResource( 9 )]
+material = SubResource( 45 )
+margin_left = -271.0
+margin_top = 248.0
+margin_right = 141.001
+margin_bottom = 811.0
+disabled = true
 
 [node name="admin" type="Node2D" parent="UI"]
 visible = false
@@ -2123,7 +2420,7 @@ text = "PASS"
 [node name="Wow" type="Node2D" parent="UI"]
 position = Vector2( 18.001, -1.52588e-05 )
 rotation = -0.139626
-z_index = 20
+z_index = 10
 
 [node name="Wow" type="Sprite" parent="UI/Wow"]
 modulate = Color( 1, 1, 1, 0.886275 )
@@ -2159,6 +2456,9 @@ wait_time = 0.5
 one_shot = true
 
 [node name="Tween" type="Tween" parent="."]
+
+[node name="Node2D" type="Node2D" parent="."]
+position = Vector2( 1052, 378 )
 
 [node name="Timer" type="Timer" parent="."]
 

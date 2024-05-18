@@ -7,16 +7,18 @@ var start_pos = Vector2.ZERO
 var to_pos = Vector2.ZERO
 var uped = false
 var clicked = false
-func _process(delta):
-	material.set_shader_param("dissolve_value",dissolve)
+
 func _on_TextureButton_mouse_entered():
-	_on_entered()
+	if not disabled:
+		_on_entered()
 func _on_move_card_pressed():
 	if uped:
-		_on_exited()
+		if not disabled:
+			_on_exited()
 		uped = false
 	else:
-		_on_entered()
+		if not disabled:
+			_on_entered()
 		uped = true
 	if clicked == false:
 		clicked = true
@@ -26,25 +28,24 @@ func _on_move_card_pressed():
 		clicked = false
 
 func _on_TextureButton_mouse_exited():
-	_on_exited()
+	if not disabled:
+		_on_exited()
 func _on_entered():
 	uped = true
 	start_pos = Vector2(rect_position.x,0)
 	to_pos = Vector2(rect_position.x,-50)
 	$Tween.interpolate_property($".","rect_position",start_pos,to_pos,0.1)
-	var tween = create_tween().set_trans(Tween.TRANS_ELASTIC).set_ease(Tween.EASE_OUT)
-	tween.tween_property($".","rect_scale",Vector2(1.2,1.2),0.2)
-	
+	$Tween2.interpolate_property($".","rect_scale",Vector2(1.0,1.0),Vector2(1.2,1.2),0.1,Tween.TRANS_BACK,Tween.EASE_OUT)
 	$Tween.start()
-	#tween.start()
+	$Tween2.start()
 func _on_exited():
 	uped = false
 	var leave_sp = Vector2(rect_position.x,-50)
 	var leave_tp = Vector2(rect_position.x,0)
-	var tween = get_tree().create_tween().set_trans(Tween.TRANS_ELASTIC).set_ease(Tween.EASE_OUT)
 	$Tween.interpolate_property($".","rect_position",leave_sp,leave_tp,0.1)
 	$Tween.start()
-	tween.tween_property($".","rect_scale",Vector2(1.0,1.0),0.2)
+	$Tween2.interpolate_property($".","rect_scale",Vector2(1.2,1.2),Vector2(1.0,1.0),0.1,Tween.TRANS_BACK,Tween.EASE_OUT)
+	$Tween2.start()
 
 func _on_click():
 	if mode:
@@ -52,3 +53,7 @@ func _on_click():
 		
 func _on_Timer_timeout():
 	clicked = false
+func create_and_add_tween() -> Tween:
+	var tween = Tween.new()
+	add_child(tween)
+	return tween

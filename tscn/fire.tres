@@ -1,0 +1,11 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=2]
+
+[ext_resource path="res://assets/itmes/ccd2b247fcba55c149f7afa9aa04eadd9d15e5db866a-XSGvoN_fw658.webp" type="Texture" id=1]
+[ext_resource path="res://tscn/rongjie.gdshader" type="Shader" id=2]
+
+[resource]
+shader = ExtResource( 2 )
+shader_param/dissolve_value = 1.0
+shader_param/burn_size = 0.1
+shader_param/burn_color = Plane( 255, 157, 0, 255 )
+shader_param/dissolve_texture = ExtResource( 1 )

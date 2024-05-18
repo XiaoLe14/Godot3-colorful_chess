@@ -13,22 +13,26 @@ var special_card_path = ["res://assets/cards/special_cards/1.png","res://assets/
 var p1 = {
 	"id":-1,
 	"name":"0",
-	"color":""
+	"color":"",
+	"be":0
 }
 var p2 = {
 	"id":-1,
 	"name":"0",
-	"color":""
+	"color":"",
+	"be":0
 }
 var p3 = {
 	"id":-1,
 	"name":"0",
-	"color":""
+	"color":"",
+	"be":0
 }
 var p4 = {
 	"id":-1,
 	"name":"0",
-	"color":""
+	"color":"",
+	"be":0
 }
 var card_g = 7
 remote var cr = 0
@@ -38,9 +42,10 @@ var playing_player = ""
 remote var colorlist = []
 var long = 16
 var cards_num = 0
-remote var cx = 0
-remote var cy = 0
+remote var cx = 8
+remote var cy = 5
 remote var be = 0
+remote var destination_pos = []
 var mm = {
 	"1":{
 		"color":"blue",
@@ -237,10 +242,17 @@ var mm = {
 	},
 	
 }
-
+var num = 1
 remote var Round = 1
 func _ready() -> void:
-	
+	$"UI/Playing/map/destinationOwner/1".dx = 1
+	$"UI/Playing/map/destinationOwner/1".dy = 1
+	$"UI/Playing/map/destinationOwner/2".dx = 15
+	$"UI/Playing/map/destinationOwner/2".dy = 1
+	$"UI/Playing/map/destinationOwner/3".dx  = 1
+	$"UI/Playing/map/destinationOwner/3".dy = 9
+	$"UI/Playing/map/destinationOwner/4".dx = 15
+	$"UI/Playing/map/destinationOwner/4".dy = 9
 	for child in $UI/Playing/map/group.get_children():
 		child.add_to_group("tilemap")
 	$Bg/AnimationPlayer.play("bg")
@@ -249,10 +261,14 @@ func _ready() -> void:
 	self.get_tree().connect('server_disconnected', self, '_onServerDisconnected')
 	self.get_tree().connect('connected_to_server', self, '_onConnectionSuccess')
 	self.get_tree().connect('connection_failed', self, '_onConnectionFail')
-	
+
+#设置！#########
+var random_destination = false
+##########
+
 func _process(delta):
-	$UI/Playing/Label3.text = str($UI/Playing/map/Chessman.cx)
-	$UI/Playing/Label2.text = str($UI/Playing/map/Chessman.cy)
+	#$UI/Playing/Label3.text = str($UI/Playing/map/Chessman.cx)
+	#$UI/Playing/Label2.text = str($UI/Playing/map/Chessman.cy)
 	
 	randomize()
 	myName = $UI/MainUI/PlayerName.text
@@ -280,6 +296,7 @@ func _process(delta):
 		$"UI/WatingUI/4".text = "等待中"
 	$UI/WatingUI/Chat.text = chats
 	if gameStarting and is_network_master():
+		rset("destination_pos",destination_pos)
 		rset("cx",$UI/Playing/map/Chessman.cx)
 		rset("cy",$UI/Playing/map/Chessman.cy)
 		rset("Round",Round)
@@ -289,18 +306,40 @@ func _process(delta):
 		$UI/Playing/Name/name4.bbcode_text = $"UI/WatingUI/4".text
 		rset("cr",$UI/Playing/map/Chessman.cr)
 		cr = $UI/Playing/map/Chessman.cr
+		
 	else:
-		if gameStarting:
-			
-			$UI/Playing/map/Chessman.cr = cr
-			$UI/Playing/map/Chessman.cx = cx
-			$UI/Playing/map/Chessman.cy = cy
-			$UI/Playing/Name/name1.bbcode_text = $"UI/WatingUI/1".text
-			$UI/Playing/Name/name2.bbcode_text = $"UI/WatingUI/2".text
-			$UI/Playing/Name/name3.bbcode_text = $"UI/WatingUI/3".text
-			$UI/Playing/Name/name4.bbcode_text = $"UI/WatingUI/4".text
+		
+		#rset_id(1)
+		$UI/Playing/map/Chessman.cr = cr
+		$UI/Playing/map/Chessman.cx = cx
+		$UI/Playing/map/Chessman.cy = cy
+		$UI/Playing/Name/name1.bbcode_text = $"UI/WatingUI/1".text
+		$UI/Playing/Name/name2.bbcode_text = $"UI/WatingUI/2".text
+		$UI/Playing/Name/name3.bbcode_text = $"UI/WatingUI/3".text
+		$UI/Playing/Name/name4.bbcode_text = $"UI/WatingUI/4".text
 	if gameStarting:
-		#$UI/Playing/Label.text = str(get_color($UI/Playing/map/Chessman.cx,$UI/Playing/map/Chessman.cy))
+		var num1 = 0
+		if len(destination_pos) > 3:
+			for i in $UI/Playing/map/destinationOwner.get_children():
+				i.dx = destination_pos[num1].x
+				i.dy = destination_pos[num1].y
+				num1 += 1
+		num = 0
+		var playerss = players
+		for a in playerss:
+			if a.id == get_tree().get_network_unique_id():
+				a.be = be
+				if not is_network_master():
+					rset_id(1,"players",playerss)
+				else:
+					players = playerss
+			num += 1
+		if players[0].be != int($"UI/Playing/players/Node2D/Be/1l".text):
+			$"UI/Playing/players/Node2D/Be/1l".text = str((round(players[0].be *10)/10))
+			
+		$"UI/Playing/players/Node2D/Be2/2l".text = str((round(players[1].be *10)/10))
+		$"UI/Playing/players/Node2D/Be3/3l".text = str((round(players[2].be *10)/10))
+		$"UI/Playing/players/Node2D/Be4/4l".text = str((round(players[3].be *10)/10))
 		if Round == 1:
 			$UI/Playing/Name/name1.bbcode_text = "[color=green][center]"+replace_brackets_pairs(players[0].name)+"[/center][/color]"
 			$UI/Playing/Name/name2.bbcode_text = "[center]"+replace_brackets_pairs(players[1].name)+"[/center]"
@@ -367,7 +406,8 @@ func hostGame(playerName: String) -> bool:
 		i = {
 			"id":-1,
 			"name":0,
-			"color":""
+			"color":"",
+			"be":0
 			}
 	var host = NetworkedMultiplayerENet.new()
 	var error = host.create_server(server_port, 3)
@@ -388,7 +428,8 @@ func joinGame(address: String, playerName: String, PORT : int) -> bool:
 		i = {
 			"id":-1,
 			"name":0,
-			"color":""
+			"color":"",
+			"be":0
 			}
 	var host := NetworkedMultiplayerENet.new()
 	var error := host.create_client(address, PORT)
@@ -423,7 +464,8 @@ func _onPlayerDisconnected(id):
 				players[num] = {
 		"id":-1,
 		"name":"0",
-		"color":""
+		"color":"",
+		"be":0
 	}
 				break
 			else:
@@ -449,22 +491,26 @@ func to_reboot():
 	var p11 = {
 		"id":-1,
 		"name":"0",
-		"color":""
+		"color":"",
+		"be":0
 	}
 	var p22 = {
 		"id":-1,
 		"name":"0",
-		"color":""
+		"color":"",
+		"be":0
 	}
 	var p33 = {
 		"id":-1,
 		"name":"0",
-		"color":""
+		"color":"",
+		"be":0
 }
 	var p44 = {
 		"id":-1,
 		"name":"0",
-		"color":""
+		"color":"",
+		"be":0
 }
 	players = [p11,p22,p33,p44]
 	chats = ""
@@ -548,12 +594,17 @@ remote func game_start():
 		sync_color_to_clients()
 		rpc("randi_send_card",5,get_tree().get_network_unique_id())
 		randi_send_card(5, 1)
+		if random_destination:
+			randi_destination_pos()
+	$UI/Playing/map/Chessman.cx = 9
+	$UI/Playing/map/Chessman.cy = 6
+		
 	var num = 0
 	for p in players:
 		players[num].name = replace_brackets_pairs(p.name)
 		num += 1
-func sync_color_to_clients():
-	# 定义四种颜色
+
+func sync_color_to_clients():	# 定义四种颜色
 	var colors := [
 		Color(0.2, 0.8, 0.2),  # 浅绿色 (50, 205, 50)
 		Color(0.9, 0.4, 0.4),  # 暗红色 (238, 99, 99)
@@ -595,6 +646,8 @@ func create_and_add_tween() -> Tween:
 	return tween
 remote func randi_send_card(num,id):
 	var num1 = 1
+	for card in $UI/Playing/cards/HBoxContainer.get_children():
+		card.disabled = true
 	for i in range(num):
 		var random_index
 		var card_path
@@ -617,6 +670,7 @@ remote func randi_send_card(num,id):
 			card_path = special_card_path[random_index]
 			card = special_card.instance()
 			card.connect("special_card_click", self, "_on_s_card_clickd")
+		card.disabled = true
 		card.modulate = Color(1,1,1,0)
 		$UI/Playing/cards/HBoxContainer.add_child(card)
 		card.texture_normal = load(card_path)
@@ -628,6 +682,9 @@ remote func randi_send_card(num,id):
 		tween.start()
 		card.modulate = Color(1,1,1,1)
 		yield(get_tree().create_timer(0.5), "timeout")
+		
+	for card in $UI/Playing/cards/HBoxContainer.get_children():
+		card.disabled = false
 func _on_m_card_clickd(id,cname):
 	var fastmove=false
 	var num1 = 0
@@ -648,6 +705,9 @@ func _on_m_card_clickd(id,cname):
 		fastmove = true
 	else:
 		pass
+	print(mm[idnum]["turn"])
+	print(tcx)
+	print(tcy)
 	for turning in mm[idnum]["turn"]:
 		if is_even_or_odd(num) == "Even":
 			var an = check_chess(tcx,tcy,"Even",turning)
@@ -671,6 +731,13 @@ func _on_m_card_clickd(id,cname):
 		node.mode = false
 		if node.name == cname:
 			delete_card(node,true)
+			
+	if is_network_master():
+		show_to_all(id)
+	else:
+		rpc_id(1,"show_to_all",id)
+	yield(get_tree().create_timer(2.0), "timeout")
+	
 	num = 0
 	var dir = $UI/Playing/map/Chessman.cr
 	for turning in mm[idnum]["turn"]:
@@ -694,6 +761,7 @@ func _on_m_card_clickd(id,cname):
 	for node in get_tree().get_nodes_in_group("card"):
 		node.mode = true
 	turn_button_disabled(false)
+	
 	if not fastmove:
 		print(1)
 		print(nowcolor)
@@ -711,6 +779,9 @@ func _on_m_card_clickd(id,cname):
 		else:
 			rpc_id(1,"fast_move")
 			print(2.2)
+remote func show_to_all(id):
+	show_card(id)
+	rpc("show_card",id)
 func _on_s_card_clickd(id):
 	var numbers = ["1", "2", "3", "4", "5", "6"]############################
 	var base_id = ".png"  # 基础文件扩展名
@@ -836,13 +907,12 @@ func replace_brackets_pairs(user_input: String) -> String:
 				output += "[rb]"
 		else:
 			output += char1
-
 	return output
 func delete_card(node,ibe:bool):
 	var tw = create_and_add_tween()
-	tw.interpolate_property(node,"modulate",Color(1,1,1,1),Color(1,1,1,0),0.3)
+	tw.interpolate_property(node,"modulate",Color(1,1,1,1),Color(1,1,1,0),0.4)
 	tw.start()
-	yield(get_tree().create_timer(0.3), "timeout")
+	yield(get_tree().create_timer(0.4), "timeout")
 	if ibe:
 		creat_be(3,node.rect_global_position)
 	node.queue_free()
@@ -1002,6 +1072,7 @@ func turn_button_disabled(mode:bool):
 
 
 
+
 func _on_Admin_pass_button_pressed():
 	if gameStarting:
 		pass
@@ -1037,3 +1108,18 @@ func name_to_rgb(name:String):
 		return colors[3]
 func _on_AnimationPlayer_animation_finished(anim_name):
 	$Bg/AnimationPlayer.play("bg")
+
+remote func show_card(path:String):
+	$UI/Playing/move_card.texture_normal = load(path)
+	$UI/Playing/AnimationPlayer.play("show_card")
+	yield(get_tree().create_timer(2), "timeout")
+func randi_destination_pos():
+	var num = 0
+	for i in 4:
+		var dx = randi() % 16
+		var dy = randi() % 10
+		destination_pos.append(Vector2(dx,dy))
+		$UI/Playing/map/destinationOwner.get_children()[num].dx = dx
+		$UI/Playing/map/destinationOwner.get_children()[num].dy = dy
+		num += 1
+	
