@@ -14,8 +14,3 @@ cy = 5
 [node name="Timer" type="Timer" parent="."]
 wait_time = 3.0
 one_shot = true
-
-[node name="Chessman" type="RigidBody2D" parent="."]
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Chessman"]
-polygon = PoolVector2Array( 0, -140, -110, 150, -40, 110, 0, 110, 30, 110, 70, 120, 110, 150 )

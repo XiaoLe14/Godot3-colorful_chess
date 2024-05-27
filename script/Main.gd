@@ -5,6 +5,7 @@ var myName := ''
 var server_ip
 var server_port
 var gameStarting = false
+var ScoreTscn = preload("res://tscn/ScoreTscn.tscn")
 var BEicon = preload("res://tscn/BEicon.tscn")
 var move_card = preload("res://tscn/move_card.tscn")
 var move_card_path = ["res://assets/cards/move_cards/1.png","res://assets/cards/move_cards/2.png","res://assets/cards/move_cards/3.png","res://assets/cards/move_cards/4.png","res://assets/cards/move_cards/5.png","res://assets/cards/move_cards/6.png","res://assets/cards/move_cards/7.png","res://assets/cards/move_cards/8.png","res://assets/cards/move_cards/9.png","res://assets/cards/move_cards/10.png","res://assets/cards/move_cards/11.png","res://assets/cards/move_cards/12.png","res://assets/cards/move_cards/13.png","res://assets/cards/move_cards/14.png","res://assets/cards/move_cards/15.png","res://assets/cards/move_cards/16.png","res://assets/cards/move_cards/17.png","res://assets/cards/move_cards/18.png","res://assets/cards/move_cards/19.png","res://assets/cards/move_cards/20.png","res://assets/cards/move_cards/21.png","res://assets/cards/move_cards/22.png","res://assets/cards/move_cards/23.png","res://assets/cards/move_cards/24.png","res://assets/cards/move_cards/25.png","res://assets/cards/move_cards/26.png","res://assets/cards/move_cards/27.png","res://assets/cards/move_cards/28.png","res://assets/cards/move_cards/29.png","res://assets/cards/move_cards/30.png","res://assets/cards/move_cards/31.png","res://assets/cards/move_cards/32.png","res://assets/cards/move_cards/33.png","res://assets/cards/move_cards/34.png","res://assets/cards/move_cards/35.png","res://assets/cards/move_cards/36.png","res://assets/cards/move_cards/37.png","res://assets/cards/move_cards/38.png","res://assets/cards/move_cards/39.png","res://assets/cards/move_cards/40.png","res://assets/cards/move_cards/41.png","res://assets/cards/move_cards/42.png","res://assets/cards/move_cards/43.png","res://assets/cards/move_cards/44.png","res://assets/cards/move_cards/45.png","res://assets/cards/move_cards/46.png","res://assets/cards/move_cards/47.png","res://assets/cards/move_cards/48.png"]
@@ -15,24 +16,28 @@ var p1 = {
 	"name":"0",
 	"color":"",
 	"be":0
+	,"score":0
 }
 var p2 = {
 	"id":-1,
 	"name":"0",
 	"color":"",
 	"be":0
+	,"score":0
 }
 var p3 = {
 	"id":-1,
 	"name":"0",
 	"color":"",
 	"be":0
+	,"score":0
 }
 var p4 = {
 	"id":-1,
 	"name":"0",
 	"color":"",
 	"be":0
+	,"score":0
 }
 var card_g = 7
 remote var cr = 0
@@ -46,6 +51,7 @@ remote var cx = 8
 remote var cy = 5
 remote var be = 0
 remote var destination_pos = []
+remote var scores = [0,0,0,0]
 var mm = {
 	"1":{
 		"color":"blue",
@@ -244,13 +250,18 @@ var mm = {
 }
 var num = 1
 remote var Round = 1
+signal game_end
 func _ready() -> void:
+	$UI/EndUI.hide()
 	$"UI/Playing/map/destinationOwner/1".dx = 1
 	$"UI/Playing/map/destinationOwner/1".dy = 1
+	
 	$"UI/Playing/map/destinationOwner/2".dx = 15
 	$"UI/Playing/map/destinationOwner/2".dy = 1
+	
 	$"UI/Playing/map/destinationOwner/3".dx  = 1
 	$"UI/Playing/map/destinationOwner/3".dy = 9
+	
 	$"UI/Playing/map/destinationOwner/4".dx = 15
 	$"UI/Playing/map/destinationOwner/4".dy = 9
 	for child in $UI/Playing/map/group.get_children():
@@ -267,8 +278,6 @@ var random_destination = false
 ##########
 
 func _process(delta):
-	#$UI/Playing/Label3.text = str($UI/Playing/map/Chessman.cx)
-	#$UI/Playing/Label2.text = str($UI/Playing/map/Chessman.cy)
 	
 	randomize()
 	myName = $UI/MainUI/PlayerName.text
@@ -300,13 +309,14 @@ func _process(delta):
 		rset("cx",$UI/Playing/map/Chessman.cx)
 		rset("cy",$UI/Playing/map/Chessman.cy)
 		rset("Round",Round)
+		rset("scores",scores)
 		$UI/Playing/Name/name1.bbcode_text = $"UI/WatingUI/1".text
 		$UI/Playing/Name/name2.bbcode_text = $"UI/WatingUI/2".text
 		$UI/Playing/Name/name3.bbcode_text = $"UI/WatingUI/3".text
 		$UI/Playing/Name/name4.bbcode_text = $"UI/WatingUI/4".text
 		rset("cr",$UI/Playing/map/Chessman.cr)
 		cr = $UI/Playing/map/Chessman.cr
-		
+		update_be(be,get_tree().get_network_unique_id())
 	else:
 		
 		#rset_id(1)
@@ -324,16 +334,14 @@ func _process(delta):
 				i.dx = destination_pos[num1].x
 				i.dy = destination_pos[num1].y
 				num1 += 1
-		num = 0
-		var playerss = players
-		for a in playerss:
-			if a.id == get_tree().get_network_unique_id():
-				a.be = be
-				if not is_network_master():
-					rset_id(1,"players",playerss)
-				else:
-					players = playerss
-			num += 1
+		if not is_network_master():
+			rpc_id(1,"update_be",be,get_tree().get_network_unique_id())
+		var num2 = 0
+		for index in scores:
+			$UI/Playing/players/scores.get_children()[num2].text = str(index)
+			if players[num2].id == get_tree().get_network_unique_id():
+				$UI/Playing/itmes/score2.text = str(index)
+			num2+=1
 		if players[0].be != int($"UI/Playing/players/Node2D/Be/1l".text):
 			$"UI/Playing/players/Node2D/Be/1l".text = str((round(players[0].be *10)/10))
 			
@@ -365,6 +373,11 @@ remote func wrong(why):
 	$UI/Wrong/WrongTimer.start()
 	$UI/Wrong/Label.text = why
 	$UI/Wrong.show()
+remote func update_be(set_be,id):
+	for index in players:
+		if index.id == id:
+			index.be = set_be
+			return
 func _on_createServer_pressed():
 	if not $UI/MainUI/PlayerName.text == "" and not $UI/MainUI/IP.text == "" and server_port.is_valid_integer():
 		myName = $UI/MainUI/PlayerName.text
@@ -408,6 +421,7 @@ func hostGame(playerName: String) -> bool:
 			"name":0,
 			"color":"",
 			"be":0
+			,"score":0
 			}
 	var host = NetworkedMultiplayerENet.new()
 	var error = host.create_server(server_port, 3)
@@ -430,6 +444,7 @@ func joinGame(address: String, playerName: String, PORT : int) -> bool:
 			"name":0,
 			"color":"",
 			"be":0
+			,"score":0
 			}
 	var host := NetworkedMultiplayerENet.new()
 	var error := host.create_client(address, PORT)
@@ -466,6 +481,7 @@ func _onPlayerDisconnected(id):
 		"name":"0",
 		"color":"",
 		"be":0
+		,"score":0
 	}
 				break
 			else:
@@ -493,27 +509,35 @@ func to_reboot():
 		"name":"0",
 		"color":"",
 		"be":0
+		,"score":0
 	}
 	var p22 = {
 		"id":-1,
 		"name":"0",
 		"color":"",
 		"be":0
+		,"score":0
 	}
 	var p33 = {
 		"id":-1,
 		"name":"0",
 		"color":"",
 		"be":0
+		,"score":0
 }
 	var p44 = {
 		"id":-1,
 		"name":"0",
 		"color":"",
 		"be":0
+		,"score":0
 }
 	players = [p11,p22,p33,p44]
 	chats = ""
+	scores = [0,0,0,0]
+	for index in $UI/Playing/cards/HBoxContainer.get_children():
+		index.queue_free()
+	be = 0
 remote func close_peer(id):
 	self.get_tree().network_peer.disconnect_peer(id)
 	_onPlayerDisconnected(id)
@@ -524,7 +548,7 @@ func peer_back():
 	$UI/Playing.hide()
 	to_reboot()
 	$UI/Playing.hide()
-	$CTimer2.start()
+	#$CTimer2.start()
 
 func _on_CTimer_timeout():
 	if not self.get_tree().network_peer.get_connection_status() == 2:
@@ -538,6 +562,7 @@ func _on_server_closed():
 	$UI/MainUI.show()
 	$UI/WatingUI.hide()
 	$UI/Playing.hide()
+	$UI/EndUI.hide()
 	to_reboot()
 	wrong("服务器已关闭")
 
@@ -546,8 +571,10 @@ func _on_Back_pressed():
 		rpc("_on_server_closed")
 		self.get_tree().network_peer.close_connection()
 		self.get_tree().network_peer = null
+		to_reboot()
 	else:
 		peer_back()
+		to_reboot()
 	
 
 func _on_CTimer2_timeout():
@@ -586,6 +613,7 @@ func _on_StartGame_pressed():
 	else:
 		wrong("人数未满")
 remote func game_start():
+
 	gameStarting = true
 	$UI/WatingUI.hide()
 	$UI/MainUI.hide()
@@ -655,9 +683,13 @@ remote func randi_send_card(num,id):
 		if len($UI/Playing/cards/HBoxContainer.get_children()) == 8:
 			if id == 1:
 				wrong("剩余卡槽不足")
+				for card1 in $UI/Playing/cards/HBoxContainer.get_children():
+					card1.disabled = false
 				return false
 			else:
 				rpc_id(id,"wrong","剩余卡槽不足")
+				for card1 in $UI/Playing/cards/HBoxContainer.get_children():
+					card1.disabled = false
 				return false
 		if rand_range(0,10) < card_g:
 			random_index = randi() % move_card_path.size()
@@ -682,10 +714,12 @@ remote func randi_send_card(num,id):
 		tween.start()
 		card.modulate = Color(1,1,1,1)
 		yield(get_tree().create_timer(0.5), "timeout")
-		
+	turn_button_disabled(false)
+	
 	for card in $UI/Playing/cards/HBoxContainer.get_children():
 		card.disabled = false
 func _on_m_card_clickd(id,cname):
+	turn_button_disabled(true)
 	var fastmove=false
 	var num1 = 0
 	for a in players:
@@ -694,6 +728,7 @@ func _on_m_card_clickd(id,cname):
 				pass
 			else:
 				wrong("还没到你")
+				turn_button_disabled(false)
 				return
 		num1 += 1
 	var idnum = extract_numbers_from_string(str(str(id).substr(14,2)))
@@ -706,8 +741,6 @@ func _on_m_card_clickd(id,cname):
 	else:
 		pass
 	print(mm[idnum]["turn"])
-	print(tcx)
-	print(tcy)
 	for turning in mm[idnum]["turn"]:
 		if is_even_or_odd(num) == "Even":
 			var an = check_chess(tcx,tcy,"Even",turning)
@@ -716,7 +749,9 @@ func _on_m_card_clickd(id,cname):
 				tcy = an[1]
 			else:
 				wrong("可能会走出边界")
+				turn_button_disabled(false)
 				return
+				
 				
 		else:
 			var an = check_chess(tcx,tcy,"ne",turning)
@@ -725,6 +760,7 @@ func _on_m_card_clickd(id,cname):
 				tcy = an[1]
 			else:
 				wrong("可能会走出边界")
+				turn_button_disabled(false)
 				return
 		num += 1
 	for node in get_tree().get_nodes_in_group("card"):
@@ -761,24 +797,17 @@ func _on_m_card_clickd(id,cname):
 	for node in get_tree().get_nodes_in_group("card"):
 		node.mode = true
 	turn_button_disabled(false)
-	
+	turn_card_disabled(false)
 	if not fastmove:
-		print(1)
-		print(nowcolor)
-		print(mm[idnum]["color"])
-		print(name_to_rgb(mm[idnum]["color"]))
 		if is_network_master():
 			Round_pass()
 		else:
 			rpc_id(1,"Round_pass")
 	else:
-		print(2)
 		if is_network_master():
-			print(2.1)
 			fast_move()
 		else:
 			rpc_id(1,"fast_move")
-			print(2.2)
 remote func show_to_all(id):
 	show_card(id)
 	rpc("show_card",id)
@@ -789,7 +818,6 @@ func _on_s_card_clickd(id):
 		if (number + base_id) in id:
 			pass
 remote func fast_move():
-	print(3)
 	rpc('wow',"快捷移动,继续当前会合")
 	wow("快捷移动,继续当前会合")
 remote func move_chess(direction:String,long:int,dir:int,id):
@@ -850,7 +878,6 @@ remote func move_chess(direction:String,long:int,dir:int,id):
 				$UI/Playing/map/Chessman.cx += long
 func check_chess(tcx, tcy,direction:String,long:int):
 	if direction == "Even":
-
 		if $UI/Playing/map/Chessman.cr % 4 == 0:
 			tcx += long
 		if $UI/Playing/map/Chessman.cr % 4 == 1:
@@ -925,6 +952,13 @@ func creat_be(num,pos):
 		$Tween.interpolate_property(bes,"global_position",pos,$UI/Playing/itmes/Be.global_position,0.5)
 		yield(get_tree().create_timer(0.5), "timeout")
 		be += 1
+		var tw = create_and_add_tween()
+		tw.interpolate_property($UI/Playing/itmes/Be,"scale",Vector2(0.281,0.282),Vector2(0.4,0.4),0.1)
+		tw.start()
+		yield(get_tree().create_timer(0.1), "timeout")
+		tw.interpolate_property($UI/Playing/itmes/Be,"scale",Vector2(0.4,0.4),Vector2(0.281,0.282),0.1)
+		tw.start()
+		yield(get_tree().create_timer(0.1), "timeout")
 
 remote func set_cr(num):
 	$UI/Playing/map/Chessman.cr = num
@@ -1070,7 +1104,9 @@ func turn_button_disabled(mode:bool):
 	$UI/Playing/itmes/turnButton/right.disabled = mode
 	$UI/Playing/itmes/passbutton.disabled = mode
 
-
+func turn_card_disabled(mode:bool):
+	for index in $UI/Playing/cards/HBoxContainer.get_children():
+		index.disabled = mode
 
 
 func _on_Admin_pass_button_pressed():
@@ -1122,4 +1158,170 @@ func randi_destination_pos():
 		$UI/Playing/map/destinationOwner.get_children()[num].dx = dx
 		$UI/Playing/map/destinationOwner.get_children()[num].dy = dy
 		num += 1
+	
+func check_destination(player_num):
+	if Round == player_num:
+		turn_button_disabled(true)
+		wow("玩家"+players[player_num-1].name+"得分！")
+		rpc("wow","玩家"+players[player_num-1].name+"得分！")
+		yield(get_tree().create_timer(1.0), "timeout")
+		print("成功调用")
+		if Round == 1:
+			creat_score(1,$UI/Playing/map/Chessman.global_position)
+			yield(get_tree().create_timer(0.5), "timeout")
+			scores[Round-1] += 1
+			start_add_score()
+			
+		else:
+			creat_score(1,$UI/Playing/map/Chessman.global_position)
+			yield(get_tree().create_timer(0.5), "timeout")
+			scores[Round-1] += 1
+			rpc_id(players[Round-1].id,"start_add_score")
+		print(scores)
+		$UI/Playing/map/Chessman.cx = 9
+		$UI/Playing/map/Chessman.cy = 6
+		yield(get_tree().create_timer(1.0), "timeout")
+		turn_button_disabled(false)
+		for index in scores:
+			if index == 4:
+				emit_signal("game_end")
+remote func start_add_score():
+	var tw = create_and_add_tween()
+	tw.interpolate_property($UI/Playing/Score,"scale",Vector2(0.3,0.3),Vector2(0.5,0.5),0.1)
+	tw.start()
+	yield(get_tree().create_timer(0.1), "timeout")
+	tw.interpolate_property($UI/Playing/Score,"scale",Vector2(0.5,0.5),Vector2(0.3,0.3),0.1)
+	tw.start()
+func _on_1_body_entered(body):
+	if is_network_master():
+		check_destination(1)
+
+func _on_2_body_entered(body):
+	if is_network_master():
+		check_destination(2)
+
+func _on_3_body_entered(body):
+	if is_network_master():
+		check_destination(3)
+func _on_4_body_entered(body):
+	if is_network_master():
+		check_destination(4)
+remote func creat_score(num,pos):
+	for i in range(num):
+		var score = ScoreTscn
+		score = score.instance()
+		add_child(score)
+		score.global_position = pos
+		var tw = create_and_add_tween()
+		tw.interpolate_property(score,"global_position",pos,$UI/Playing/itmes/Be.global_position,0.5)
+		yield(get_tree().create_timer(0.5), "timeout")
+func find_all_original_indices(original_arr, sorted_value):
+	var indices = []
+	for index in range(original_arr.size()):
+		if original_arr[index] == sorted_value:
+			indices.append(index)
+	return indices
+
+func get_all_original_indices(original_arr, sorted_arr):
+	var all_indices = []
+	for value in sorted_arr:
+		var indices = find_all_original_indices(original_arr, value)
+		for index in indices:
+			if not index in all_indices:
+				all_indices.append(index)
+	return all_indices
+func _on_game_end():
+	turn_card_disabled(true)
+	turn_button_disabled(true)
+	rpc("turn_card_disabled",true)
+	rpc("turn_button_disabled",true)
+	var num = 0
+	var win_player = "?"
+	for index in scores:
+		if index == 4:
+			win_player = players[num].name
+		num += 1
+	yield(get_tree().create_timer(1.0), "timeout")
+	rpc("wow","玩家"+win_player+"分数达到4分，游戏结束！")
+	wow("玩家"+win_player+"分数达到4分，游戏结束！")
+	play_game_end(scores)
+	rpc("play_game_end",scores)
+
+remote func play_game_end(score_a:Array):
+	var vi_score = score_a
+	vi_score = bubble_sort_desc(vi_score)
+	print("排序之前："+str(score_a))
+	
+	print("排序完成"+str(vi_score))
+	var score_index = get_first_items(get_all_original_indices(score_a, vi_score))
+	print(score_index)
+	var ranking = []
+	for index in score_index:
+		ranking.append(
+			{
+				"name":players[index].name,
+				"be":str(players[index].be),
+				"score":str(score_a[index])
+				
+			}
+		)
+	$UI/EndUI/HBoxContainer/Control/VBoxContainer/row1/HBoxContainer/Name.text = ranking[0].name
+	$UI/EndUI/HBoxContainer/Control/VBoxContainer/row2/HBoxContainer/Name.text = ranking[1].name
+	$UI/EndUI/HBoxContainer/Control/VBoxContainer/row3/HBoxContainer/Name.text = ranking[2].name
+	$UI/EndUI/HBoxContainer/Control/VBoxContainer/row4/HBoxContainer/Name.text = ranking[3].name
+	$UI/EndUI/HBoxContainer/Control/VBoxContainer/row1/be.text = ranking[0].be
+	$UI/EndUI/HBoxContainer/Control/VBoxContainer/row2/be.text = ranking[1].be
+	$UI/EndUI/HBoxContainer/Control/VBoxContainer/row3/be.text = ranking[2].be
+	$UI/EndUI/HBoxContainer/Control/VBoxContainer/row4/be.text = ranking[3].be
+	$UI/EndUI/HBoxContainer/Control/VBoxContainer/row1/score.text = ranking[0].score
+	$UI/EndUI/HBoxContainer/Control/VBoxContainer/row2/score.text = ranking[1].score
+	$UI/EndUI/HBoxContainer/Control/VBoxContainer/row3/score.text = ranking[2].score
+	$UI/EndUI/HBoxContainer/Control/VBoxContainer/row4/score.text = ranking[3].score
+	
+	yield(get_tree().create_timer(1.0), "timeout")
+	$UI/EndUI.position = Vector2(1600,0)
+	$UI/EndUI.show()
+	var tw = create_and_add_tween()
+	tw.interpolate_property($UI/EndUI,"position",Vector2(1600,0),Vector2(0,0),0.5,Tween.EASE_IN)
+	tw.start()
+	yield(get_tree().create_timer(0.5), "timeout")
+	$UI/EndUI.start()
+
+func get_first_items(arrays):
+	var first_items = []
+	for arr in arrays:
+		first_items.append(arr)
+	return first_items
+
+func _on_Button2_pressed():
+	check_destination(1)
+
+
+func _on_Button4_pressed():
+	check_destination(3)
+
+
+func _on_Button5_pressed():
+	check_destination(4)
+
+
+func _on_Button3_pressed():
+	check_destination(2)
+func bubble_sort_desc(arr):
+	var n = arr.size()
+	for i in range(n):
+		for j in range(0, n-i-1):
+			if arr[j] < arr[j+1]:
+				# 交换元素
+				var temp = arr[j]
+				arr[j] = arr[j+1]
+				arr[j+1] = temp
+	return arr
+
+func _on_Button_pressed():
+	$UI/MainUI.show()
+	$UI/WatingUI.hide()
+	$UI/Playing.hide()
+	$UI/EndUI.hide()
+	_on_Back_pressed()
 	

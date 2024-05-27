@@ -1,4 +1,4 @@
-[gd_scene load_steps=87 format=2]
+[gd_scene load_steps=103 format=2]
 
 [ext_resource path="res://script/Main.gd" type="Script" id=1]
 [ext_resource path="res://assets/Broken Console Bold.ttf" type="DynamicFontData" id=2]
@@ -43,30 +43,15 @@
 [ext_resource path="res://assets/destination/4.png" type="Texture" id=41]
 [ext_resource path="res://assets/destination/2.png" type="Texture" id=42]
 [ext_resource path="res://assets/destination/1.png" type="Texture" id=43]
-
-[sub_resource type="Shader" id=41]
-code = "shader_type canvas_item;
-
-uniform sampler2D texture : hint_albedo;
-uniform float pixel_size = 10.0; // 设置像素大小
-
-void fragment() {
-    // 获取当前片段的UV坐标
-    vec2 uv = UV;
-
-    // 根据像素大小计算像素化UV坐标
-    vec2 pixelated_uv = floor(uv * pixel_size) / pixel_size;
-
-    // 从纹理中采样颜色
-    vec4 color = texture(texture, pixelated_uv);
-
-    // 应用颜色
-    COLOR = color;
-}
-"
+[ext_resource path="res://tscn/vcd.tres" type="Shader" id=44]
+[ext_resource path="res://tscn/像素32.tres" type="DynamicFont" id=45]
+[ext_resource path="res://assets/itmes/score.png" type="Texture" id=46]
+[ext_resource path="res://tscn/2.40.tres" type="DynamicFont" id=47]
+[ext_resource path="res://script/EndUI.gd" type="Script" id=48]
+[ext_resource path="res://end.tres" type="DynamicFont" id=49]
 
 [sub_resource type="ShaderMaterial" id=40]
-shader = SubResource( 41 )
+shader = ExtResource( 44 )
 shader_param/pixel_size = 100.0
 shader_param/texture = ExtResource( 11 )
 
@@ -107,21 +92,75 @@ font_data = ExtResource( 2 )
 
 [sub_resource type="StyleBoxFlat" id=15]
 bg_color = Color( 0, 0.741176, 0.913725, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0, 0, 0, 1 )
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
 
 [sub_resource type="StyleBoxFlat" id=16]
 bg_color = Color( 0, 0.462745, 0.686275, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0, 0, 0, 1 )
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
 
 [sub_resource type="StyleBoxFlat" id=17]
 bg_color = Color( 0.27451, 0.529412, 0.8, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0, 0, 0, 1 )
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
 
 [sub_resource type="StyleBoxFlat" id=18]
 bg_color = Color( 0.635294, 0.392157, 1, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0, 0, 0, 1 )
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
 
 [sub_resource type="StyleBoxFlat" id=19]
 bg_color = Color( 0.219608, 0.0156863, 0.407843, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0, 0, 0, 1 )
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
 
 [sub_resource type="StyleBoxFlat" id=20]
 bg_color = Color( 0.517647, 0.219608, 0.913725, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0, 0, 0, 1 )
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
 
 [sub_resource type="DynamicFont" id=39]
 size = 24
@@ -129,9 +168,13 @@ font_data = ExtResource( 38 )
 
 [sub_resource type="StyleBoxFlat" id=37]
 bg_color = Color( 0.0235294, 0.439216, 0.541176, 1 )
+corner_radius_top_left = 10
+corner_radius_top_right = 10
 
 [sub_resource type="StyleBoxFlat" id=38]
 bg_color = Color( 0, 0.556863, 0.694118, 1 )
+corner_radius_top_left = 10
+corner_radius_top_right = 10
 
 [sub_resource type="Animation" id=10]
 resource_name = "playername"
@@ -162,9 +205,13 @@ tracks/1/keys = {
 
 [sub_resource type="StyleBoxFlat" id=8]
 bg_color = Color( 0, 0.439216, 0.54902, 1 )
+corner_radius_top_left = 10
+corner_radius_top_right = 10
 
 [sub_resource type="StyleBoxFlat" id=9]
 bg_color = Color( 0, 0.556863, 0.694118, 1 )
+corner_radius_top_left = 10
+corner_radius_top_right = 10
 
 [sub_resource type="Animation" id=11]
 resource_name = "ip"
@@ -195,9 +242,13 @@ tracks/1/keys = {
 
 [sub_resource type="StyleBoxFlat" id=12]
 bg_color = Color( 0, 0.439216, 0.54902, 1 )
+corner_radius_top_left = 10
+corner_radius_top_right = 10
 
 [sub_resource type="StyleBoxFlat" id=13]
 bg_color = Color( 0, 0.556863, 0.694118, 1 )
+corner_radius_top_left = 10
+corner_radius_top_right = 10
 
 [sub_resource type="Animation" id=14]
 resource_name = "port"
@@ -228,30 +279,117 @@ tracks/1/keys = {
 
 [sub_resource type="StyleBoxFlat" id=21]
 bg_color = Color( 1, 0.0784314, 0.0784314, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0, 0, 0, 1 )
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
 
 [sub_resource type="StyleBoxFlat" id=22]
 bg_color = Color( 0.462745, 0.00392157, 0.00392157, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0, 0, 0, 1 )
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
 
 [sub_resource type="StyleBoxFlat" id=23]
 bg_color = Color( 0.839216, 0.054902, 0.054902, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0, 0, 0, 1 )
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
 
 [sub_resource type="StyleBoxFlat" id=28]
 bg_color = Color( 0.286275, 0.321569, 1, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0, 0, 0, 1 )
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
 
 [sub_resource type="StyleBoxFlat" id=29]
 bg_color = Color( 0.113725, 0.129412, 0.584314, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0, 0, 0, 1 )
+border_blend = true
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
 
 [sub_resource type="StyleBoxFlat" id=30]
 bg_color = Color( 0.270588, 0.254902, 0.803922, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0, 0, 0, 1 )
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
 
 [sub_resource type="StyleBoxFlat" id=25]
 bg_color = Color( 0.533333, 0.807843, 0.219608, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0, 0, 0, 1 )
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
 
 [sub_resource type="StyleBoxFlat" id=26]
 bg_color = Color( 0.345098, 0.486275, 0.129412, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0, 0, 0, 1 )
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
 
 [sub_resource type="StyleBoxFlat" id=27]
 bg_color = Color( 0.368627, 0.603922, 0.156863, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0, 0, 0, 1 )
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id=55]
+bg_color = Color( 0.160784, 0.160784, 0.160784, 0.560784 )
+corner_radius_top_left = 30
+corner_radius_top_right = 30
 
 [sub_resource type="StyleBoxFlat" id=31]
 bg_color = Color( 0.627451, 0.490196, 0.145098, 1 )
@@ -288,12 +426,25 @@ tracks/1/keys = {
 
 [sub_resource type="StyleBoxFlat" id=33]
 bg_color = Color( 0.819608, 0.14902, 0.14902, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0.83252, 0.83252, 0.83252, 1 )
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
 
 [sub_resource type="StyleBoxFlat" id=34]
 bg_color = Color( 0.537255, 0.0588235, 0.0588235, 1 )
 
 [sub_resource type="StyleBoxFlat" id=35]
 bg_color = Color( 0.65098, 0.133333, 0.133333, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
 
 [sub_resource type="DynamicFont" id=2]
 size = 38
@@ -494,6 +645,264 @@ tracks/1/keys = {
 "values": [ Vector2( 5877, 759 ), Vector2( 2812, 543 ), Vector2( 2812, 543 ), Vector2( -4224, 51 ) ]
 }
 
+[sub_resource type="StyleBoxFlat" id=48]
+bg_color = Color( 0, 0, 0, 0.364706 )
+
+[sub_resource type="StyleBoxFlat" id=49]
+bg_color = Color( 0.709804, 0.611765, 0.0666667, 0.894118 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0.807843, 0.45098, 0.0666667, 1 )
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+
+[sub_resource type="DynamicFont" id=58]
+size = 36
+outline_size = 2
+outline_color = Color( 0, 0, 0, 1 )
+extra_spacing_top = 12
+font_data = ExtResource( 2 )
+
+[sub_resource type="StyleBoxFlat" id=50]
+bg_color = Color( 0.129412, 0.384314, 0.317647, 0.913725 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0.462745, 0.462745, 0.462745, 1 )
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id=57]
+bg_color = Color( 0.482353, 0.180392, 0.180392, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0, 0, 0, 1 )
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id=53]
+bg_color = Color( 0.741176, 0.262745, 0.262745, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0, 0, 0, 1 )
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id=56]
+bg_color = Color( 0.655273, 0.250847, 0.250847, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0, 0, 0, 1 )
+border_blend = true
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id=54]
+bg_color = Color( 0.803922, 0.294118, 0.294118, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0, 0, 0, 1 )
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="Animation" id=51]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("HBoxContainer/Control/VBoxContainer/Text1:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("HBoxContainer/Control/VBoxContainer/row1:rect_position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 55 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("HBoxContainer/Control/VBoxContainer/Text2:rect_position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 110 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("HBoxContainer/Control/VBoxContainer/row2:rect_position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 165 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("HBoxContainer/Control/VBoxContainer/row3:rect_position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 220 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("HBoxContainer/Control/VBoxContainer/row4:rect_position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 275 ) ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("HBoxContainer/Control/VBoxContainer/button:rect_position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 370 ) ]
+}
+
+[sub_resource type="Animation" id=52]
+resource_name = "start"
+length = 5.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("HBoxContainer/Control/VBoxContainer/Text1:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.183011, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( -1600, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("HBoxContainer/Control/VBoxContainer/row1:rect_position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.3, 0.7 ),
+"transitions": PoolRealArray( 0.183011, 0.183011, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 55 ), Vector2( 0, 55 ), Vector2( -1600, 55 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("HBoxContainer/Control/VBoxContainer/Text2:rect_position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.7, 1.1 ),
+"transitions": PoolRealArray( 1, 0.183011, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 110 ), Vector2( 0, 110 ), Vector2( -1600, 110 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("HBoxContainer/Control/VBoxContainer/row2:rect_position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.9, 1.3 ),
+"transitions": PoolRealArray( 1, 0.183011, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 165 ), Vector2( 0, 165 ), Vector2( -1600, 165 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("HBoxContainer/Control/VBoxContainer/row3:rect_position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 1.2, 1.6 ),
+"transitions": PoolRealArray( 1, 0.183011, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 220 ), Vector2( 0, 220 ), Vector2( -1600, 220 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("HBoxContainer/Control/VBoxContainer/row4:rect_position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 1.5, 1.9 ),
+"transitions": PoolRealArray( 1, 0.183011, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 275 ), Vector2( 0, 275 ), Vector2( -1600, 275 ) ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("HBoxContainer/Control/VBoxContainer/button:rect_position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0, 1.8, 2.2 ),
+"transitions": PoolRealArray( 1, 0.183011, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 370 ), Vector2( 0, 370 ), Vector2( -1600, 370 ) ]
+}
+
 [node name="Main" type="Node2D"]
 position = Vector2( 661, 7 )
 script = ExtResource( 1 )
@@ -532,30 +941,9 @@ bbcode_text = "
 text = "
 RAINBOW CARD     "
 
-[node name="ColorRect3" type="ColorRect" parent="UI/MainUI"]
-margin_left = 662.0
-margin_top = 467.0
-margin_right = 874.0
-margin_bottom = 518.0
-color = Color( 0, 0, 0, 1 )
-
-[node name="ColorRect2" type="ColorRect" parent="UI/MainUI"]
-margin_left = 774.0
-margin_top = 405.0
-margin_right = 986.0
-margin_bottom = 457.0
-color = Color( 0, 0, 0, 1 )
-
-[node name="ColorRect" type="ColorRect" parent="UI/MainUI"]
-margin_left = 550.0
-margin_top = 405.0
-margin_right = 762.0
-margin_bottom = 457.0
-color = Color( 0, 0, 0, 1 )
-
 [node name="createServer" type="Button" parent="UI/MainUI"]
 margin_left = 552.0
-margin_top = 407.0
+margin_top = 399.0
 margin_right = 760.0
 margin_bottom = 455.0
 custom_fonts/font = ExtResource( 3 )
@@ -566,7 +954,7 @@ text = "创建服务器"
 
 [node name="joinServer" type="Button" parent="UI/MainUI"]
 margin_left = 776.0
-margin_top = 407.0
+margin_top = 399.0
 margin_right = 984.0
 margin_bottom = 455.0
 custom_fonts/font = ExtResource( 3 )
@@ -684,7 +1072,7 @@ text = "端口："
 margin_left = 664.0
 margin_top = 469.0
 margin_right = 872.0
-margin_bottom = 516.0
+margin_bottom = 525.0
 custom_fonts/font = ExtResource( 3 )
 custom_styles/hover = SubResource( 21 )
 custom_styles/pressed = SubResource( 22 )
@@ -693,13 +1081,6 @@ text = "退出游戏"
 
 [node name="WatingUI" type="Node2D" parent="UI"]
 visible = false
-
-[node name="ColorRect" type="ColorRect" parent="UI/WatingUI"]
-modulate = Color( 1, 1, 1, 0.537255 )
-margin_top = 153.0
-margin_right = 272.0
-margin_bottom = 508.0
-color = Color( 0.223529, 0.223529, 0.223529, 1 )
 
 [node name="title" type="Label" parent="UI/WatingUI"]
 margin_left = 672.0
@@ -750,36 +1131,22 @@ text = "等待中"
 align = 1
 clip_text = true
 
-[node name="ColorRect3" type="ColorRect" parent="UI/WatingUI"]
-margin_left = 1055.0
-margin_top = 607.0
-margin_right = 1201.0
-margin_bottom = 657.0
-color = Color( 0, 0, 0, 1 )
-
 [node name="StartGame" type="Button" parent="UI/WatingUI"]
 margin_left = 1056.0
 margin_top = 608.0
 margin_right = 1200.0
-margin_bottom = 656.0
+margin_bottom = 662.0
 custom_fonts/font = ExtResource( 35 )
 custom_styles/hover = SubResource( 28 )
 custom_styles/pressed = SubResource( 29 )
 custom_styles/normal = SubResource( 30 )
 text = "开始"
 
-[node name="ColorRect2" type="ColorRect" parent="UI/WatingUI"]
-margin_left = 503.0
-margin_top = 607.0
-margin_right = 649.0
-margin_bottom = 657.0
-color = Color( 0, 0, 0, 1 )
-
 [node name="Back" type="Button" parent="UI/WatingUI"]
 margin_left = 504.0
 margin_top = 608.0
 margin_right = 648.0
-margin_bottom = 656.0
+margin_bottom = 662.0
 custom_fonts/font = ExtResource( 35 )
 custom_styles/hover = SubResource( 25 )
 custom_styles/pressed = SubResource( 26 )
@@ -789,12 +1156,13 @@ text = "返回"
 [node name="Chat" type="RichTextLabel" parent="UI/WatingUI"]
 margin_top = 153.0
 margin_right = 272.0
-margin_bottom = 507.0
+margin_bottom = 509.0
 custom_fonts/mono_font = ExtResource( 33 )
 custom_fonts/bold_italics_font = ExtResource( 33 )
 custom_fonts/italics_font = ExtResource( 33 )
 custom_fonts/bold_font = ExtResource( 33 )
 custom_fonts/normal_font = ExtResource( 33 )
+custom_styles/normal = SubResource( 55 )
 
 [node name="TextEdit" type="LineEdit" parent="UI/WatingUI"]
 margin_top = 509.0
@@ -821,18 +1189,11 @@ color = Color( 0, 0, 0, 1 )
 [node name="AnimationPlayer" type="AnimationPlayer" parent="UI/WatingUI/TextEdit"]
 anims/chat = SubResource( 36 )
 
-[node name="ColorRect4" type="ColorRect" parent="UI/WatingUI"]
+[node name="send" type="Button" parent="UI/WatingUI"]
 margin_left = 207.0
 margin_top = 509.0
-margin_right = 273.0
-margin_bottom = 540.0
-color = Color( 0, 0, 0, 1 )
-
-[node name="send" type="Button" parent="UI/WatingUI"]
-margin_left = 208.0
-margin_top = 510.0
 margin_right = 272.0
-margin_bottom = 539.0
+margin_bottom = 540.0
 custom_styles/hover = SubResource( 33 )
 custom_styles/pressed = SubResource( 34 )
 custom_styles/normal = SubResource( 35 )
@@ -888,12 +1249,13 @@ margin_bottom = 472.0
 color = Color( 0.0941176, 0.0941176, 0.0941176, 1 )
 
 [node name="players" type="Node2D" parent="UI/Playing"]
+position = Vector2( -68, 0 )
 
 [node name="1" type="Node2D" parent="UI/Playing/players"]
 position = Vector2( 101, 105 )
 
 [node name="ColorRect2" type="ColorRect" parent="UI/Playing/players/1"]
-margin_right = 347.0
+margin_right = 566.0
 margin_bottom = 70.0
 color = Color( 0.737255, 0.235294, 0.235294, 1 )
 
@@ -901,7 +1263,7 @@ color = Color( 0.737255, 0.235294, 0.235294, 1 )
 position = Vector2( 101, 192 )
 
 [node name="ColorRect2" type="ColorRect" parent="UI/Playing/players/2"]
-margin_right = 347.0
+margin_right = 566.0
 margin_bottom = 70.0
 color = Color( 0.796078, 0.529412, 0.14902, 1 )
 
@@ -909,7 +1271,7 @@ color = Color( 0.796078, 0.529412, 0.14902, 1 )
 position = Vector2( 101, 281 )
 
 [node name="ColorRect2" type="ColorRect" parent="UI/Playing/players/3"]
-margin_right = 347.0
+margin_right = 566.0
 margin_bottom = 70.0
 color = Color( 0.129412, 0.501961, 0.72549, 1 )
 
@@ -917,7 +1279,7 @@ color = Color( 0.129412, 0.501961, 0.72549, 1 )
 position = Vector2( 101, 372 )
 
 [node name="ColorRect2" type="ColorRect" parent="UI/Playing/players/4"]
-margin_right = 347.0
+margin_right = 566.0
 margin_bottom = 70.0
 color = Color( 0, 0.509804, 0.0784314, 1 )
 
@@ -931,10 +1293,10 @@ texture = ExtResource( 10 )
 
 [node name="1l" type="RichTextLabel" parent="UI/Playing/players/Node2D/Be"]
 modulate = Color( 1, 0.960784, 0, 1 )
-margin_left = 110.297
-margin_top = -42.5339
-margin_right = 293.297
-margin_bottom = 4.46609
+margin_left = 110.0
+margin_top = -43.0
+margin_right = 212.0
+margin_bottom = 4.0
 rect_scale = Vector2( 3, 3 )
 custom_fonts/normal_font = SubResource( 2 )
 bbcode_text = "0"
@@ -947,10 +1309,10 @@ texture = ExtResource( 10 )
 
 [node name="2l" type="RichTextLabel" parent="UI/Playing/players/Node2D/Be2"]
 modulate = Color( 1, 0.960784, 0, 1 )
-margin_left = 110.297
-margin_top = -60.2564
-margin_right = 293.297
-margin_bottom = -13.2564
+margin_left = 110.0
+margin_top = -60.0
+margin_right = 212.0
+margin_bottom = -13.0
 rect_scale = Vector2( 3, 3 )
 custom_fonts/normal_font = SubResource( 2 )
 bbcode_text = "0"
@@ -963,10 +1325,10 @@ texture = ExtResource( 10 )
 
 [node name="3l" type="RichTextLabel" parent="UI/Playing/players/Node2D/Be3"]
 modulate = Color( 1, 0.960784, 0, 1 )
-margin_left = 110.297
-margin_top = -67.3453
-margin_right = 293.297
-margin_bottom = -20.3453
+margin_left = 110.0
+margin_top = -67.0
+margin_right = 205.0
+margin_bottom = -20.0
 rect_scale = Vector2( 3, 3 )
 custom_fonts/normal_font = SubResource( 2 )
 bbcode_text = "0"
@@ -979,22 +1341,88 @@ texture = ExtResource( 10 )
 
 [node name="4l" type="RichTextLabel" parent="UI/Playing/players/Node2D/Be4"]
 modulate = Color( 1, 0.960784, 0, 1 )
-margin_left = 103.181
-margin_top = -46.0785
-margin_right = 286.181
-margin_bottom = 0.921509
+margin_left = 103.0
+margin_top = -46.0
+margin_right = 198.0
+margin_bottom = 1.0
 rect_scale = Vector2( 3, 3 )
 custom_fonts/normal_font = SubResource( 2 )
 bbcode_text = "0"
 text = "0"
 
+[node name="scores" type="Node2D" parent="UI/Playing/players"]
+position = Vector2( -38, 5 )
+
+[node name="s1" type="RichTextLabel" parent="UI/Playing/players/scores"]
+modulate = Color( 1, 0.960784, 0, 1 )
+margin_left = 579.0
+margin_top = 114.0
+margin_right = 674.0
+margin_bottom = 161.0
+custom_fonts/normal_font = SubResource( 2 )
+bbcode_text = "0"
+text = "0"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="s2" type="RichTextLabel" parent="UI/Playing/players/scores"]
+modulate = Color( 1, 0.960784, 0, 1 )
+margin_left = 579.0
+margin_top = 208.0
+margin_right = 674.0
+margin_bottom = 255.0
+custom_fonts/normal_font = SubResource( 2 )
+bbcode_text = "0"
+text = "0"
+
+[node name="s3" type="RichTextLabel" parent="UI/Playing/players/scores"]
+modulate = Color( 1, 0.960784, 0, 1 )
+margin_left = 579.0
+margin_top = 293.0
+margin_right = 674.0
+margin_bottom = 340.0
+custom_fonts/normal_font = SubResource( 2 )
+bbcode_text = "0"
+text = "0"
+
+[node name="s4" type="RichTextLabel" parent="UI/Playing/players/scores"]
+modulate = Color( 1, 0.960784, 0, 1 )
+margin_left = 579.0
+margin_top = 385.0
+margin_right = 674.0
+margin_bottom = 432.0
+custom_fonts/normal_font = SubResource( 2 )
+bbcode_text = "0"
+text = "0"
+
+[node name="Score" type="Sprite" parent="UI/Playing/players/scores"]
+position = Vector2( 535, 134 )
+scale = Vector2( 0.3, 0.3 )
+texture = ExtResource( 46 )
+
+[node name="Score2" type="Sprite" parent="UI/Playing/players/scores"]
+position = Vector2( 536, 226 )
+scale = Vector2( 0.3, 0.3 )
+texture = ExtResource( 46 )
+
+[node name="Score3" type="Sprite" parent="UI/Playing/players/scores"]
+position = Vector2( 538, 314 )
+scale = Vector2( 0.3, 0.3 )
+texture = ExtResource( 46 )
+
+[node name="Score4" type="Sprite" parent="UI/Playing/players/scores"]
+position = Vector2( 542, 402 )
+scale = Vector2( 0.3, 0.3 )
+texture = ExtResource( 46 )
+
 [node name="Name" type="Node2D" parent="UI/Playing"]
 position = Vector2( 129, -168 )
 
 [node name="name1" type="RichTextLabel" parent="UI/Playing/Name"]
-margin_left = -28.0
+margin_left = -96.0
 margin_top = 293.0
-margin_right = 182.0
+margin_right = 114.0
 margin_bottom = 333.0
 custom_fonts/normal_font = ExtResource( 37 )
 bbcode_enabled = true
@@ -1002,9 +1430,9 @@ bbcode_text = "1"
 text = "1"
 
 [node name="name2" type="RichTextLabel" parent="UI/Playing/Name"]
-margin_left = -28.0
+margin_left = -96.0
 margin_top = 376.0
-margin_right = 182.0
+margin_right = 114.0
 margin_bottom = 416.0
 custom_fonts/normal_font = ExtResource( 37 )
 bbcode_enabled = true
@@ -1012,19 +1440,19 @@ bbcode_text = "2"
 text = "2"
 
 [node name="name3" type="RichTextLabel" parent="UI/Playing/Name"]
-margin_left = -28.0
-margin_top = 473.0
-margin_right = 182.0
-margin_bottom = 513.0
+margin_left = -96.0
+margin_top = 469.0
+margin_right = 114.0
+margin_bottom = 509.0
 custom_fonts/normal_font = ExtResource( 37 )
 bbcode_enabled = true
 bbcode_text = "3"
 text = "3"
 
 [node name="name4" type="RichTextLabel" parent="UI/Playing/Name"]
-margin_left = -28.0
+margin_left = -96.0
 margin_top = 562.0
-margin_right = 182.0
+margin_right = 114.0
 margin_bottom = 602.0
 custom_fonts/normal_font = ExtResource( 37 )
 bbcode_enabled = true
@@ -1037,7 +1465,7 @@ position = Vector2( 888, 24 )
 [node name="Map" type="Sprite" parent="UI/Playing/map"]
 position = Vector2( 342, 220.531 )
 scale = Vector2( 0.706955, 0.703249 )
-z_index = 11
+z_index = 1
 texture = ExtResource( 22 )
 
 [node name="ColorRect" type="ColorRect" parent="UI/Playing/map"]
@@ -2240,6 +2668,16 @@ shape = SubResource( 46 )
 cx = 9
 cy = 6
 
+[node name="Chessman2" type="RigidBody2D" parent="UI/Playing/map/Chessman"]
+mode = 3
+mass = 0.00102041
+gravity_scale = 0.0
+can_sleep = false
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="UI/Playing/map/Chessman/Chessman2"]
+scale = Vector2( 0.1, 0.1 )
+polygon = PoolVector2Array( 0, -140, -110, 150, -40, 110, 0, 110, 30, 110, 70, 120, 110, 150 )
+
 [node name="cards" type="Node2D" parent="UI/Playing"]
 
 [node name="cards2" type="Node2D" parent="UI/Playing/cards"]
@@ -2266,14 +2704,14 @@ alignment = 1
 modulate = Color( 1, 1, 1, 0.784314 )
 margin_left = 14.0
 margin_top = 12.0
-margin_right = 311.0
+margin_right = 383.0
 margin_bottom = 80.0
 color = Color( 0.0941176, 0.0941176, 0.0941176, 1 )
 
 [node name="ColorRect2" type="ColorRect" parent="UI/Playing/itmes"]
 margin_left = 8.0
 margin_top = 6.0
-margin_right = 304.0
+margin_right = 375.0
 margin_bottom = 72.0
 color = Color( 0.313726, 0.807843, 0.956863, 1 )
 
@@ -2284,9 +2722,9 @@ texture = ExtResource( 10 )
 
 [node name="RichTextLabel" type="RichTextLabel" parent="UI/Playing/itmes"]
 modulate = Color( 1, 0.960784, 0, 1 )
-margin_left = 92.0
+margin_left = 84.0
 margin_top = 18.0
-margin_right = 275.0
+margin_right = 189.0
 margin_bottom = 65.0
 custom_fonts/normal_font = SubResource( 2 )
 bbcode_text = "0"
@@ -2308,6 +2746,16 @@ margin_bottom = 548.0
 rect_scale = Vector2( 0.3, 0.3 )
 texture_normal = ExtResource( 14 )
 texture_pressed = ExtResource( 15 )
+
+[node name="score2" type="RichTextLabel" parent="UI/Playing/itmes"]
+modulate = Color( 1, 0.960784, 0, 1 )
+margin_left = 265.0
+margin_top = 18.0
+margin_right = 366.0
+margin_bottom = 65.0
+custom_fonts/normal_font = SubResource( 2 )
+bbcode_text = "0"
+text = "0"
 
 [node name="turnButton" type="Node2D" parent="UI/Playing/itmes"]
 
@@ -2402,12 +2850,18 @@ margin_right = 141.001
 margin_bottom = 811.0
 disabled = true
 
+[node name="Score" type="Sprite" parent="UI/Playing"]
+position = Vector2( 217, 39 )
+scale = Vector2( 0.3, 0.3 )
+texture = ExtResource( 46 )
+
 [node name="admin" type="Node2D" parent="UI"]
-visible = false
+z_index = 100
 
 [node name="ColorRect" type="ColorRect" parent="UI/admin"]
-margin_right = 325.0
-margin_bottom = 113.0
+margin_left = -213.0
+margin_right = 112.0
+margin_bottom = 158.0
 color = Color( 0.235294, 0.235294, 0.235294, 0.580392 )
 
 [node name="Admin_pass_button" type="Button" parent="UI/admin"]
@@ -2416,6 +2870,34 @@ margin_top = 8.0
 margin_right = 84.0
 margin_bottom = 28.0
 text = "PASS"
+
+[node name="Button2" type="Button" parent="UI/admin"]
+margin_left = 8.0
+margin_top = 35.0
+margin_right = 84.0
+margin_bottom = 56.0
+text = "1+s"
+
+[node name="Button3" type="Button" parent="UI/admin"]
+margin_left = 8.0
+margin_top = 63.0
+margin_right = 84.0
+margin_bottom = 84.0
+text = "2+s"
+
+[node name="Button4" type="Button" parent="UI/admin"]
+margin_left = 8.0
+margin_top = 94.0
+margin_right = 84.0
+margin_bottom = 115.0
+text = "3+s"
+
+[node name="Button5" type="Button" parent="UI/admin"]
+margin_left = 8.0
+margin_top = 125.0
+margin_right = 84.0
+margin_bottom = 146.0
+text = "4+s"
 
 [node name="Wow" type="Node2D" parent="UI"]
 position = Vector2( 18.001, -1.52588e-05 )
@@ -2447,6 +2929,300 @@ anims/run = SubResource( 4 )
 position = Vector2( 2671.9, 446.2 )
 cast_to = Vector2( -5356.78, -376.18 )
 
+[node name="EndUI" type="Node2D" parent="UI"]
+z_index = 1
+script = ExtResource( 48 )
+
+[node name="Panel" type="Panel" parent="UI/EndUI"]
+margin_right = 1600.0
+margin_bottom = 730.0
+custom_styles/panel = SubResource( 48 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/EndUI"]
+margin_left = 1600.0
+margin_top = 103.0
+margin_right = 3200.0
+margin_bottom = 636.0
+custom_constants/separation = 0
+alignment = 1
+
+[node name="Control" type="Control" parent="UI/EndUI/HBoxContainer"]
+margin_left = 482.0
+margin_right = 1117.0
+margin_bottom = 533.0
+rect_min_size = Vector2( 635, 0 )
+rect_pivot_offset = Vector2( -2028, 182 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/EndUI/HBoxContainer/Control"]
+margin_right = 40.0
+margin_bottom = 220.0
+custom_constants/separation = 55
+
+[node name="Text1" type="Control" parent="UI/EndUI/HBoxContainer/Control/VBoxContainer"]
+margin_right = 114.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="UI/EndUI/HBoxContainer/Control/VBoxContainer/Text1"]
+margin_right = 623.0
+margin_bottom = 54.0
+custom_fonts/normal_font = ExtResource( 47 )
+bbcode_enabled = true
+bbcode_text = " [color=red] 赢 家:[/color]"
+text = "  赢 家:"
+
+[node name="row1" type="Control" parent="UI/EndUI/HBoxContainer/Control/VBoxContainer"]
+margin_top = 55.0
+margin_right = 114.0
+margin_bottom = 55.0
+
+[node name="Panel" type="Panel" parent="UI/EndUI/HBoxContainer/Control/VBoxContainer/row1"]
+margin_right = 635.0
+margin_bottom = 47.0
+custom_styles/panel = SubResource( 49 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/EndUI/HBoxContainer/Control/VBoxContainer/row1"]
+margin_right = 40.0
+margin_bottom = 59.0
+
+[node name="Label" type="Label" parent="UI/EndUI/HBoxContainer/Control/VBoxContainer/row1/HBoxContainer"]
+margin_top = 13.0
+margin_right = 46.0
+margin_bottom = 45.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 45 )
+text = "  1 "
+
+[node name="Name" type="RichTextLabel" parent="UI/EndUI/HBoxContainer/Control/VBoxContainer/row1/HBoxContainer"]
+margin_left = 50.0
+margin_right = 250.0
+margin_bottom = 59.0
+rect_min_size = Vector2( 200, 0 )
+custom_fonts/normal_font = ExtResource( 49 )
+text = "111"
+
+[node name="Be" type="Sprite" parent="UI/EndUI/HBoxContainer/Control/VBoxContainer/row1/HBoxContainer"]
+position = Vector2( 283, 22 )
+scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 10 )
+
+[node name="Score" type="Sprite" parent="UI/EndUI/HBoxContainer/Control/VBoxContainer/row1/HBoxContainer"]
+position = Vector2( 435, 23 )
+scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 46 )
+
+[node name="score" type="RichTextLabel" parent="UI/EndUI/HBoxContainer/Control/VBoxContainer/row1"]
+margin_left = 464.0
+margin_right = 564.0
+margin_bottom = 59.0
+custom_fonts/normal_font = SubResource( 58 )
+text = "0"
+
+[node name="be" type="RichTextLabel" parent="UI/EndUI/HBoxContainer/Control/VBoxContainer/row1"]
+margin_left = 300.0
+margin_right = 400.0
+margin_bottom = 59.0
+rect_min_size = Vector2( 100, 0 )
+custom_fonts/normal_font = SubResource( 58 )
+text = "0"
+
+[node name="Text2" type="Control" parent="UI/EndUI/HBoxContainer/Control/VBoxContainer"]
+margin_top = 110.0
+margin_right = 114.0
+margin_bottom = 110.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="UI/EndUI/HBoxContainer/Control/VBoxContainer/Text2"]
+margin_right = 623.0
+margin_bottom = 54.0
+custom_fonts/normal_font = ExtResource( 47 )
+bbcode_enabled = true
+bbcode_text = "[color=black]  排 行 榜：[/color]"
+text = "  排 行 榜："
+
+[node name="row2" type="Control" parent="UI/EndUI/HBoxContainer/Control/VBoxContainer"]
+margin_top = 165.0
+margin_right = 114.0
+margin_bottom = 165.0
+
+[node name="Panel" type="Panel" parent="UI/EndUI/HBoxContainer/Control/VBoxContainer/row2"]
+margin_right = 635.0
+margin_bottom = 47.0
+custom_styles/panel = SubResource( 50 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/EndUI/HBoxContainer/Control/VBoxContainer/row2"]
+margin_right = 40.0
+margin_bottom = 59.0
+custom_constants/separation = 20
+
+[node name="Label" type="Label" parent="UI/EndUI/HBoxContainer/Control/VBoxContainer/row2/HBoxContainer"]
+margin_top = 13.0
+margin_right = 41.0
+margin_bottom = 45.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 45 )
+text = "  2"
+
+[node name="Name" type="RichTextLabel" parent="UI/EndUI/HBoxContainer/Control/VBoxContainer/row2/HBoxContainer"]
+margin_left = 61.0
+margin_right = 261.0
+margin_bottom = 59.0
+rect_min_size = Vector2( 200, 0 )
+custom_fonts/normal_font = ExtResource( 49 )
+text = "111"
+
+[node name="Be" type="Sprite" parent="UI/EndUI/HBoxContainer/Control/VBoxContainer/row2"]
+position = Vector2( 283, 22 )
+scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 10 )
+
+[node name="be" type="RichTextLabel" parent="UI/EndUI/HBoxContainer/Control/VBoxContainer/row2"]
+margin_left = 300.0
+margin_right = 400.0
+margin_bottom = 59.0
+custom_fonts/normal_font = SubResource( 58 )
+text = "0"
+
+[node name="Score" type="Sprite" parent="UI/EndUI/HBoxContainer/Control/VBoxContainer/row2"]
+position = Vector2( 435, 23 )
+scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 46 )
+
+[node name="score" type="RichTextLabel" parent="UI/EndUI/HBoxContainer/Control/VBoxContainer/row2"]
+margin_left = 464.0
+margin_right = 564.0
+margin_bottom = 59.0
+custom_fonts/normal_font = SubResource( 58 )
+text = "0"
+
+[node name="row3" type="Control" parent="UI/EndUI/HBoxContainer/Control/VBoxContainer"]
+margin_top = 220.0
+margin_right = 114.0
+margin_bottom = 220.0
+
+[node name="Panel" type="Panel" parent="UI/EndUI/HBoxContainer/Control/VBoxContainer/row3"]
+margin_right = 635.0
+margin_bottom = 47.0
+custom_styles/panel = SubResource( 50 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/EndUI/HBoxContainer/Control/VBoxContainer/row3"]
+margin_right = 40.0
+margin_bottom = 59.0
+custom_constants/separation = 20
+
+[node name="Label" type="Label" parent="UI/EndUI/HBoxContainer/Control/VBoxContainer/row3/HBoxContainer"]
+margin_top = 13.0
+margin_right = 41.0
+margin_bottom = 45.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 45 )
+text = "  3"
+
+[node name="Name" type="RichTextLabel" parent="UI/EndUI/HBoxContainer/Control/VBoxContainer/row3/HBoxContainer"]
+margin_left = 61.0
+margin_right = 261.0
+margin_bottom = 59.0
+rect_min_size = Vector2( 200, 0 )
+custom_fonts/normal_font = ExtResource( 49 )
+text = "1"
+
+[node name="Be" type="Sprite" parent="UI/EndUI/HBoxContainer/Control/VBoxContainer/row3"]
+position = Vector2( 283, 22 )
+scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 10 )
+
+[node name="be" type="RichTextLabel" parent="UI/EndUI/HBoxContainer/Control/VBoxContainer/row3"]
+margin_left = 300.0
+margin_right = 400.0
+margin_bottom = 59.0
+custom_fonts/normal_font = SubResource( 58 )
+text = "0"
+
+[node name="Score" type="Sprite" parent="UI/EndUI/HBoxContainer/Control/VBoxContainer/row3"]
+position = Vector2( 435, 23 )
+scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 46 )
+
+[node name="score" type="RichTextLabel" parent="UI/EndUI/HBoxContainer/Control/VBoxContainer/row3"]
+margin_left = 464.0
+margin_right = 564.0
+margin_bottom = 59.0
+custom_fonts/normal_font = SubResource( 58 )
+text = "0"
+
+[node name="row4" type="Control" parent="UI/EndUI/HBoxContainer/Control/VBoxContainer"]
+margin_top = 275.0
+margin_right = 114.0
+margin_bottom = 275.0
+
+[node name="Panel" type="Panel" parent="UI/EndUI/HBoxContainer/Control/VBoxContainer/row4"]
+margin_right = 635.0
+margin_bottom = 47.0
+custom_styles/panel = SubResource( 50 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/EndUI/HBoxContainer/Control/VBoxContainer/row4"]
+margin_right = 40.0
+margin_bottom = 59.0
+custom_constants/separation = 20
+
+[node name="Label" type="Label" parent="UI/EndUI/HBoxContainer/Control/VBoxContainer/row4/HBoxContainer"]
+margin_top = 13.0
+margin_right = 44.0
+margin_bottom = 45.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 45 )
+text = "  4"
+
+[node name="Name" type="RichTextLabel" parent="UI/EndUI/HBoxContainer/Control/VBoxContainer/row4/HBoxContainer"]
+margin_left = 64.0
+margin_right = 264.0
+margin_bottom = 59.0
+rect_min_size = Vector2( 200, 0 )
+custom_fonts/normal_font = ExtResource( 49 )
+text = "111"
+
+[node name="Be" type="Sprite" parent="UI/EndUI/HBoxContainer/Control/VBoxContainer/row4"]
+position = Vector2( 283, 22 )
+scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 10 )
+
+[node name="be" type="RichTextLabel" parent="UI/EndUI/HBoxContainer/Control/VBoxContainer/row4"]
+margin_left = 300.0
+margin_right = 400.0
+margin_bottom = 59.0
+custom_fonts/normal_font = SubResource( 58 )
+text = "0"
+
+[node name="Score" type="Sprite" parent="UI/EndUI/HBoxContainer/Control/VBoxContainer/row4"]
+position = Vector2( 435, 23 )
+scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 46 )
+
+[node name="score" type="RichTextLabel" parent="UI/EndUI/HBoxContainer/Control/VBoxContainer/row4"]
+margin_left = 464.0
+margin_right = 564.0
+margin_bottom = 59.0
+custom_fonts/normal_font = SubResource( 58 )
+text = "0"
+
+[node name="button" type="Control" parent="UI/EndUI/HBoxContainer/Control/VBoxContainer"]
+margin_top = 370.0
+margin_right = 114.0
+margin_bottom = 418.0
+rect_min_size = Vector2( 114, 48 )
+
+[node name="Button" type="Button" parent="UI/EndUI/HBoxContainer/Control/VBoxContainer/button"]
+margin_left = 464.0
+margin_right = 578.0
+margin_bottom = 48.0
+custom_fonts/font = ExtResource( 35 )
+custom_styles/hover = SubResource( 57 )
+custom_styles/pressed = SubResource( 53 )
+custom_styles/focus = SubResource( 56 )
+custom_styles/normal = SubResource( 54 )
+text = "返回"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="UI/EndUI"]
+anims/RESET = SubResource( 51 )
+anims/start = SubResource( 52 )
+
 [node name="CTimer" type="Timer" parent="."]
 wait_time = 2.0
 one_shot = true
@@ -2462,6 +3238,7 @@ position = Vector2( 1052, 378 )
 
 [node name="Timer" type="Timer" parent="."]
 
+[connection signal="game_end" from="." to="." method="_on_game_end"]
 [connection signal="animation_finished" from="Bg/AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 [connection signal="pressed" from="UI/MainUI/createServer" to="." method="_on_createServer_pressed"]
 [connection signal="pressed" from="UI/MainUI/joinServer" to="." method="_on_joinServer_pressed"]
@@ -2478,11 +3255,20 @@ position = Vector2( 1052, 378 )
 [connection signal="mouse_exited" from="UI/WatingUI/TextEdit" to="UI/WatingUI/TextEdit" method="_on_TextEdit_mouse_exited"]
 [connection signal="pressed" from="UI/WatingUI/send" to="." method="_on_send_pressed"]
 [connection signal="timeout" from="UI/Wrong/WrongTimer" to="." method="_on_WrongTimer_timeout"]
+[connection signal="body_entered" from="UI/Playing/map/destinationOwner/1/Area2D" to="." method="_on_1_body_entered"]
+[connection signal="body_entered" from="UI/Playing/map/destinationOwner/2/Area2D" to="." method="_on_2_body_entered"]
+[connection signal="body_entered" from="UI/Playing/map/destinationOwner/3/Area2D" to="." method="_on_3_body_entered"]
+[connection signal="body_entered" from="UI/Playing/map/destinationOwner/4/Area2D" to="." method="_on_4_body_entered"]
 [connection signal="pressed" from="UI/Playing/itmes/passbutton" to="." method="_on_passbutton_pressed"]
 [connection signal="pressed" from="UI/Playing/itmes/turnButton/up" to="." method="_on_up_pressed"]
 [connection signal="pressed" from="UI/Playing/itmes/turnButton/down" to="." method="_on_down_pressed"]
 [connection signal="pressed" from="UI/Playing/itmes/turnButton/left" to="." method="_on_left_pressed"]
 [connection signal="pressed" from="UI/Playing/itmes/turnButton/right" to="." method="_on_right_pressed"]
 [connection signal="pressed" from="UI/admin/Admin_pass_button" to="." method="_on_Admin_pass_button_pressed"]
+[connection signal="pressed" from="UI/admin/Button2" to="." method="_on_Button2_pressed"]
+[connection signal="pressed" from="UI/admin/Button3" to="." method="_on_Button3_pressed"]
+[connection signal="pressed" from="UI/admin/Button4" to="." method="_on_Button4_pressed"]
+[connection signal="pressed" from="UI/admin/Button5" to="." method="_on_Button5_pressed"]
+[connection signal="pressed" from="UI/EndUI/HBoxContainer/Control/VBoxContainer/button/Button" to="." method="_on_Button_pressed"]
 [connection signal="timeout" from="CTimer" to="." method="_on_CTimer_timeout"]
 [connection signal="timeout" from="CTimer2" to="." method="_on_CTimer2_timeout"]
