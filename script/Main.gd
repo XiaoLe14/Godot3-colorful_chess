@@ -52,6 +52,7 @@ remote var cy = 5
 remote var be = 0
 remote var destination_pos = []
 remote var scores = [0,0,0,0]
+var discard_num = -1
 var mm = {
 	"1":{
 		"color":"blue",
@@ -251,7 +252,10 @@ var mm = {
 var num = 1
 remote var Round = 1
 signal game_end
+var buff_list = []
 func _ready() -> void:
+	$UI/DiscardUI/Discard.position = Vector2(800,1200)
+	$UI/DiscardUI/Node2D.position = Vector2(0,720)
 	$UI/EndUI.hide()
 	$"UI/Playing/map/destinationOwner/1".dx = 1
 	$"UI/Playing/map/destinationOwner/1".dy = 1
@@ -276,7 +280,9 @@ func _ready() -> void:
 #设置！#########
 var random_destination = false
 ##########
-
+#############
+var discard_mode = -1
+###############
 func _process(delta):
 	
 	randomize()
@@ -328,6 +334,16 @@ func _process(delta):
 		$UI/Playing/Name/name3.bbcode_text = $"UI/WatingUI/3".text
 		$UI/Playing/Name/name4.bbcode_text = $"UI/WatingUI/4".text
 	if gameStarting:
+		
+		if discard_mode != -1:
+			if discard_mode > 0:
+				$UI/DiscardUI/Node2D/Label.text = "请弃牌 "+"("+"还需弃牌数："+str(discard_mode)+")"
+			if discard_mode == 0:
+				$UI/DiscardUI/AnimationPlayer.playback_speed = -1.0
+				$UI/DiscardUI/AnimationPlayer.play("run")
+				discard_mode = -1
+				turn_button_disabled(false)
+			
 		var num1 = 0
 		if len(destination_pos) > 3:
 			for i in $UI/Playing/map/destinationOwner.get_children():
@@ -369,8 +385,10 @@ func _process(delta):
 			$UI/Playing/Name/name3.bbcode_text = "[center]"+replace_brackets_pairs(players[2].name)+"[/center]"
 			$UI/Playing/Name/name1.bbcode_text = "[center]"+replace_brackets_pairs(players[0].name)+"[/center]"
 		$UI/Playing/itmes/RichTextLabel.text = str((round(be *10)/10))
-remote func wrong(why):
-	$UI/Wrong/WrongTimer.start()
+remote func wrong(why,wait_time = 2,long = false):
+	$UI/Wrong/WrongTimer.wait_time = wait_time
+	if not long:
+		$UI/Wrong/WrongTimer.start()
 	$UI/Wrong/Label.text = why
 	$UI/Wrong.show()
 remote func update_be(set_be,id):
@@ -672,7 +690,8 @@ func create_and_add_tween() -> Tween:
 	var tween = Tween.new()
 	add_child(tween)
 	return tween
-remote func randi_send_card(num,id):
+##### type false is move card #####
+remote func randi_send_card(num,id,randcard = true,type=false,cardid=0):
 	var num1 = 1
 	for card in $UI/Playing/cards/HBoxContainer.get_children():
 		card.disabled = true
@@ -702,6 +721,15 @@ remote func randi_send_card(num,id):
 			card_path = special_card_path[random_index]
 			card = special_card.instance()
 			card.connect("special_card_click", self, "_on_s_card_clickd")
+		if not randcard:
+			if type == false:
+				card_path = move_card_path[cardid]
+				card = move_card.instance()
+				card.connect("move_card_click", self, "_on_m_card_clickd")
+			if type == true:
+				card_path = special_card_path[cardid]
+				card = special_card.instance()
+				card.connect("special_card_click", self, "_on_s_card_clickd")
 		card.disabled = true
 		card.modulate = Color(1,1,1,0)
 		$UI/Playing/cards/HBoxContainer.add_child(card)
@@ -731,6 +759,19 @@ func _on_m_card_clickd(id,cname):
 				turn_button_disabled(false)
 				return
 		num1 += 1
+		
+	if discard_mode > 0:
+		for node in get_tree().get_nodes_in_group("card"):
+			if node.name == cname:
+				delete_card(node,false)
+				discard_mode -= 1
+				node.mode = false
+				return
+	for buff in buff_list:
+		if buff.name == "scaring":
+			wrong("恐吓效果触发，无法使用移动牌")
+			turn_button_disabled(false)
+			return
 	var idnum = extract_numbers_from_string(str(str(id).substr(14,2)))
 	var num = 1
 	var tcx = $UI/Playing/map/Chessman.cx
@@ -811,12 +852,54 @@ func _on_m_card_clickd(id,cname):
 remote func show_to_all(id):
 	show_card(id)
 	rpc("show_card",id)
-func _on_s_card_clickd(id):
-	var numbers = ["1", "2", "3", "4", "5", "6"]############################
-	var base_id = ".png"  # 基础文件扩展名
-	for number in numbers:
-		if (number + base_id) in id:
-			pass
+func _on_s_card_clickd(id,cname):
+	var num11 = 0
+	for a in players:
+		if a.id == get_tree().get_network_unique_id():
+			if Round == num11 + 1:
+				print("你过关！")
+				pass
+			else:
+				wrong("还没到你")
+				turn_button_disabled(false)
+				print("该罚！")
+				return
+		num11 += 1
+	var num1 = 0
+	if discard_mode > 0:
+		for node in get_tree().get_nodes_in_group("card"):
+			if node.name == cname:
+				delete_card(node,false)
+				discard_mode -= 1
+				node.mode = false
+				return
+	for node in get_tree().get_nodes_in_group("card"):
+		node.mode = false
+		if node.name == cname:
+			delete_card(node,true)
+			node.mode = false
+	if is_network_master():
+		show_to_all(id)
+	else:
+		rpc_id(1,"show_to_all",id)
+	yield(get_tree().create_timer(2.0), "timeout")
+	print(id+"  name："+cname)
+	var card_id = extract_numbers_from_string(str(id).substr(14,2))
+	if int(card_id) == 4:
+		var next_pos
+		var num12 = 0
+		for player in players:
+			if player.id == get_tree().get_network_unique_id():
+				next_pos = num12+1
+				break
+			num12+= 1
+		rpc_id(players[next_pos].id,"add_buff","scaring",0)
+		print(players[next_pos].id)
+		print(next_pos)
+	
+	
+	for node in get_tree().get_nodes_in_group("card"):
+		node.mode = true
 remote func fast_move():
 	rpc('wow',"快捷移动,继续当前会合")
 	wow("快捷移动,继续当前会合")
@@ -919,6 +1002,9 @@ remote func Round_pass():
 		Round = 1
 		rpc("randi_send_card",2,get_tree().get_network_unique_id())
 		randi_send_card(2,get_tree().get_network_unique_id())
+		rpc("minus_left_time")
+		minus_left_time()
+					
 			
 func replace_brackets_pairs(user_input: String) -> String:
 	var output = ""
@@ -942,7 +1028,8 @@ func delete_card(node,ibe:bool):
 	yield(get_tree().create_timer(0.4), "timeout")
 	if ibe:
 		creat_be(3,node.rect_global_position)
-	node.queue_free()
+	if node:
+		node.queue_free()
 func creat_be(num,pos):
 	for i in range(num):
 		var bes = BEicon
@@ -1325,3 +1412,42 @@ func _on_Button_pressed():
 	$UI/EndUI.hide()
 	_on_Back_pressed()
 	
+func discard(card_num,is_card_use):
+	if not is_card_use:
+		if len($UI/Playing/cards/HBoxContainer.get_children()) < card_num:
+			return false
+	else:
+		if len($UI/Playing/cards/HBoxContainer.get_children())-1 < card_num:
+			return false
+	turn_button_disabled(true)
+	discard_mode = card_num
+	#wrong("进入弃牌模式，请双击卡牌弃牌("+str(card_num-discard_mode)+"/"+str(card_num)+")",2,true)
+	$UI/DiscardUI/AnimationPlayer.playback_speed = 1.0
+	$UI/DiscardUI/AnimationPlayer.play("run")
+	return true
+
+func _on_discard_pressed():
+	if gameStarting and check_round():
+		if not discard(3,false):
+			wrong("你的卡牌数量不足！")
+			
+remote func add_buff(buff_name,left_round):
+	buff_list.append({
+		"name":buff_name,
+		"left_round":left_round
+		})
+	if buff_name == "scaring":
+		wrong("恐吓效果触发，接下来无法使用移动牌")
+
+func _on_addCard_pressed():
+	if $UI/admin/LineEdit.text != "" and gameStarting:
+		randi_send_card(1,get_tree().get_network_unique_id(),false,true,int($UI/admin/LineEdit.text))
+remote func minus_left_time():
+	if not buff_list == []:
+		for buff in buff_list:
+			if buff.left_round == 0:
+				buff_list.erase(buff)
+				print(buff_list)
+				break
+			if buff.name == "scaring":
+				buff.left_round -= 1

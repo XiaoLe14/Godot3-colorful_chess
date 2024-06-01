@@ -49,5 +49,5 @@ func _on_exited():
 
 func _on_click():
 	if mode:
-		emit_signal("special_card_click",texture_normal.load_path)
+		emit_signal("special_card_click",texture_normal.load_path,name)
 

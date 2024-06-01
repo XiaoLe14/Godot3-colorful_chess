@@ -1,4 +1,4 @@
-[gd_scene load_steps=103 format=2]
+[gd_scene load_steps=106 format=2]
 
 [ext_resource path="res://script/Main.gd" type="Script" id=1]
 [ext_resource path="res://assets/Broken Console Bold.ttf" type="DynamicFontData" id=2]
@@ -49,6 +49,7 @@
 [ext_resource path="res://tscn/2.40.tres" type="DynamicFont" id=47]
 [ext_resource path="res://script/EndUI.gd" type="Script" id=48]
 [ext_resource path="res://end.tres" type="DynamicFont" id=49]
+[ext_resource path="res://assets/background/discard.png" type="Texture" id=50]
 
 [sub_resource type="ShaderMaterial" id=40]
 shader = ExtResource( 44 )
@@ -903,6 +904,60 @@ tracks/6/keys = {
 "values": [ Vector2( 0, 370 ), Vector2( 0, 370 ), Vector2( -1600, 370 ) ]
 }
 
+[sub_resource type="Animation" id=59]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Discard:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 800, 359.5 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Node2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 720 ) ]
+}
+
+[sub_resource type="Animation" id=60]
+resource_name = "run"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Discard:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.277393, 1 ),
+"update": 0,
+"values": [ Vector2( 800, 1200 ), Vector2( 800, 360 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Node2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.277, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 720 ), Vector2( 0, 0 ) ]
+}
+
 [node name="Main" type="Node2D"]
 position = Vector2( 661, 7 )
 script = ExtResource( 1 )
@@ -914,9 +969,10 @@ __meta__ = {
 [node name="Bg" type="Sprite" parent="."]
 self_modulate = Color( 1, 1, 1, 0.784314 )
 material = SubResource( 40 )
-position = Vector2( 1220, 328 )
+position = Vector2( 1220, 329 )
 rotation = -6.28319
 scale = Vector2( 0.6, 0.6 )
+z_index = -10
 texture = ExtResource( 11 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Bg"]
@@ -1201,7 +1257,7 @@ text = "SEND"
 
 [node name="Wrong" type="Node2D" parent="UI"]
 visible = false
-z_index = 4096
+z_index = 1000
 
 [node name="ColorRect" type="ColorRect" parent="UI/Wrong"]
 modulate = Color( 1, 1, 1, 0.321569 )
@@ -1216,7 +1272,6 @@ margin_top = 216.0
 margin_right = 1600.0
 margin_bottom = 280.0
 custom_fonts/font = ExtResource( 5 )
-text = "."
 align = 1
 
 [node name="WrongTimer" type="Timer" parent="UI/Wrong"]
@@ -2859,8 +2914,8 @@ texture = ExtResource( 46 )
 z_index = 100
 
 [node name="ColorRect" type="ColorRect" parent="UI/admin"]
-margin_left = -213.0
-margin_right = 112.0
+margin_left = -63.0
+margin_right = 339.0
 margin_bottom = 158.0
 color = Color( 0.235294, 0.235294, 0.235294, 0.580392 )
 
@@ -2899,6 +2954,26 @@ margin_right = 84.0
 margin_bottom = 146.0
 text = "4+s"
 
+[node name="discard" type="Button" parent="UI/admin"]
+margin_left = 96.0
+margin_top = 8.0
+margin_right = 172.0
+margin_bottom = 28.0
+text = "discard"
+
+[node name="LineEdit" type="LineEdit" parent="UI/admin"]
+margin_left = 96.0
+margin_top = 35.0
+margin_right = 172.0
+margin_bottom = 59.0
+
+[node name="addCard" type="Button" parent="UI/admin"]
+margin_left = 96.0
+margin_top = 65.0
+margin_right = 172.0
+margin_bottom = 85.0
+text = "addcard"
+
 [node name="Wow" type="Node2D" parent="UI"]
 position = Vector2( 18.001, -1.52588e-05 )
 rotation = -0.139626
@@ -2930,6 +3005,7 @@ position = Vector2( 2671.9, 446.2 )
 cast_to = Vector2( -5356.78, -376.18 )
 
 [node name="EndUI" type="Node2D" parent="UI"]
+visible = false
 z_index = 1
 script = ExtResource( 48 )
 
@@ -3223,6 +3299,37 @@ text = "返回"
 anims/RESET = SubResource( 51 )
 anims/start = SubResource( 52 )
 
+[node name="DiscardUI" type="Node2D" parent="UI"]
+z_index = -2
+
+[node name="Discard" type="Sprite" parent="UI/DiscardUI"]
+position = Vector2( 800, 359.5 )
+scale = Vector2( 2.64463, 2.11471 )
+texture = ExtResource( 50 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="UI/DiscardUI"]
+anims/RESET = SubResource( 59 )
+anims/run = SubResource( 60 )
+
+[node name="Node2D" type="Node2D" parent="UI/DiscardUI"]
+position = Vector2( 0, 720 )
+z_index = 11
+
+[node name="ColorRect" type="ColorRect" parent="UI/DiscardUI/Node2D"]
+modulate = Color( 1, 1, 1, 0.321569 )
+margin_left = -48.0
+margin_top = 216.0
+margin_right = 1672.0
+margin_bottom = 280.0
+color = Color( 0.584314, 0.584314, 0.584314, 1 )
+
+[node name="Label" type="Label" parent="UI/DiscardUI/Node2D"]
+margin_top = 216.0
+margin_right = 1600.0
+margin_bottom = 280.0
+custom_fonts/font = ExtResource( 5 )
+align = 1
+
 [node name="CTimer" type="Timer" parent="."]
 wait_time = 2.0
 one_shot = true
@@ -3269,6 +3376,8 @@ position = Vector2( 1052, 378 )
 [connection signal="pressed" from="UI/admin/Button3" to="." method="_on_Button3_pressed"]
 [connection signal="pressed" from="UI/admin/Button4" to="." method="_on_Button4_pressed"]
 [connection signal="pressed" from="UI/admin/Button5" to="." method="_on_Button5_pressed"]
+[connection signal="pressed" from="UI/admin/discard" to="." method="_on_discard_pressed"]
+[connection signal="pressed" from="UI/admin/addCard" to="." method="_on_addCard_pressed"]
 [connection signal="pressed" from="UI/EndUI/HBoxContainer/Control/VBoxContainer/button/Button" to="." method="_on_Button_pressed"]
 [connection signal="timeout" from="CTimer" to="." method="_on_CTimer_timeout"]
 [connection signal="timeout" from="CTimer2" to="." method="_on_CTimer2_timeout"]
